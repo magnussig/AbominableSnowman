@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 4129409307
+    locked: 0
+  - name: Wall
+    uniqueID: 4239752655
+    locked: 0
+  - name: Summit
+    uniqueID: 1874340703
+    locked: 0
+  - name: SummitObjects
+    uniqueID: 3800414301
+    locked: 0
+  - name: Forground
+    uniqueID: 4081889551
+    locked: 0
