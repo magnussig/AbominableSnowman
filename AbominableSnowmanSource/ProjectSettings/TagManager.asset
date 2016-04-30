@@ -38,9 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Background
     uniqueID: 4129409307
     locked: 0
@@ -52,6 +49,12 @@ TagManager:
     locked: 0
   - name: SummitObjects
     uniqueID: 3800414301
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1160195579
     locked: 0
   - name: Forground
     uniqueID: 4081889551

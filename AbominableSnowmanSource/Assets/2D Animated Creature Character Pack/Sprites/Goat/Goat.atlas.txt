@@ -1,0 +1,69 @@
+
+Goat.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Body
+  rotate: false
+  xy: 286, 8
+  size: 149, 229
+  orig: 149, 229
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 2, 2
+  size: 282, 235
+  orig: 282, 235
+  offset: 0, 0
+  index: -1
+LeftArm
+  rotate: false
+  xy: 572, 70
+  size: 155, 167
+  orig: 155, 167
+  offset: 0, 0
+  index: -1
+LeftHorn
+  rotate: false
+  xy: 886, 118
+  size: 174, 119
+  orig: 174, 119
+  offset: 0, 0
+  index: -1
+LeftLeg
+  rotate: true
+  xy: 1238, 187
+  size: 50, 180
+  orig: 50, 180
+  offset: 0, 0
+  index: -1
+RightArm
+  rotate: false
+  xy: 729, 70
+  size: 155, 167
+  orig: 155, 167
+  offset: 0, 0
+  index: -1
+RightHorn
+  rotate: false
+  xy: 1062, 118
+  size: 174, 119
+  orig: 174, 119
+  offset: 0, 0
+  index: -1
+RightLeg
+  rotate: true
+  xy: 1238, 135
+  size: 50, 180
+  orig: 50, 180
+  offset: 0, 0
+  index: -1
+Tail
+  rotate: false
+  xy: 437, 20
+  size: 133, 217
+  orig: 133, 217
+  offset: 0, 0
+  index: -1
