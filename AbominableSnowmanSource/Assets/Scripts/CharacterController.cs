@@ -28,6 +28,9 @@ public class CharacterController : MonoBehaviour {
     void Update() {
         if (Input.GetKeyDown(KeyCode.E))
             PickUpRock();
+        else if (Input.GetButtonDown("Fire1") && isHoldingObject) {
+            Throw();
+        }
     }
 	
 	void FixedUpdate () {
@@ -53,6 +56,25 @@ public class CharacterController : MonoBehaviour {
             isHoldingObject = true;
             GameObject rock = (GameObject)Instantiate(throwableObject, objectSlot.transform.position, objectSlot.transform.rotation);
             rock.transform.parent = objectSlot.transform;
+            resizeHeldObject(rock);
         }
+    }
+
+    void Throw() {
+        isHoldingObject = false;
+        Transform holding = objectSlot.transform.GetChild(0);
+        holding.GetComponent<Rock>().Throw();
+        holding.transform.localScale = throwableObject.transform.localScale;
+
+    }
+
+    void resizeHeldObject(GameObject holding) {
+        Vector3 newScale = new Vector3
+                               (
+                                    throwableObject.transform.localScale.x / transform.localScale.x,
+                                    throwableObject.transform.localScale.y / transform.localScale.y,
+                                    0
+                               );
+        holding.transform.localScale = newScale;
     }
 }

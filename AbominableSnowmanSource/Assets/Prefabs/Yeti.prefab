@@ -2506,6 +2506,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a9040ce3f8ca041937b1a230ebf0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectSlot: {fileID: 0}
+  throwableObject: {fileID: 145298, guid: 9e82c7e1e20c2594fbdb043e667483e3, type: 2}
   maxSpeed: 5
   facingRight: 0
 --- !u!1001 &100100000
