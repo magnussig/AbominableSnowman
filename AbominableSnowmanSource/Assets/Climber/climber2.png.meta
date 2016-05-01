@@ -1,0 +1,552 @@
+fileFormatVersion: 2
+guid: 6201df68b3d964745a5294e43d641dc2
+timeCreated: 1462096286
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: climber2_0
+    21300002: climber2_1
+    21300004: climber2_2
+    21300006: climber2_3
+    21300008: climber2_4
+    21300010: climber2_5
+    21300012: climber2_6
+    21300014: climber2_7
+    21300016: climber2_8
+    21300018: climber2_9
+    21300020: climber2_10
+    21300022: climber2_11
+    21300024: climber2_12
+    21300026: climber2_13
+    21300028: climber2_14
+    21300030: climber2_15
+    21300032: climber2_16
+    21300034: climber2_17
+    21300036: climber2_18
+    21300038: climber2_19
+    21300040: climber2_20
+    21300042: climber2_21
+    21300044: climber2_22
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: climber2_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 1796
+        width: 194
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 97, y: -88}
+        - {x: 97, y: -24}
+        - {x: 94, y: -17}
+        - {x: 70, y: 2}
+        - {x: 76, y: -17}
+        - {x: 64, y: 49}
+        - {x: 46, y: 80}
+        - {x: 19, y: 88}
+        - {x: -32, y: 88}
+        - {x: -82, y: 48}
+        - {x: -97, y: -6}
+        - {x: -97, y: -80}
+        - {x: -46, y: -88}
+        - {x: 8, y: -88}
+        - {x: 7, y: -79}
+        - {x: 5, y: -75}
+        - {x: 47, y: -88}
+    - name: climber2_1
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 1794
+        width: 200
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 35, y: 12}
+        - {x: 33, y: 3}
+        - {x: 27, y: -10}
+        - {x: 43, y: 35}
+        - {x: 42, y: 68}
+        - {x: -4, y: 89}
+        - {x: -69, y: 89}
+        - {x: -100, y: 40}
+        - {x: -100, y: -81}
+        - {x: -91, y: -89}
+        - {x: 9, y: -89}
+        - {x: 100, y: -51}
+        - {x: 100, y: 11}
+        - {x: 61, y: 38}
+    - name: climber2_2
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 1794
+        width: 190
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 40, y: -89}
+        - {x: 95, y: -4}
+        - {x: 95, y: 73}
+        - {x: 53, y: 89}
+        - {x: -51, y: 89}
+        - {x: -95, y: 5}
+        - {x: -95, y: -41}
+        - {x: -66, y: -89}
+        - {x: -23, y: -89}
+        - {x: -24, y: -74}
+        - {x: -22, y: -88}
+        - {x: -20, y: -89}
+    - name: climber2_3
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 1794
+        width: 127
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 44.5, y: -51.5}
+        - {x: 63.5, y: -14.5}
+        - {x: 63.5, y: 37.5}
+        - {x: 42.5, y: 94.5}
+        - {x: 34.5, y: 97.5}
+        - {x: 3.5, y: 97.5}
+        - {x: -18.5, y: 89.5}
+        - {x: -29.5, y: 67.5}
+        - {x: -38.5, y: 27.5}
+        - {x: -62.5, y: -11.5}
+        - {x: -63.5, y: -15.5}
+        - {x: -63.5, y: -51.5}
+        - {x: -36.5, y: -97.5}
+        - {x: 32.5, y: -97.5}
+        - {x: 62.5, y: -86.5}
+        - {x: 63.5, y: -80.5}
+        - {x: 63.5, y: -72.5}
+    - name: climber2_4
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 1584
+        width: 150
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 21, y: 89}
+        - {x: -75, y: 89}
+        - {x: -75, y: -75}
+        - {x: -42, y: -89}
+        - {x: 73, y: -89}
+        - {x: 75, y: -88}
+        - {x: 75, y: 55}
+        - {x: 71, y: 72}
+    - name: climber2_5
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 1584
+        width: 110
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 55, y: -63}
+        - {x: 53, y: -59}
+        - {x: 55, y: -56}
+        - {x: 55, y: 48}
+        - {x: 32, y: 89}
+        - {x: 12, y: 92}
+        - {x: -28, y: 92}
+        - {x: -55, y: 88}
+        - {x: -55, y: -52}
+        - {x: -50, y: -60}
+        - {x: -35, y: -56}
+        - {x: -31, y: -53}
+        - {x: -34, y: -81}
+        - {x: -32, y: -92}
+        - {x: 11, y: -92}
+        - {x: 12, y: -77}
+        - {x: 15, y: -85}
+        - {x: 55, y: -76}
+    - name: climber2_6
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 1590
+        width: 127
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -63.5, y: 88.5}
+        - {x: -63.5, y: -41.5}
+        - {x: -50.5, y: -88.5}
+        - {x: 43.5, y: -88.5}
+        - {x: 63.5, y: -31.5}
+        - {x: 63.5, y: 83.5}
+        - {x: 30.5, y: 88.5}
+    - name: climber2_7
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1587
+        width: 95
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 88}
+        - {x: -47.5, y: -88}
+        - {x: 46.5, y: -88}
+        - {x: 47.5, y: -85}
+        - {x: 47.5, y: 68}
+        - {x: 35.5, y: 88}
+    - name: climber2_8
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 1383
+        width: 95
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 87.5}
+        - {x: -47.5, y: -87.5}
+        - {x: 47.5, y: -87.5}
+        - {x: 47.5, y: 75.5}
+        - {x: 20.5, y: 87.5}
+    - name: climber2_9
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 1389
+        width: 95
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 87}
+        - {x: -47.5, y: -52}
+        - {x: -41.5, y: -56}
+        - {x: -33.5, y: -54}
+        - {x: -29.5, y: -52}
+        - {x: -33.5, y: -55}
+        - {x: -45.5, y: -71}
+        - {x: -47.5, y: -87}
+        - {x: 38.5, y: -87}
+        - {x: 47.5, y: -22}
+        - {x: 47.5, y: 70}
+        - {x: 16.5, y: 87}
+    - name: climber2_10
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 1392
+        width: 95
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 87.5}
+        - {x: -47.5, y: -87.5}
+        - {x: 47.5, y: -87.5}
+        - {x: 47.5, y: 75.5}
+        - {x: 20.5, y: 87.5}
+    - name: climber2_11
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1377
+        width: 95
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 88}
+        - {x: -47.5, y: -88}
+        - {x: 46.5, y: -88}
+        - {x: 47.5, y: -85}
+        - {x: 47.5, y: 68}
+        - {x: 35.5, y: 88}
+    - name: climber2_12
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 1179
+        width: 95
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 88.5}
+        - {x: -47.5, y: -82.5}
+        - {x: -46.5, y: -88.5}
+        - {x: 46.5, y: -88.5}
+        - {x: 47.5, y: -78.5}
+        - {x: 47.5, y: 67.5}
+        - {x: 16.5, y: 88.5}
+    - name: climber2_13
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 654
+        width: 95
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 88.5}
+        - {x: -47.5, y: -86.5}
+        - {x: -45.5, y: -88.5}
+        - {x: 34.5, y: -88.5}
+        - {x: 47.5, y: -78.5}
+        - {x: 47.5, y: 78.5}
+        - {x: 23.5, y: 88.5}
+    - name: climber2_14
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 654
+        width: 95
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 88.5}
+        - {x: -47.5, y: -52.5}
+        - {x: -36.5, y: -88.5}
+        - {x: 17.5, y: -88.5}
+        - {x: 47.5, y: -39.5}
+        - {x: 47.5, y: 68.5}
+        - {x: 15.5, y: 88.5}
+    - name: climber2_15
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 654
+        width: 97
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -48.5, y: 88.5}
+        - {x: -48.5, y: -60.5}
+        - {x: -27.5, y: -88.5}
+        - {x: 20.5, y: -88.5}
+        - {x: 48.5, y: -75.5}
+        - {x: 48.5, y: 83.5}
+        - {x: 40.5, y: 88.5}
+    - name: climber2_16
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 629
+        width: 95
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 34.5, y: -52}
+        - {x: 46.5, y: -38}
+        - {x: 47.5, y: -30}
+        - {x: 47.5, y: 60}
+        - {x: 32.5, y: 85}
+        - {x: 4.5, y: 89}
+        - {x: -47.5, y: 89}
+        - {x: -47.5, y: -79}
+        - {x: -44.5, y: -89}
+        - {x: 20.5, y: -89}
+        - {x: 32.5, y: -80}
+        - {x: 32.5, y: -70}
+        - {x: 20.5, y: -61}
+    - name: climber2_17
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 443
+        width: 95
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 89}
+        - {x: -47.5, y: -67}
+        - {x: -30.5, y: -89}
+        - {x: 22.5, y: -89}
+        - {x: 47.5, y: -70}
+        - {x: 47.5, y: 85}
+        - {x: 46.5, y: 89}
+    - name: climber2_18
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 444
+        width: 95
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 88.5}
+        - {x: -47.5, y: -64.5}
+        - {x: -21.5, y: -88.5}
+        - {x: 36.5, y: -88.5}
+        - {x: 47.5, y: -47.5}
+        - {x: 47.5, y: 70.5}
+        - {x: 42.5, y: 88.5}
+    - name: climber2_19
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 444
+        width: 104
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19, y: 88.5}
+        - {x: -49, y: 88.5}
+        - {x: -52, y: 87.5}
+        - {x: -52, y: -68.5}
+        - {x: -37, y: -88.5}
+        - {x: 52, y: -88.5}
+        - {x: 52, y: 63.5}
+        - {x: 34, y: 79.5}
+    - name: climber2_20
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 432
+        width: 99
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -49.5, y: 88.5}
+        - {x: -49.5, y: -41.5}
+        - {x: -45.5, y: -44.5}
+        - {x: -37.5, y: -45.5}
+        - {x: -49.5, y: -68.5}
+        - {x: -49.5, y: -84.5}
+        - {x: -43.5, y: -88.5}
+        - {x: 35.5, y: -88.5}
+        - {x: 49.5, y: -80.5}
+        - {x: 49.5, y: 88.5}
+    - name: climber2_21
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 240
+        width: 95
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 47.5, y: -80.5}
+        - {x: 47.5, y: 67.5}
+        - {x: 17.5, y: 88.5}
+        - {x: -46.5, y: 88.5}
+        - {x: -47.5, y: 86.5}
+        - {x: -47.5, y: -75.5}
+        - {x: -43.5, y: -88.5}
+        - {x: 0.5, y: -88.5}
+        - {x: 1.5, y: -80.5}
+        - {x: 7.5, y: -88.5}
+        - {x: 23.5, y: -88.5}
+    - name: climber2_22
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 240
+        width: 95
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -47.5, y: 88.5}
+        - {x: -47.5, y: -53.5}
+        - {x: -24.5, y: -53.5}
+        - {x: -25.5, y: -53.5}
+        - {x: -29.5, y: -56.5}
+        - {x: -40.5, y: -88.5}
+        - {x: 47.5, y: -88.5}
+        - {x: 47.5, y: 88.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
