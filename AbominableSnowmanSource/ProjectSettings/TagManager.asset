@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SummitGround
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,8 +15,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 
@@ -53,11 +55,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
-    uniqueID: 1160195579
-    locked: 0
   - name: PlayerObject
     uniqueID: 4023036443
+    locked: 0
+  - name: Enemy
+    uniqueID: 1160195579
     locked: 0
   - name: Forground
     uniqueID: 4081889551

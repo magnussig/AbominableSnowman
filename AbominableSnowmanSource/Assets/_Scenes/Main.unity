@@ -1527,7 +1527,7 @@ Prefab:
     - target: {fileID: 11497272, guid: b5cbe9ca9213c6e40ae742f4f1b43936, type: 2}
       propertyPath: throwableObject
       value: 
-      objectReference: {fileID: 192744, guid: a061ebd9aaf148c428b700f02ab66479, type: 2}
+      objectReference: {fileID: 145298, guid: 9e82c7e1e20c2594fbdb043e667483e3, type: 2}
     - target: {fileID: 416298, guid: b5cbe9ca9213c6e40ae742f4f1b43936, type: 2}
       propertyPath: m_LocalPosition.x
       value: 1.44

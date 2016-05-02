@@ -8,6 +8,9 @@ public class CharacterController : MonoBehaviour {
     private Rigidbody2D rb;
     [SerializeField] private GameObject objectSlot;
     [SerializeField] private GameObject throwableObject;
+    [SerializeField] private float pickUpRate;
+
+    private float nextPickUpTime;
 
     public bool CanPickUpRocks {get; set;}
 
@@ -23,6 +26,8 @@ public class CharacterController : MonoBehaviour {
             Debug.Log("Player object slot not found");
         if (throwableObject == null)
             Debug.Log("Rock gameobject not found");
+
+        nextPickUpTime = Time.time;
     }
 
     void Update() {
@@ -52,12 +57,14 @@ public class CharacterController : MonoBehaviour {
     }
 
     void PickUpRock() {
-        if (CanPickUpRocks && !isHoldingObject) {
-            isHoldingObject = true;
-            GameObject rock = (GameObject)Instantiate(throwableObject, objectSlot.transform.position, objectSlot.transform.rotation);
-            rock.transform.parent = objectSlot.transform;
-            resizeHeldObject(rock);
-        }
+        if (!canPickUpRock()) return;
+
+        nextPickUpTime = Time.time + pickUpRate;
+
+        isHoldingObject = true;
+        GameObject rock = (GameObject)Instantiate(throwableObject, objectSlot.transform.position, objectSlot.transform.rotation);
+        rock.transform.parent = objectSlot.transform;
+        resizeHeldObject(rock);
     }
 
     void Throw() {
@@ -76,5 +83,9 @@ public class CharacterController : MonoBehaviour {
                                     0
                                );
         holding.transform.localScale = newScale;
+    }
+
+    public bool canPickUpRock() {
+        return CanPickUpRocks && !isHoldingObject && Time.time >= nextPickUpTime;
     }
 }
