@@ -33,7 +33,7 @@ public class CharacterController : MonoBehaviour {
     void Update() {
         if (Input.GetKeyDown(KeyCode.E))
             PickUpRock();
-        else if (Input.GetButtonDown("Fire1") && isHoldingObject) {
+        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject) {
             Throw();
         }
     }
