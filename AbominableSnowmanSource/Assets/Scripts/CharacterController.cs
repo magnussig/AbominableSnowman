@@ -9,12 +9,14 @@ public class CharacterController : GameCharacter {
     [SerializeField] private float pickUpRate;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float throwForce = 20f;
+    [SerializeField] private float damagingDistance = 1f;
 
     public bool CanPickUpRocks {get; set;}
     private bool facingRight = false;
     private bool isHoldingObject = false;
     private float nextPickUpTime;
-    private bool isThrowing;
+    private bool isThrowing = false;
+    private bool isAttacking = false;
 
     new void Start () {
         base.Start();
@@ -34,13 +36,14 @@ public class CharacterController : GameCharacter {
     }
 
     void Update() {
-        if (isDead) return;
+        if (isDead || isThrowing || isAttacking) return;
 
         if (Input.GetKeyDown(KeyCode.E))
             PickUpRock();
-        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject && !isThrowing) {
+        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
             Throw();
-        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+            Attack();
     }
 	
 	void FixedUpdate () {
@@ -79,6 +82,10 @@ public class CharacterController : GameCharacter {
         anim.SetTrigger("Throw");
     }
 
+    void Attack() {
+        anim.SetTrigger("Attack");
+    }
+
     void resizeHeldObject(GameObject holding) {
         Vector3 newScale = new Vector3
                                (
@@ -97,7 +104,7 @@ public class CharacterController : GameCharacter {
         anim.SetTrigger("Death");
     }
 
-    private void TriggerIsThrowing() {
+    void TriggerIsThrowing() {
         isThrowing = !isThrowing;
 
         if (!isThrowing) {
@@ -105,6 +112,21 @@ public class CharacterController : GameCharacter {
             Transform holding = objectSlot.transform.GetChild(0);
             holding.GetComponent<Rock>().Throw(throwForce);
             holding.transform.localScale = throwableObject.transform.localScale;
+        }
+    }
+
+    void TriggerisAttacing() {
+        isAttacking = !isAttacking;
+    }
+
+    void HitTargets() {
+        Collider2D[] targets = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), damagingDistance);
+        foreach (Collider2D target in targets) {
+            if (target.tag == "Enemy")
+            {
+                target.GetComponent<EnemyController>().TakeDamage(damage);
+                target.GetComponent<Rigidbody2D>().velocity = new Vector2(2, 6);
+            }
         }
     }
 }
