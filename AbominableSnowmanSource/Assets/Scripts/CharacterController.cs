@@ -38,13 +38,13 @@ public class CharacterController : GameCharacter {
 
         if (Input.GetKeyDown(KeyCode.E))
             PickUpRock();
-        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject) {
+        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject && !isThrowing) {
             Throw();
         }
     }
 	
 	void FixedUpdate () {
-        if (isDead) return;
+        if (isDead || isThrowing) return;
 
         float move = Input.GetAxis("Horizontal");
 
@@ -75,7 +75,7 @@ public class CharacterController : GameCharacter {
     }
 
     void Throw() {
-        //rb.velocity = Vector2.zero;
+        rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
     }
 
