@@ -8,6 +8,7 @@ public class CharacterController : GameCharacter {
     [SerializeField] private GameObject throwableObject;
     [SerializeField] private float pickUpRate;
     [SerializeField] private float maxSpeed = 10f;
+    [SerializeField] private float throwForce = 20f;
 
     public bool CanPickUpRocks {get; set;}
     private bool facingRight = false;
@@ -102,7 +103,7 @@ public class CharacterController : GameCharacter {
 
         if (!isThrowing) {
             Transform holding = objectSlot.transform.GetChild(0);
-            holding.GetComponent<Rock>().Throw();
+            holding.GetComponent<Rock>().Throw(throwForce);
             holding.transform.localScale = throwableObject.transform.localScale;
         }
     }

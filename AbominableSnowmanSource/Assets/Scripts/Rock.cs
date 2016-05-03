@@ -14,7 +14,7 @@ public class Rock : MonoBehaviour {
         rb.gravityScale = 0;
 	}
 
-    public void Throw() {
+    public void Throw(float force) {
 
         // Player no longer holds Rock
         transform.parent = null;
@@ -25,8 +25,9 @@ public class Rock : MonoBehaviour {
         // Gravity now effects the object
         rb.gravityScale = 1;
 
-        //rb.velocity = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        rb.velocity = new Vector2(0, -20);
+        // add force to rock
+        force = force > 0 ? -force : force;
+        rb.velocity = new Vector2(0, force);
 
         rb.angularVelocity = Random.Range(0,90); 
     }
