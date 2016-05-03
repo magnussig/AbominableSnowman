@@ -12,7 +12,7 @@ GameObject:
   - 50: {fileID: 5081132}
   - 60: {fileID: 6020892}
   - 114: {fileID: 11449684}
-  - 114: {fileID: 11482804}
+  - 114: {fileID: 11412798}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -149,6 +149,18 @@ PolygonCollider2D:
       - {x: 0.26, y: -2.26}
       - {x: 0.41, y: -2.19}
       - {x: 0.53, y: -2.1399999}
+--- !u!114 &11412798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16f6c92a8d3a0a47a76f7a83606032a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!114 &11449684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,17 +170,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33dc1de5f8b075749b9abcf9d8624386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11482804
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ab2fb899ee16e3499a7cee4bb3538f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &21201940

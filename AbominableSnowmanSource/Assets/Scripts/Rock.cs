@@ -4,7 +4,6 @@ using System.Collections;
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Rock : MonoBehaviour {
-    private bool isThrown = false;
     private Collider2D coll;
     private Rigidbody2D rb;
 
@@ -16,7 +15,6 @@ public class Rock : MonoBehaviour {
 	}
 
     public void Throw() {
-        isThrown = true;
 
         // Player no longer holds Rock
         transform.parent = null;
@@ -28,6 +26,7 @@ public class Rock : MonoBehaviour {
         rb.gravityScale = 1;
 
         //rb.velocity = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        rb.velocity = new Vector2(0, -20);
 
         rb.angularVelocity = Random.Range(0,90); 
     }

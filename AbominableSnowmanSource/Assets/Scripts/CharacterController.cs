@@ -13,6 +13,7 @@ public class CharacterController : GameCharacter {
     private bool facingRight = false;
     private bool isHoldingObject = false;
     private float nextPickUpTime;
+    private bool isThrowing;
 
     new void Start () {
         base.Start();
@@ -23,6 +24,12 @@ public class CharacterController : GameCharacter {
             Debug.Log("Rock gameobject not found");
 
         nextPickUpTime = Time.time;
+        tag = "Player";
+
+        Debug.Log("N: " + GameObject.FindGameObjectsWithTag("Player").Length);
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Player")) {
+            Debug.Log("Name:" + g.name);
+        }
     }
 
     void Update() {
@@ -36,7 +43,7 @@ public class CharacterController : GameCharacter {
     }
 	
 	void FixedUpdate () {
-        if (isDead) return;
+        if (isDead || isThrowing) return;
 
         float move = Input.GetAxis("Horizontal");
 
@@ -68,10 +75,8 @@ public class CharacterController : GameCharacter {
 
     void Throw() {
         isHoldingObject = false;
-        Transform holding = objectSlot.transform.GetChild(0);
-        holding.GetComponent<Rock>().Throw();
-        holding.transform.localScale = throwableObject.transform.localScale;
-
+        rb.velocity = Vector2.zero;
+        anim.SetTrigger("Throw");
     }
 
     void resizeHeldObject(GameObject holding) {
@@ -90,5 +95,15 @@ public class CharacterController : GameCharacter {
 
     protected override void Die() {
         anim.SetTrigger("Death");
+    }
+
+    private void TriggerIsThrowing() {
+        isThrowing = !isThrowing;
+
+        if (!isThrowing) {
+            Transform holding = objectSlot.transform.GetChild(0);
+            holding.GetComponent<Rock>().Throw();
+            holding.transform.localScale = throwableObject.transform.localScale;
+        }
     }
 }
