@@ -44,7 +44,7 @@ public class CharacterController : GameCharacter {
     }
 	
 	void FixedUpdate () {
-        if (isDead || isThrowing) return;
+        if (isDead) return;
 
         float move = Input.GetAxis("Horizontal");
 
@@ -75,8 +75,7 @@ public class CharacterController : GameCharacter {
     }
 
     void Throw() {
-        isHoldingObject = false;
-        rb.velocity = Vector2.zero;
+        //rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
     }
 
@@ -102,6 +101,7 @@ public class CharacterController : GameCharacter {
         isThrowing = !isThrowing;
 
         if (!isThrowing) {
+            isHoldingObject = false;
             Transform holding = objectSlot.transform.GetChild(0);
             holding.GetComponent<Rock>().Throw(throwForce);
             holding.transform.localScale = throwableObject.transform.localScale;
