@@ -1,46 +1,45 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Animator))]
-public class EnemyController : MonoBehaviour {
-
-    private Rigidbody2D rb;
+public class EnemyController : GameCharacter {
+    
     private bool isClimbing;
     private bool isFalling;
-    private int collidercount = 0;
-    private Animator anim;
+    private bool isAttacking;
     private bool facingRight = true;
+    private int collidercount = 0;
     
     [SerializeField] private float climbingSpeed;
     [SerializeField] private float walkingSpeed;
     [SerializeField] private GameObject target;
     [SerializeField] private float attackDistance;
 
-    void Start () {
+    new void Start () {
+        base.Start();
         if (target == null)
             target = GameObject.FindWithTag("Player");
 
-        rb = GetComponent<Rigidbody2D>();
         TriggerOnTriggerColliders();
         Physics2D.IgnoreLayerCollision(gameObject.layer, target.layer);
         Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
-        anim = GetComponent<Animator>();
         isClimbing = true;
         isFalling = false;
+        isAttacking = false;
         anim.SetBool("isClimbing", true);
     }
 
     void Update() {
-        if (isClimbing)
+        if (isAttacking) return;
+        else if (isClimbing)
             Climb();
         else if (DistanceFromTarget() > attackDistance)
             MoveToTarget();
-        else {
-            rb.velocity = Vector2.zero;
-            anim.SetFloat("Speed", 0);
-        }
+        else
+            Attack();
     }
 
     void Climb() {
@@ -48,7 +47,6 @@ public class EnemyController : MonoBehaviour {
     }
 
     void OnTriggerExit2D(Collider2D other) {
-        Debug.Log("Exit");
         ClimbCheck(other);
     }
 
@@ -97,5 +95,28 @@ public class EnemyController : MonoBehaviour {
 
         rb.velocity = new Vector2(direction * walkingSpeed, 0);
         anim.SetFloat("Speed", walkingSpeed);
+    }
+
+    void Attack() {
+        rb.velocity = Vector2.zero;
+        anim.SetFloat("Speed", 0);
+
+        anim.SetTrigger("Attack");
+    }
+
+    /*
+    This function is called by the attack animation
+    */
+    void triggerIsAttacking() {
+        isAttacking = !isAttacking;
+
+        if (!isAttacking) {
+            if (DistanceFromTarget() <= attackDistance)
+                target.GetComponent<GameCharacter>().TakeDamage(1);
+        }
+    }
+
+    protected override void Die() {
+        throw new NotImplementedException();
     }
 }

@@ -2,25 +2,20 @@
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class CharacterController : MonoBehaviour {
+public class CharacterController : GameCharacter {
 
-    private Animator anim;
-    private Rigidbody2D rb;
     [SerializeField] private GameObject objectSlot;
     [SerializeField] private GameObject throwableObject;
     [SerializeField] private float pickUpRate;
-
-    private float nextPickUpTime;
+    [SerializeField] private float maxSpeed = 10f;
 
     public bool CanPickUpRocks {get; set;}
-
-    [SerializeField] private float maxSpeed = 10f;
-    [SerializeField] private bool facingRight = false;
+    private bool facingRight = false;
     private bool isHoldingObject = false;
+    private float nextPickUpTime;
 
-    void Start () {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+    new void Start () {
+        base.Start();
 
         if (objectSlot == null)
             Debug.Log("Player object slot not found");
@@ -31,6 +26,8 @@ public class CharacterController : MonoBehaviour {
     }
 
     void Update() {
+        if (isDead) return;
+
         if (Input.GetKeyDown(KeyCode.E))
             PickUpRock();
         else if (Input.GetButtonDown("Fire1") && isHoldingObject) {
@@ -39,6 +36,8 @@ public class CharacterController : MonoBehaviour {
     }
 	
 	void FixedUpdate () {
+        if (isDead) return;
+
         float move = Input.GetAxis("Horizontal");
 
         rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
@@ -87,5 +86,9 @@ public class CharacterController : MonoBehaviour {
 
     public bool canPickUpRock() {
         return CanPickUpRocks && !isHoldingObject && Time.time >= nextPickUpTime;
+    }
+
+    protected override void Die() {
+        anim.SetTrigger("Death");
     }
 }
