@@ -1885,6 +1885,10 @@ Prefab:
       propertyPath: damage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11497272, guid: b5cbe9ca9213c6e40ae742f4f1b43936, type: 2}
+      propertyPath: pickUpRate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b5cbe9ca9213c6e40ae742f4f1b43936, type: 2}
   m_IsPrefabParent: 0
