@@ -120,7 +120,10 @@ public class EnemyController : GameCharacter {
 
     protected override void Die() {
         if (climbing) // If climbing then just let gravity pull down
+        {
             rb.velocity = Vector2.zero;
+            gameObject.GetComponent<AudioSource>().Play();
+        }
         else
             anim.SetTrigger("Death");
         Destroy(gameObject, deathTime);

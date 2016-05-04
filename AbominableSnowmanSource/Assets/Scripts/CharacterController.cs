@@ -80,6 +80,7 @@ public class CharacterController : GameCharacter {
     void Throw() {
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
+        GetComponent<AudioSource>().PlayDelayed(0.5f);
     }
 
     void Attack() {
