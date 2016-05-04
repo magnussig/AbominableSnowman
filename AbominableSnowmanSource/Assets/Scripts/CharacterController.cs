@@ -59,6 +59,10 @@ public class CharacterController : GameCharacter {
         anim.SetFloat("MoveSpeed", Mathf.Abs(move));
 	}
 
+    void OnDisable() {
+        anim.SetFloat("MoveSpeed", 0);
+    }
+
     void Flip() {
         facingRight = !facingRight;
         Vector3 theScale = transform.localScale;
