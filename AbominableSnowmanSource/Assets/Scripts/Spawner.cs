@@ -27,13 +27,13 @@ public class Spawner : MonoBehaviour {
         {
             for (int i = 0; i < hazardCount; i++)
             {
-                Vector3 spawnPosition = new Vector2(Random.Range(-15, 15), transform.position.y);
+                Vector3 spawnPosition = new Vector2(Random.Range(-13, 13), transform.position.y);
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
                 yield return new WaitForSeconds(spawnWait);
             }
             yield return new WaitForSeconds(waveWait);
-            hazardCount += 10;
+            hazardCount += 2;
         }
     }
 }

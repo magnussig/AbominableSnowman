@@ -7,7 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class EnemyController : GameCharacter {
     
-    private bool isClimbing;
+    public bool IsClimbing { get { return climbing; } }
+    private bool climbing;
     private bool isFalling;
     private bool isAttacking;
     private bool facingRight = true;
@@ -17,6 +18,7 @@ public class EnemyController : GameCharacter {
     [SerializeField] private float walkingSpeed;
     [SerializeField] private GameObject target;
     [SerializeField] private float attackDistance;
+    [SerializeField] private float damagingDistance;
 
     new void Start () {
         base.Start();
@@ -26,15 +28,15 @@ public class EnemyController : GameCharacter {
         TriggerOnTriggerColliders();
         Physics2D.IgnoreLayerCollision(gameObject.layer, target.layer);
         Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
-        isClimbing = true;
+        climbing = true;
         isFalling = false;
         isAttacking = false;
         anim.SetBool("isClimbing", true);
     }
 
     void Update() {
-        if (isAttacking) return;
-        else if (isClimbing)
+        if (isDead || isAttacking) return;
+        else if (climbing)
             Climb();
         else if (DistanceFromTarget() > attackDistance)
             MoveToTarget();
@@ -55,11 +57,11 @@ public class EnemyController : GameCharacter {
     moves him to the summit ground
     */
     void ClimbCheck(Collider2D other) {
-        if (isClimbing && other.tag.Equals("SummitGround")) {
+        if (climbing && other.tag.Equals("SummitGround")) {
             if ((++collidercount) < GetComponents<Collider2D>().Length) return;
 
             // Climber has reached the summit
-            isClimbing = false;
+            climbing = false;
             anim.SetBool("isClimbing", false);
 
             // Stop Climbing movement
@@ -111,12 +113,16 @@ public class EnemyController : GameCharacter {
         isAttacking = !isAttacking;
 
         if (!isAttacking) {
-            if (DistanceFromTarget() <= attackDistance)
+            if (DistanceFromTarget() <= damagingDistance)
                 target.GetComponent<GameCharacter>().TakeDamage(1);
         }
     }
 
     protected override void Die() {
-        throw new NotImplementedException();
+        if (climbing) // If climbing then just let gravity pull down
+            rb.velocity = Vector2.zero;
+        else
+            anim.SetTrigger("Death");
+        Destroy(gameObject, deathTime);
     }
 }

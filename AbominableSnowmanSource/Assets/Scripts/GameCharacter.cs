@@ -10,8 +10,11 @@ public abstract class GameCharacter : MonoBehaviour {
     [SerializeField] protected int healthPoints;
     [SerializeField] protected int damage;
     [SerializeField] protected SpriteRenderer healthbar;
+    [SerializeField] protected float deathTime;
+    [SerializeField] protected float takeDamageRate;
 
     protected bool isDead = false;
+    protected float lastTakenDamageTime;
     protected int maxHealth;
 
     protected void Start() {
@@ -21,7 +24,8 @@ public abstract class GameCharacter : MonoBehaviour {
     }
 
     public void TakeDamage(int p_damage) {
-        if (isDead) return;
+        if (isDead || Time.time < lastTakenDamageTime + takeDamageRate) return;
+        lastTakenDamageTime = Time.time;
 
         healthPoints -= p_damage;
         isDead = healthPoints <= 0 ? true : false;
