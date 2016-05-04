@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SummitGround
   - Enemy
+  - WaitCamera
+  - Environment
   layers:
   - Default
   - TransparentFX
