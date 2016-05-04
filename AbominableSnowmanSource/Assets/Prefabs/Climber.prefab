@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daafdb337c55ace4093b975344ed41fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 3
+  healthPoints: 2
   damage: 1
   healthbar: {fileID: 0}
   deathTime: 10

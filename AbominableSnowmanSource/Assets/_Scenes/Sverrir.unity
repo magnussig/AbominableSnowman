@@ -1163,7 +1163,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 146932, guid: 8d11000a705808446b81bfecafc65d2c, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11464822, guid: 8d11000a705808446b81bfecafc65d2c, type: 2}
       propertyPath: hazardCount
@@ -1470,6 +1470,53 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!1 &950237047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 950237049}
+  - 114: {fileID: 950237048}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &950237048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 950237047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528bbf09e8e3067419ad7e5e17892e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnbeginX: -13
+  spawnEndX: 13
+  spawnY: -15
+  SpawnRate: 2
+  WaveWait: 30
+  numberOfEnemies: 10
+  addEnemiesBetweenWaves: 5
+  enemy: {fileID: 136036, guid: 651d3c278838d4a45ad2d9b22121974c, type: 2}
+--- !u!4 &950237049
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 950237047}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &956572559
 GameObject:
   m_ObjectHideFlags: 0

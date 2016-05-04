@@ -126,6 +126,9 @@ public class EnemyController : GameCharacter {
         }
         else
             anim.SetTrigger("Death");
+
+        GameManager gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        gm.IncrementKillCounter();
         Destroy(gameObject, deathTime);
     }
 }
