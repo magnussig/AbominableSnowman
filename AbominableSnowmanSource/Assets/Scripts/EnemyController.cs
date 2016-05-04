@@ -123,6 +123,9 @@ public class EnemyController : GameCharacter {
             rb.velocity = Vector2.zero;
         else
             anim.SetTrigger("Death");
+
+        GameManager gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        gm.IncrementKillCounter();
         Destroy(gameObject, deathTime);
     }
 }

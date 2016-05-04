@@ -17,6 +17,7 @@ public class DamageEnemyByContact : MonoBehaviour {
             enemy.TakeDamage(damage);
 
             rb.velocity = new Vector2(1, 1);
+            damage /= 2;
         }
     }
 }

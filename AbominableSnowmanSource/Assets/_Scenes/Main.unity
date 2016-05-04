@@ -1171,7 +1171,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11464822, guid: 8d11000a705808446b81bfecafc65d2c, type: 2}
       propertyPath: waveWait
-      value: 60
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 11464822, guid: 8d11000a705808446b81bfecafc65d2c, type: 2}
       propertyPath: spawnWait
