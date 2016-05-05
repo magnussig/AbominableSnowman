@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject enemy;
 
     private CharacterController player;
+    private Camera mainCamera;
+    private bool isMainCameraEnabled = true;
     private bool isWaveStarted;
     private bool isWaiting;
     private int enemiesKilled;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour {
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
         audio = GetComponent<AudioSource>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         isWaveStarted = false;
         isWaiting = false;
         StartCoroutine(NextSpawnWave());
@@ -63,14 +66,30 @@ public class GameManager : MonoBehaviour {
 
         numberOfEnemies += addEnemiesBetweenWaves;
         isWaveStarted = false;
-        isWaiting = true;
         yield return WaitForNextSpawnWave();
     }
 
     IEnumerator WaitForNextSpawnWave() {
-        player.enabled = false; // Disable the player while waiting
+        isWaiting = true;
+
+        // Disable the player while waiting
+        player.enabled = false;
+        CameraScript cs = mainCamera.GetComponent<CameraScript>();
+
+        // Release the camera so the player can place traps anywhere around
+        cs.IsFollowingPlayer = false;
+
+        // wait until the waiting time has run out
         yield return new WaitForSeconds(WaveWait);
-        player.enabled = true; // Enable the player, the next spawn wave is about to start!
+
+        // Move the camera back to the player
+        cs.IsFollowingPlayer = true;
+
+        // Wait until the camera has reached the player
+        yield return new WaitUntil(new System.Func<bool>(isCameraAtPlayer));
+
+        // Enable the player, the next spawn wave is about to start!
+        player.enabled = true;
         isWaiting = false;
     }
 
@@ -80,5 +99,9 @@ public class GameManager : MonoBehaviour {
 
     private bool areAllEnemiesKilled() {
         return enemiesKilled == numberOfEnemies;
+    }
+
+    private bool isCameraAtPlayer() {
+        return mainCamera.GetComponent<CameraScript>().IsAtPlayer;
     }
 }
