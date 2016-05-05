@@ -48,4 +48,11 @@ public abstract class GameCharacter : MonoBehaviour {
     }
 
     protected abstract void Die();
+
+    public void addHealthPoints(int health) {
+        if (healthPoints == maxHealth) return;
+
+        healthPoints += health;
+        UpdateHealthBar();
+    }
 }

@@ -9,7 +9,7 @@ TagManager:
   - WaitCamera
   - Environment
   - GUI
-  - Slider
+  - HealthPoint
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -20,6 +20,8 @@ public class EnemyController : GameCharacter {
     [SerializeField] private GameObject target;
     [SerializeField] private float attackDistance;
     [SerializeField] private float damagingDistance;
+    [SerializeField] private float lifeDropChance;
+    [SerializeField] private GameObject dropLife;
 
     new void Start () {
         base.Start();
@@ -146,6 +148,11 @@ public class EnemyController : GameCharacter {
         GameManager gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         gm.IncrementKillCounter();
         Destroy(gameObject, deathTime);
+
+        float chance = Random.Range(0f, 1f);
+
+        if (chance <= lifeDropChance)
+            StartCoroutine(DropLife());
     }
 
     public new void TakeDamage(int p_damage, Transform attackerTransform)
@@ -156,6 +163,11 @@ public class EnemyController : GameCharacter {
             int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
             transform.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(direction * 5, 5);
         }
+    }
+
+    IEnumerator DropLife() {
+        yield return new WaitForSeconds(2);
+        Instantiate(dropLife, transform.position, Quaternion.identity);
     }
 
 }
