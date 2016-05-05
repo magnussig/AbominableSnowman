@@ -4,11 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour {
     
-    public GameObject gameOverCanvas;
+   [SerializeField] private GameObject gameOverCanvas;
+   private CharacterController player;
 
-  /*  void Update()
+    void Start() {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+    }
+
+   void Update()
     {
-        if (GameCharacter.isDead)
+        if (player.IsDead)
         {
             gameOverCanvas.SetActive(true);
         }
@@ -16,7 +21,7 @@ public class GameOver : MonoBehaviour {
         {
             gameOverCanvas.SetActive(false);
         }
-    }*/
+    }
 
 
     public void ExitToMenu()

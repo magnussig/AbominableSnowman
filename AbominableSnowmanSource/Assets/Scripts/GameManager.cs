@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour {
         yield return new WaitUntil(new System.Func<bool>(areAllEnemiesKilled));
 
         numberOfEnemies += addEnemiesBetweenWaves;
-        SpawnRate -= SpawnRate > 1 ? .5f : 0;
+        SpawnRate -= SpawnRate > 1 ? 1f : 0;
 
         isWaveStarted = false;
         waveCount++;

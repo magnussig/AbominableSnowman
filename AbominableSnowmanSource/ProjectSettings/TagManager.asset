@@ -9,6 +9,7 @@ TagManager:
   - WaitCamera
   - Environment
   - GUI
+  - Slider
   layers:
   - Default
   - TransparentFX

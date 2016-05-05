@@ -2660,6 +2660,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29766c72f94f9b46ba314522e4afcc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverCanvas: {fileID: 1121680061}
 --- !u!4 &1434020160
 Transform:
   m_ObjectHideFlags: 0
