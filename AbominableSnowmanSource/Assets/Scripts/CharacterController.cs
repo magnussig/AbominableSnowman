@@ -17,9 +17,11 @@ public class CharacterController : GameCharacter {
     private float nextPickUpTime;
     private bool isThrowing = false;
     private bool isAttacking = false;
+    private AudioSource audio;
 
     new void Start () {
         base.Start();
+        audio = GetComponent<AudioSource>();
 
         if (objectSlot == null)
             Debug.Log("Player object slot not found");
@@ -44,7 +46,16 @@ public class CharacterController : GameCharacter {
             Throw();
         else if (Input.GetKeyDown(KeyCode.Space))
             Attack();
-    }
+
+        //mute
+        if (Input.GetKeyDown(KeyCode.M))
+        { 
+            if (audio.mute)
+                audio.mute = false;
+            else
+                audio.mute = true;
+        }
+}
 	
 	void FixedUpdate () {
         if (isDead || isThrowing) return;
@@ -80,7 +91,7 @@ public class CharacterController : GameCharacter {
     void Throw() {
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
-        GetComponent<AudioSource>().PlayDelayed(0.5f);
+        audio.PlayDelayed(0.5f);
     }
 
     void Attack() {

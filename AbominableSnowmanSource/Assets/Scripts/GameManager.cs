@@ -21,9 +21,11 @@ public class GameManager : MonoBehaviour {
     private bool isWaveStarted;
     private bool isWaiting;
     private int enemiesKilled;
+    private AudioSource audio;
 
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+        audio = GetComponent<AudioSource>();
         isWaveStarted = false;
         isWaiting = false;
         StartCoroutine(NextSpawnWave());
@@ -32,9 +34,21 @@ public class GameManager : MonoBehaviour {
 	void Update () {
         if (isWaveStarted || isWaiting) return;
         StartCoroutine(NextSpawnWave());
-	}
+        //mute
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (audio.mute)
+            {
+                audio.mute = false;
+                AudioListener.volume = 0.0F;
+            }
+            else
+                audio.mute = true;
+        }
+    }
 
     IEnumerator NextSpawnWave() {
+        audio.Play();
         isWaveStarted = true;
         enemiesKilled = 0;
 

@@ -13,6 +13,7 @@ public class EnemyController : GameCharacter {
     private bool isAttacking;
     private bool facingRight = true;
     private int collidercount = 0;
+    private AudioSource audio;
     
     [SerializeField] private float climbingSpeed;
     [SerializeField] private float walkingSpeed;
@@ -22,6 +23,9 @@ public class EnemyController : GameCharacter {
 
     new void Start () {
         base.Start();
+
+        audio = GetComponent<AudioSource>();
+
         if (target == null)
             target = GameObject.FindWithTag("Player");
 
@@ -42,6 +46,15 @@ public class EnemyController : GameCharacter {
             MoveToTarget();
         else
             Attack();
+
+        //mute
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (audio.mute)
+                audio.mute = false;
+            else
+                audio.mute = true;
+        }
     }
 
     void Climb() {
@@ -122,7 +135,7 @@ public class EnemyController : GameCharacter {
         if (climbing) // If climbing then just let gravity pull down
         {
             rb.velocity = Vector2.zero;
-            gameObject.GetComponent<AudioSource>().Play();
+            audio.Play();
         }
         else
             anim.SetTrigger("Death");
