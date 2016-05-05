@@ -24,11 +24,12 @@ public class GameManager : MonoBehaviour {
     private bool isWaiting;
     private int enemiesKilled;
     private int waveCount;
+    private AudioSource audioS;
 
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+        audioS = GetComponent<AudioSource>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-
         isWaveStarted = false;
         isWaiting = false;
         waveCount = 1;
@@ -38,9 +39,21 @@ public class GameManager : MonoBehaviour {
 	void Update () {
         if (isWaveStarted || isWaiting) return;
         StartCoroutine(NextSpawnWave());
-	}
+        //mute
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (audioS.mute)
+            {
+                audioS.mute = false;
+                AudioListener.volume = 0.0F;
+            }
+            else
+                audioS.mute = true;
+        }
+    }
 
     IEnumerator NextSpawnWave() {
+        audioS.Play();
         isWaveStarted = true;
         enemiesKilled = 0;
 

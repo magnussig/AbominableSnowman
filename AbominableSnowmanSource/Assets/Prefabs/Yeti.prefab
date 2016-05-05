@@ -824,6 +824,7 @@ GameObject:
   - 114: {fileID: 11497272}
   - 61: {fileID: 6155882}
   - 58: {fileID: 5891152}
+  - 82: {fileID: 8237634}
   m_Layer: 0
   m_Name: Yeti
   m_TagString: Player
@@ -2478,6 +2479,80 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 7.86}
   serializedVersion: 2
   m_Size: {x: 5, y: 8.15}
+--- !u!82 &8237634
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176522}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 30fbcbcf2d432794bb3d19a93f465abd, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &9521956
 Animator:
   serializedVersion: 3
@@ -2515,6 +2590,8 @@ MonoBehaviour:
   throwableObject: {fileID: 145298, guid: 9e82c7e1e20c2594fbdb043e667483e3, type: 2}
   pickUpRate: 0
   maxSpeed: 5
+  throwForce: 20
+  damagingDistance: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
