@@ -17,11 +17,11 @@ public class CharacterController : GameCharacter {
     private float nextPickUpTime;
     private bool isThrowing = false;
     private bool isAttacking = false;
-    private AudioSource audio;
+    private AudioSource audioS;
 
     new void Start () {
         base.Start();
-        audio = GetComponent<AudioSource>();
+        audioS = GetComponent<AudioSource>();
 
         if (objectSlot == null)
             Debug.Log("Player object slot not found");
@@ -31,10 +31,7 @@ public class CharacterController : GameCharacter {
         nextPickUpTime = Time.time;
         tag = "Player";
 
-        Debug.Log("N: " + GameObject.FindGameObjectsWithTag("Player").Length);
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Player")) {
-            Debug.Log("Name:" + g.name);
-        }
+        isDead = false;
     }
 
     void Update() {
@@ -50,10 +47,10 @@ public class CharacterController : GameCharacter {
         //mute
         if (Input.GetKeyDown(KeyCode.M))
         { 
-            if (audio.mute)
-                audio.mute = false;
+            if (audioS.mute)
+                audioS.mute = false;
             else
-                audio.mute = true;
+                audioS.mute = true;
         }
 }
 	
@@ -95,7 +92,7 @@ public class CharacterController : GameCharacter {
     void Throw() {
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
-        audio.PlayDelayed(0.5f);
+        audioS.PlayDelayed(0.5f);
     }
 
     void Attack() {
@@ -140,8 +137,10 @@ public class CharacterController : GameCharacter {
         foreach (Collider2D target in targets) {
             if (target.tag == "Enemy")
             {
-                target.GetComponent<EnemyController>().TakeDamage(damage);
-                target.GetComponent<Rigidbody2D>().velocity = new Vector2(2, 6);
+                EnemyController enemyController = target.GetComponent<EnemyController>();
+                if (!enemyController.IsClimbing && !enemyController.IsDead) {
+                    enemyController.TakeDamage(damage, transform);
+                }
             }
         }
     }

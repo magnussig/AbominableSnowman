@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
         if (isWaveStarted || isWaiting) return;
         StartCoroutine(NextSpawnWave());
+        
         //mute
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -67,6 +68,8 @@ public class GameManager : MonoBehaviour {
         yield return new WaitUntil(new System.Func<bool>(areAllEnemiesKilled));
 
         numberOfEnemies += addEnemiesBetweenWaves;
+        SpawnRate -= SpawnRate > 1 ? .5f : 0;
+
         isWaveStarted = false;
         waveCount++;
         yield return WaitForNextSpawnWave();

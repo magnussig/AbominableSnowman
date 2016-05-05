@@ -17,13 +17,17 @@ public abstract class GameCharacter : MonoBehaviour {
     protected float lastTakenDamageTime;
     protected int maxHealth;
 
+    public bool IsDead {
+        get { return isDead; }
+    }
+
     protected void Start() {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         maxHealth = healthPoints;
     }
 
-    public void TakeDamage(int p_damage) {
+    public void TakeDamage(int p_damage, Transform attackerTransform) {
         if (isDead || Time.time < lastTakenDamageTime + takeDamageRate) return;
         lastTakenDamageTime = Time.time;
 
