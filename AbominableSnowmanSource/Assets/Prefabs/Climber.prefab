@@ -114,8 +114,8 @@ MonoBehaviour:
   climbingSpeed: 1
   walkingSpeed: 3
   target: {fileID: 0}
-  attackDistance: 1
-  damagingDistance: 3
+  attackDistance: 3
+  damagingDistance: 5
 --- !u!212 &21274152
 SpriteRenderer:
   m_ObjectHideFlags: 1

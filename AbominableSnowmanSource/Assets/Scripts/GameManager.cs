@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
     private bool isWaveStarted;
     private bool isWaiting;
     private int enemiesKilled;
+    private int waveCount;
 
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour {
 
         isWaveStarted = false;
         isWaiting = false;
+        waveCount = 1;
         StartCoroutine(NextSpawnWave());
 	}
 
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour {
 
         numberOfEnemies += addEnemiesBetweenWaves;
         isWaveStarted = false;
+        waveCount++;
         yield return WaitForNextSpawnWave();
     }
 

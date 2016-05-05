@@ -41,7 +41,8 @@ public class CameraScript : MonoBehaviour {
     }
 
 	void Update () {
-        if (isFollowingPlayer && !isAtPlayer) {
+        isAtPlayer = true;
+        /*if (isFollowingPlayer && !isAtPlayer) {
             if (!hasStartedMovement)
                 UpdateVariables();
             MoveToPlayer();
@@ -51,7 +52,7 @@ public class CameraScript : MonoBehaviour {
             FollowPlayer();
         }
         else
-            MoveAroundEnvironment();
+            MoveAroundEnvironment();*/
 	}
 
     void FollowPlayer() {
