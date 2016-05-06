@@ -14,10 +14,9 @@ public class DamageEnemyByContact : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
         EnemyController enemy;
         if (other.tag == "Enemy" && (enemy = other.GetComponent<EnemyController>()) != null && enemy.IsClimbing) {
-            enemy.TakeDamage(damage);
-
-            rb.velocity = new Vector2(1, 1);
-            damage /= 2;
+            enemy.TakeDamage(damage, transform);
+            int direction = Random.Range(0f, 1f) > 0.5 ? 1 : -1;
+            rb.velocity = new Vector2(direction * 1, 2);
         }
     }
 }

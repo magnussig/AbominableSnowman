@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - WaitCamera
   - Environment
+  - GUI
+  - Slider
   layers:
   - Default
   - TransparentFX

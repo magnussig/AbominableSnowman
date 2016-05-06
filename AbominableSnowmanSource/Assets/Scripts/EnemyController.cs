@@ -13,7 +13,7 @@ public class EnemyController : GameCharacter {
     private bool isAttacking;
     private bool facingRight = true;
     private int collidercount = 0;
-    private AudioSource audio;
+    private AudioSource audioS;
     
     [SerializeField] private float climbingSpeed;
     [SerializeField] private float walkingSpeed;
@@ -24,7 +24,7 @@ public class EnemyController : GameCharacter {
     new void Start () {
         base.Start();
 
-        audio = GetComponent<AudioSource>();
+        audioS = GetComponent<AudioSource>();
 
         if (target == null)
             target = GameObject.FindWithTag("Player");
@@ -50,10 +50,10 @@ public class EnemyController : GameCharacter {
         //mute
         if (Input.GetKeyDown(KeyCode.M))
         {
-            if (audio.mute)
-                audio.mute = false;
+            if (audioS.mute)
+                audioS.mute = false;
             else
-                audio.mute = true;
+                audioS.mute = true;
         }
     }
 
@@ -127,7 +127,7 @@ public class EnemyController : GameCharacter {
 
         if (!isAttacking) {
             if (DistanceFromTarget() <= damagingDistance)
-                target.GetComponent<GameCharacter>().TakeDamage(1);
+                target.GetComponent<GameCharacter>().TakeDamage(damage, transform);
         }
     }
 
@@ -135,7 +135,10 @@ public class EnemyController : GameCharacter {
         if (climbing) // If climbing then just let gravity pull down
         {
             rb.velocity = Vector2.zero;
-            audio.Play();
+            audioS.Play();
+
+            foreach (Collider2D c in GetComponents<Collider2D>())
+                c.enabled = false;
         }
         else
             anim.SetTrigger("Death");
@@ -144,4 +147,15 @@ public class EnemyController : GameCharacter {
         gm.IncrementKillCounter();
         Destroy(gameObject, deathTime);
     }
+
+    public new void TakeDamage(int p_damage, Transform attackerTransform)
+    {
+        base.TakeDamage(p_damage, attackerTransform);
+        if (!IsClimbing)
+        {
+            int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
+            transform.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(direction * 5, 5);
+        }
+    }
+
 }

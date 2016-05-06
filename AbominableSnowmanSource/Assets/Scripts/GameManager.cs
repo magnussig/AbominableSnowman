@@ -24,35 +24,38 @@ public class GameManager : MonoBehaviour {
     private bool isWaveStarted;
     private bool isWaiting;
     private int enemiesKilled;
-    private AudioSource audio;
+    private int waveCount;
+    private AudioSource audioS;
 
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
-        audio = GetComponent<AudioSource>();
+        audioS = GetComponent<AudioSource>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         isWaveStarted = false;
         isWaiting = false;
+        waveCount = 1;
         StartCoroutine(NextSpawnWave());
 	}
 
 	void Update () {
         if (isWaveStarted || isWaiting) return;
         StartCoroutine(NextSpawnWave());
+        
         //mute
         if (Input.GetKeyDown(KeyCode.M))
         {
-            if (audio.mute)
+            if (audioS.mute)
             {
-                audio.mute = false;
+                audioS.mute = false;
                 AudioListener.volume = 0.0F;
             }
             else
-                audio.mute = true;
+                audioS.mute = true;
         }
     }
 
     IEnumerator NextSpawnWave() {
-        audio.Play();
+        audioS.Play();
         isWaveStarted = true;
         enemiesKilled = 0;
 
@@ -66,7 +69,10 @@ public class GameManager : MonoBehaviour {
         yield return new WaitUntil(new System.Func<bool>(areAllEnemiesKilled));
 
         numberOfEnemies += addEnemiesBetweenWaves;
+        SpawnRate -= SpawnRate > 1 ? 1f : 0;
+
         isWaveStarted = false;
+        waveCount++;
         yield return WaitForNextSpawnWave();
     }
 
