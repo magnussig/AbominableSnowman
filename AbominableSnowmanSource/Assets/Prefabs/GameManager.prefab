@@ -121,7 +121,7 @@ MonoBehaviour:
   WaveWait: 30
   numberOfEnemies: 10
   addEnemiesBetweenWaves: 2
-  enemy: {fileID: 136036, guid: 651d3c278838d4a45ad2d9b22121974c, type: 2}
+  enemy: {fileID: 129074, guid: 651d3c278838d4a45ad2d9b22121974c, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

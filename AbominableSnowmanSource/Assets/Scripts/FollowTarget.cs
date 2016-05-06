@@ -2,7 +2,7 @@
 
 public class FollowTarget : MonoBehaviour {
 
-    [SerializeField] private GameObject target;
+    private GameObject target;
     [SerializeField] private Vector3 offset;
 
     void Awake () {

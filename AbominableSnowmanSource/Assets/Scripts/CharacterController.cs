@@ -18,6 +18,7 @@ public class CharacterController : GameCharacter {
     private bool isThrowing = false;
     private bool isAttacking = false;
     private AudioSource audioS;
+    private HitBox hitbox;
 
     new void Start () {
         base.Start();
@@ -32,6 +33,8 @@ public class CharacterController : GameCharacter {
         tag = "Player";
 
         isDead = false;
+
+        hitbox = GetComponentInChildren<HitBox>();
     }
 
     void Update() {
@@ -133,15 +136,10 @@ public class CharacterController : GameCharacter {
     }
 
     void HitTargets() {
-        Collider2D[] targets = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), damagingDistance);
-        foreach (Collider2D target in targets) {
-            if (target.tag == "Enemy")
-            {
-                EnemyController enemyController = target.GetComponent<EnemyController>();
-                if (!enemyController.IsClimbing && !enemyController.IsDead) {
-                    enemyController.TakeDamage(damage, transform);
-                }
-            }
+        foreach (EnemyController enemy in hitbox.GetEnemiesToDamage()) {
+            if (!enemy.IsClimbing && !enemy.IsDead)
+                enemy.TakeDamage(damage, transform);
+                
         }
     }
 }

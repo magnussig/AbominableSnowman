@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -14,6 +15,9 @@ public class EnemyController : GameCharacter {
     private bool facingRight = true;
     private int collidercount = 0;
     private AudioSource audioS;
+    private Collider2D climbingTrigger;
+    private List<Collider2D> collisionColliders;
+    private HitBox hitbox;
     
     [SerializeField] private float climbingSpeed;
     [SerializeField] private float walkingSpeed;
@@ -31,20 +35,36 @@ public class EnemyController : GameCharacter {
         if (target == null)
             target = GameObject.FindWithTag("Player");
 
-        TriggerOnTriggerColliders();
+        // Ignore collisions with these object layers
         Physics2D.IgnoreLayerCollision(gameObject.layer, target.layer);
         Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
+
+        // The climbers spawn and starts climb
         climbing = true;
         isFalling = false;
         isAttacking = false;
         anim.SetBool("isClimbing", true);
+
+        // Get all the colliders
+        collisionColliders = new List<Collider2D>();
+        foreach (Collider2D coll in GetComponents<Collider2D>()) {
+            if (coll.isTrigger)
+                climbingTrigger = coll;
+            else
+                collisionColliders.Add(coll);
+        }
+
+        // Disable collision colliders while climbing
+        EnableCollisionColliders(false);
+
+        hitbox = GetComponentInChildren<HitBox>();
     }
 
     void Update() {
         if (isDead || isAttacking) return;
         else if (climbing)
             Climb();
-        else if (DistanceFromTarget() > attackDistance)
+        else if (hitbox.GetEnemiesToDamage().Count <= 0)
             MoveToTarget();
         else
             Attack();
@@ -73,7 +93,6 @@ public class EnemyController : GameCharacter {
     */
     void ClimbCheck(Collider2D other) {
         if (climbing && other.tag.Equals("SummitGround")) {
-            if ((++collidercount) < GetComponents<Collider2D>().Length) return;
 
             // Climber has reached the summit
             climbing = false;
@@ -83,13 +102,16 @@ public class EnemyController : GameCharacter {
             rb.velocity = Vector2.zero;
 
             // Enable collisions
-            TriggerOnTriggerColliders();
+            EnableCollisionColliders(true);
+
+            // We no longer need the climbing trigger
+            Destroy(climbingTrigger);
         }
     }
 
-    void TriggerOnTriggerColliders() {
-        foreach (Collider2D coll in GetComponents<Collider2D>())
-            coll.isTrigger = !coll.isTrigger;
+    void EnableCollisionColliders(bool isEnable) {
+        foreach (Collider2D c in collisionColliders)
+            c.enabled = isEnable;
     }
 
     void Flip()
@@ -124,12 +146,13 @@ public class EnemyController : GameCharacter {
     /*
     This function is called by the attack animation
     */
-    void triggerIsAttacking() {
+    void triggerIsAttacking()
+    {
         isAttacking = !isAttacking;
 
         if (!isAttacking) {
-            if (DistanceFromTarget() <= damagingDistance)
-                target.GetComponent<GameCharacter>().TakeDamage(damage, transform);
+            foreach (GameCharacter ch in hitbox.GetEnemiesToDamage())
+                ch.TakeDamage(damage, transform);
         }
     }
 
