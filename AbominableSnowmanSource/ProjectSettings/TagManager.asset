@@ -10,6 +10,7 @@ TagManager:
   - Environment
   - GUI
   - HealthPoint
+  - HikingBoundary
   layers:
   - Default
   - TransparentFX

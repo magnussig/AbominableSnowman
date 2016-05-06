@@ -189,7 +189,7 @@ MonoBehaviour:
   climbingSpeed: 1
   walkingSpeed: 3
   target: {fileID: 0}
-  attackDistance: 3
+  attackDistance: 2
   damagingDistance: 5
   lifeDropChance: 0.1
   dropLife: {fileID: 103118, guid: 735fe10eb398b0244ba3106027003abb, type: 2}
