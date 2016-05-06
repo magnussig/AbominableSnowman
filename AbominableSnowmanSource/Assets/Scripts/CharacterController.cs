@@ -21,6 +21,7 @@ public class CharacterController : GameCharacter {
 
     new void Start () {
         base.Start();
+        Debug.Log("Halooooo");
         audio = GetComponent<AudioSource>();
 
         if (objectSlot == null)

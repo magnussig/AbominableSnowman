@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject enemy;
 
     private CharacterController player;
+    public GameObject trapLayingMenu;
     private Camera mainCamera;
     private bool isMainCameraEnabled = true;
     private bool isWaveStarted;
@@ -70,6 +71,9 @@ public class GameManager : MonoBehaviour {
     }
 
     IEnumerator WaitForNextSpawnWave() {
+        // show trap laying menu:
+        trapLayingMenu.SetActive(true);
+
         isWaiting = true;
 
         // Disable the player while waiting
