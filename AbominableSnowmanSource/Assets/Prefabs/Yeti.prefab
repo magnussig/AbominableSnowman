@@ -2638,9 +2638,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 5
   damage: 1
-  healthbar: {fileID: 0}
+  HealthBarObject: {fileID: 118034, guid: 5dbf39231c6683642b9aed15dda4b39c, type: 2}
   deathTime: 0
   takeDamageRate: 0.5
+  healthbarOffset: {x: -1, y: 3, z: 0}
   objectSlot: {fileID: 196300}
   throwableObject: {fileID: 145298, guid: 9e82c7e1e20c2594fbdb043e667483e3, type: 2}
   pickUpRate: 1
