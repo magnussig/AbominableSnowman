@@ -12,6 +12,7 @@ public class EnemyController : GameCharacter {
     private bool climbing;
     private bool isFalling;
     private bool isAttacking;
+    private bool isHit;
     private bool facingRight = true;
     private int collidercount = 0;
     private AudioSource audioS;
@@ -43,6 +44,7 @@ public class EnemyController : GameCharacter {
         climbing = true;
         isFalling = false;
         isAttacking = false;
+        isHit = false;
         anim.SetBool("isClimbing", true);
 
         // Get all the colliders
@@ -61,10 +63,10 @@ public class EnemyController : GameCharacter {
     }
 
     void Update() {
-        if (isDead || isAttacking) return;
+        if (isDead || isAttacking || isHit) return;
         else if (climbing)
             Climb();
-        else if (hitbox.GetEnemiesToDamage().Count <= 0)
+        else if (hitbox.getNumberOfEnemiesInHitbox() <= 0)
             MoveToTarget();
         else
             Attack();
@@ -83,6 +85,11 @@ public class EnemyController : GameCharacter {
         rb.velocity = new Vector2(rb.velocity.x, climbingSpeed);
     }
 
+    void OnCollisionEnter2D(Collision2D other) {
+        if (isHit && other.gameObject.tag.Equals("SummitGround"))
+            isHit = false;
+    }
+
     void OnTriggerExit2D(Collider2D other) {
         ClimbCheck(other);
     }
@@ -92,7 +99,7 @@ public class EnemyController : GameCharacter {
     moves him to the summit ground
     */
     void ClimbCheck(Collider2D other) {
-        if (climbing && other.tag.Equals("SummitGround")) {
+        if (climbing && other.tag.Equals("SummitGround") && !isDead) {
 
             // Climber has reached the summit
             climbing = false;
@@ -183,6 +190,7 @@ public class EnemyController : GameCharacter {
         base.TakeDamage(p_damage, attackerTransform);
         if (!IsClimbing)
         {
+            isHit = true;
             int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
             transform.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(direction * 5, 5);
         }
@@ -192,5 +200,4 @@ public class EnemyController : GameCharacter {
         yield return new WaitForSeconds(2);
         Instantiate(dropLife, transform.position, Quaternion.identity);
     }
-
 }

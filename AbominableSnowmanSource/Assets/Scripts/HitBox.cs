@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider2D))]
-//[RequireComponent(typeof(Rigidbody2D))]
 public class HitBox : MonoBehaviour {
 
-    private List<GameCharacter> enemiesInHitbox;
+    private HashSet<GameCharacter> enemiesInHitbox;
 
-	void Start () {
+    void Start () {
         gameObject.layer = 0;
-        enemiesInHitbox = new List<GameCharacter>();
+        enemiesInHitbox = new HashSet<GameCharacter>();
 	}
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -26,8 +25,12 @@ public class HitBox : MonoBehaviour {
             enemiesInHitbox.Remove(character);
     }
 
-    public List<GameCharacter> GetEnemiesToDamage() {
+    public IEnumerable<GameCharacter> GetEnemiesToDamage() {
         return enemiesInHitbox;
+    }
+
+    public int getNumberOfEnemiesInHitbox() {
+        return enemiesInHitbox.Count;
     }
 
 

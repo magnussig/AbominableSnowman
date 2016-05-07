@@ -9,13 +9,21 @@ public abstract class GameCharacter : MonoBehaviour {
 
     [SerializeField] protected int healthPoints;
     [SerializeField] protected int damage;
-    [SerializeField] protected SpriteRenderer healthbar;
+    [SerializeField] protected GameObject HealthBarObject;
     [SerializeField] protected float deathTime;
     [SerializeField] protected float takeDamageRate;
+    [SerializeField] protected Vector3 healthbarOffset;
 
+    protected SpriteRenderer healthbar;
     protected bool isDead = false;
     protected float lastTakenDamageTime;
     protected int maxHealth;
+
+    public int Health {
+        get {
+            return healthPoints;
+        }
+    }
 
     public bool IsDead {
         get { return isDead; }
@@ -25,6 +33,19 @@ public abstract class GameCharacter : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         maxHealth = healthPoints;
+
+        HealthBarObject = (GameObject)Instantiate(HealthBarObject, transform.position, Quaternion.identity);
+
+        HealthBarObject.GetComponent<FollowTarget>().AssignTarget(gameObject, healthbarOffset);
+
+        foreach (Transform child in HealthBarObject.transform) {
+            if (child.name == "healthbar")
+                healthbar = child.GetComponent<SpriteRenderer>();
+        }
+    }
+
+    void OnDestroy() {
+        Destroy(HealthBarObject);
     }
 
     public void TakeDamage(int p_damage, Transform attackerTransform) {

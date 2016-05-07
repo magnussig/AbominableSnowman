@@ -8,6 +8,7 @@ public class TrapPlacementScript : MonoBehaviour {
     private Color[] originalColor;
     private GameObject hikingZoneBoundary;
     private bool canPlaceAtPosition;
+    private Trap trap;
 
 	void Start () {
         sprites = GetComponentsInChildren<SpriteRenderer>();
@@ -16,10 +17,12 @@ public class TrapPlacementScript : MonoBehaviour {
         for (int i = 0; i < sprites.Length; i++)
             originalColor[i] = sprites[i].material.color;
 
-        //ChangeColor(Color.red);
-
         hikingZoneBoundary = GameObject.FindGameObjectWithTag("HikingBoundary");
         Debug.Log(hikingZoneBoundary.name);
+
+        trap = GetComponent<Trap>();
+        Debug.Log(trap.name);
+        trap.isEnabled = false;
     }
 	
 	void Update () {
@@ -53,6 +56,7 @@ public class TrapPlacementScript : MonoBehaviour {
             for (int i = 0; i < sprites.Length; i++)
                 sprites[i].material.color = originalColor[i];
 
+            trap.isEnabled = true;
             Destroy(this);
         }
     }
