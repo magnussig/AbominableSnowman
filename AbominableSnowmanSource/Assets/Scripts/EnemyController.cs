@@ -191,9 +191,8 @@ public class EnemyController : GameCharacter {
         base.TakeDamage(p_damage, attackerTransform);
         if (!IsClimbing)
         {
-            isHit = true;
-
             if (IsDead) {
+                isHit = true;
                 int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
                 rb.velocity = new Vector2(direction * 5, 5);
             }

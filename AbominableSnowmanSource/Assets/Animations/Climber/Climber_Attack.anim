@@ -26,8 +26,6 @@ AnimationClip:
       value: {fileID: 21300024, guid: 34ebc993843a4f641995fd0cbbdb4cbd, type: 3}
     - time: 0.2
       value: {fileID: 21300026, guid: 34ebc993843a4f641995fd0cbbdb4cbd, type: 3}
-    - time: 0.26666668
-      value: {fileID: 21300028, guid: 34ebc993843a4f641995fd0cbbdb4cbd, type: 3}
     - time: 0.33333334
       value: {fileID: 21300030, guid: 34ebc993843a4f641995fd0cbbdb4cbd, type: 3}
     - time: 0.4
@@ -54,7 +52,6 @@ AnimationClip:
     - {fileID: 21300022, guid: 34ebc993843a4f641995fd0cbbdb4cbd, type: 3}
     - {fileID: 21300024, guid: 34ebc993843a4f641995fd0cbbdb4cbd, type: 3}
     - {fileID: 21300026, guid: 34ebc993843a4f641995fd0cbbdb4cbd, type: 3}
-    - {fileID: 21300028, guid: 34ebc993843a4f641995fd0cbbdb4cbd, type: 3}
     - {fileID: 21300030, guid: 34ebc993843a4f641995fd0cbbdb4cbd, type: 3}
     - {fileID: 21300032, guid: 34ebc993843a4f641995fd0cbbdb4cbd, type: 3}
   m_AnimationClipSettings:
@@ -90,7 +87,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.4
+  - time: 0.26666668
     functionName: triggerIsAttacking
     data: 
     objectReferenceParameter: {fileID: 0}
