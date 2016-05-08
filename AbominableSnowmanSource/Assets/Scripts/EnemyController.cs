@@ -19,7 +19,8 @@ public class EnemyController : GameCharacter {
     private Collider2D climbingTrigger;
     private List<Collider2D> collisionColliders;
     private HitBox hitbox;
-    
+    private GameManager gm;
+
     [SerializeField] private float climbingSpeed;
     [SerializeField] private float walkingSpeed;
     [SerializeField] private GameObject target;
@@ -60,13 +61,14 @@ public class EnemyController : GameCharacter {
         EnableCollisionColliders(false);
 
         hitbox = GetComponentInChildren<HitBox>();
+        gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
 
     void Update() {
         if (isDead || isAttacking || isHit) return;
         else if (climbing)
             Climb();
-        else if (hitbox.getNumberOfEnemiesInHitbox() <= 0)
+        else if (DistanceFromTarget() > attackDistance)
             MoveToTarget();
         else
             Attack();
@@ -175,7 +177,6 @@ public class EnemyController : GameCharacter {
         else
             anim.SetTrigger("Death");
 
-        GameManager gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         gm.IncrementKillCounter();
         Destroy(gameObject, deathTime);
 

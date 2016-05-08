@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour {
     // Enemy
     [SerializeField] private GameObject enemy;
 
+    public int Score {
+        get { return score; }
+    }
+
     private CharacterController player;
     //public GameObject trapLayingMenu;
     private Camera mainCamera;
@@ -25,6 +29,7 @@ public class GameManager : MonoBehaviour {
     private bool isWaiting;
     private int enemiesKilled;
     private int waveCount;
+    private int score;
     private AudioSource audioS;
 
     void Start () {
@@ -34,6 +39,7 @@ public class GameManager : MonoBehaviour {
         isWaveStarted = false;
         isWaiting = false;
         waveCount = 1;
+        score = 0;
         FloatingTextController.Initialize();
         StartCoroutine(NextSpawnWave());
 	}
@@ -115,5 +121,9 @@ public class GameManager : MonoBehaviour {
 
     private bool isCameraAtPlayer() {
         return mainCamera.GetComponent<CameraScript>().IsAtPlayer;
+    }
+
+    public void addToScore(int add) {
+        score += add;
     }
 }

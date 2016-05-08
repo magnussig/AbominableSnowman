@@ -14,7 +14,12 @@ public class FloatingTextController : MonoBehaviour {
     public static void CreateFloatingText(string text, Transform location) {
         FloatingText floatText = Instantiate(scoreText);
         floatText.transform.SetParent(canvas.transform, false);
-        floatText.transform.position = Camera.main.WorldToScreenPoint(new Vector2(location.transform.position.x, location.transform.position.y));
+
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(new Vector2(location.transform.position.x, location.transform.position.y));
+        screenPos.y = screenPos.y < 0 ? 30 : screenPos.y;
+        screenPos.x = screenPos.x < 0 ? 30 : screenPos.x;
+        screenPos.x = screenPos.x > Camera.main.pixelWidth ? Camera.main.pixelWidth - 30: screenPos.x;
+        floatText.transform.position = screenPos;
         floatText.SetText(text);
     }
 }
