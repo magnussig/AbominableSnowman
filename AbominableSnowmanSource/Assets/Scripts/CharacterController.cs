@@ -38,12 +38,14 @@ public class CharacterController : GameCharacter {
 
         hitbox = GetComponentInChildren<HitBox>();
 
+#if UNITY_EDITOR
         UnityEditor.Animations.AnimatorController ac = anim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
 
         foreach (AnimationClip animClip in ac.animationClips) {
             if (animClip.name == "punch")
                 attackRate = animClip.length;
         }
+#endif
     }
 
     void Update() {
