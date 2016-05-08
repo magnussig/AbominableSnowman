@@ -5,6 +5,8 @@
 public class DamageEnemyByContact : MonoBehaviour {
 
     [SerializeField] private int damage;
+    [SerializeField] private int scoreForHit;
+    [SerializeField] private int deltaScore;
     private Rigidbody2D rb;
 
     void Start() {
@@ -17,6 +19,8 @@ public class DamageEnemyByContact : MonoBehaviour {
             enemy.TakeDamage(damage, transform);
             int direction = Random.Range(0f, 1f) > 0.5 ? 1 : -1;
             rb.velocity = new Vector2(direction * 1, 2);
+            FloatingTextController.CreateFloatingText(scoreForHit.ToString(), enemy.gameObject.transform);
+            scoreForHit += deltaScore;
         }
     }
 }

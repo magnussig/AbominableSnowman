@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour {
         isWaveStarted = false;
         isWaiting = false;
         waveCount = 1;
+        FloatingTextController.Initialize();
         StartCoroutine(NextSpawnWave());
 	}
 
