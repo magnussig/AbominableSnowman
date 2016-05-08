@@ -192,8 +192,11 @@ public class EnemyController : GameCharacter {
         if (!IsClimbing)
         {
             isHit = true;
-            int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
-            transform.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(direction * 5, 5);
+
+            if (IsDead) {
+                int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
+                rb.velocity = new Vector2(direction * 5, 5);
+            }
         }
     }
 
