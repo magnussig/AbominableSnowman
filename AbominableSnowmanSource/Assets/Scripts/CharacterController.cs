@@ -15,10 +15,12 @@ public class CharacterController : GameCharacter {
     private bool facingRight = false;
     private bool isHoldingObject = false;
     private float nextPickUpTime;
-    private bool isThrowing = false;
-    private bool isAttacking = false;
+    private volatile bool isThrowing = false;
+    private volatile bool isAttacking = false;
     private AudioSource audioS;
     private HitBox hitbox;
+    private float attackRate;
+    private float nextAttack = 0;
 
     new void Start () {
         base.Start();
@@ -35,6 +37,13 @@ public class CharacterController : GameCharacter {
         isDead = false;
 
         hitbox = GetComponentInChildren<HitBox>();
+
+        UnityEditor.Animations.AnimatorController ac = anim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+
+        foreach (AnimationClip animClip in ac.animationClips) {
+            if (animClip.name == "punch")
+                attackRate = animClip.length;
+        }
     }
 
     void Update() {
@@ -44,7 +53,7 @@ public class CharacterController : GameCharacter {
             PickUpRock();
         else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
             Throw();
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space) && canAttack())
             Attack();
 
         //mute
@@ -99,6 +108,7 @@ public class CharacterController : GameCharacter {
     }
 
     void Attack() {
+        nextAttack = Time.time + attackRate;
         anim.SetTrigger("Attack");
     }
 
@@ -114,6 +124,10 @@ public class CharacterController : GameCharacter {
 
     public bool canPickUpRock() {
         return CanPickUpRocks && !isHoldingObject && Time.time >= nextPickUpTime;
+    }
+
+    private bool canAttack() {
+        return Time.time >= nextAttack;
     }
 
     protected override void Die() {
