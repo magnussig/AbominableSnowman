@@ -47,6 +47,7 @@ public class CharacterController : GameCharacter {
     }
 
     void Update() {
+        Debug.Log("isAttacking: " + isAttacking + ", isThrowing: " + isThrowing + ", isHolding: " + isHoldingObject);
         if (isDead || isThrowing || isAttacking) return;
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -102,12 +103,14 @@ public class CharacterController : GameCharacter {
     }
 
     void Throw() {
+        isThrowing = true;
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
         audioS.PlayDelayed(0.5f);
     }
 
     void Attack() {
+        isAttacking = true;
         nextAttack = Time.time + attackRate;
         anim.SetTrigger("Attack");
     }
