@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private GameObject enemy;
 
     private CharacterController player;
-    //public GameObject trapLayingMenu;
+    public GameObject TrapMenu;
     private Camera mainCamera;
     private bool isMainCameraEnabled = true;
     private bool isWaveStarted;
@@ -54,7 +54,9 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    IEnumerator NextSpawnWave() {
+    IEnumerator NextSpawnWave()
+    {
+        TrapMenu.SetActive(false);
         audioS.Play();
         isWaveStarted = true;
         enemiesKilled = 0;
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator WaitForNextSpawnWave() {
         // show trap laying menu:
-        //trapLayingMenu.SetActive(true);
+        TrapMenu.SetActive(true);
 
         isWaiting = true;
 
