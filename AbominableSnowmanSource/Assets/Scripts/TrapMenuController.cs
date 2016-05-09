@@ -4,12 +4,13 @@ using System.Collections;
 public class TrapMenuController : MonoBehaviour {
     
     public GameObject blizzard;
+    private GameObject blizzardInstance;
+
     public void Clicked()
     {
-        Instantiate(blizzard);
+        blizzardInstance = Instantiate(blizzard);
         blizzard.SetActive(true);
-        Debug.Log("haaalkdsjflkajdsflkajslkfajlkdsa");
-        GameObject.Find("Enemy");
+
         /*String
         if (objectClicked.Equals("Blizzard"))
         {
@@ -19,5 +20,21 @@ public class TrapMenuController : MonoBehaviour {
         {
             Debug.Log(objectClicked);
         }*/
+    }
+
+    private void OnDisable()
+    {
+        //TODO: fix error
+        TrapPlacementScript tp = blizzardInstance.GetComponent<TrapPlacementScript>();
+        if (tp.isActiveAndEnabled)
+        {
+            Destroy(tp);
+        }
+    }
+
+    private void OnEnable()
+    {
+        //tékka á null
+        blizzardInstance = null;
     }
 }

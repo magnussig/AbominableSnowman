@@ -4,6 +4,8 @@ using System.Collections;
 [RequireComponent(typeof(Collider2D))]
 public class TrapPlacementScript : MonoBehaviour {
 
+    private GameManager gm;
+
     private SpriteRenderer[] sprites;
     private Color[] originalColor;
     private GameObject hikingZoneBoundary;
@@ -11,6 +13,7 @@ public class TrapPlacementScript : MonoBehaviour {
     private Trap trap;
 
 	void Start () {
+        gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         sprites = GetComponentsInChildren<SpriteRenderer>();
         originalColor = new Color[sprites.Length];
 
@@ -30,6 +33,7 @@ public class TrapPlacementScript : MonoBehaviour {
         Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         gameObject.transform.position = new Vector3(position.x, position.y, 0);
+        
 	}
 
     void OnTriggerStay2D(Collider2D other) {

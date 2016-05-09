@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private int numberOfEnemies;
     [SerializeField] private int addEnemiesBetweenWaves;
 
+    // Audio
+    public AudioSource fightSong;
+    public AudioSource trapSong;
+
     // Enemy
     [SerializeField] private GameObject enemy;
 
@@ -30,11 +34,9 @@ public class GameManager : MonoBehaviour {
     private int enemiesKilled;
     private int waveCount;
     private int score;
-    private AudioSource audioS;
 
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
-        audioS = GetComponent<AudioSource>();
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         isWaveStarted = false;
         isWaiting = false;
@@ -51,20 +53,21 @@ public class GameManager : MonoBehaviour {
         //mute
         if (Input.GetKeyDown(KeyCode.M))
         {
-            if (audioS.mute)
+            if (fightSong.mute)
             {
-                audioS.mute = false;
+                fightSong.mute = false;
                 AudioListener.volume = 0.0F;
             }
             else
-                audioS.mute = true;
+                fightSong.mute = true;
         }
     }
 
     IEnumerator NextSpawnWave()
     {
         TrapMenu.SetActive(false);
-        audioS.Play();
+        trapSong.Stop();
+        fightSong.PlayDelayed(0.3f);
         isWaveStarted = true;
         enemiesKilled = 0;
 
@@ -87,6 +90,8 @@ public class GameManager : MonoBehaviour {
     }
 
     IEnumerator WaitForNextSpawnWave() {
+        fightSong.Stop();
+        trapSong.PlayDelayed(0.3f);
         // show trap laying menu:
         TrapMenu.SetActive(true);
 
@@ -111,6 +116,8 @@ public class GameManager : MonoBehaviour {
         // Enable the player, the next spawn wave is about to start!
         player.enabled = true;
         isWaiting = false;
+
+       // GameObject.Find("jdkfjs");
     }
 
     public void IncrementKillCounter() {
