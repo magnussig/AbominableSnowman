@@ -4,19 +4,31 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class DamageEnemyByContact : MonoBehaviour {
 
-    [SerializeField] private int damage;
+    [SerializeField] private int scoreForHit;
+    [SerializeField] private int deltaScore;
     private Rigidbody2D rb;
+    private GameManager gm;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     }
 
 	void OnTriggerEnter2D(Collider2D other) {
-        EnemyController enemy;
-        if (other.tag == "Enemy" && (enemy = other.GetComponent<EnemyController>()) != null && enemy.IsClimbing) {
-            enemy.TakeDamage(damage, transform);
-            int direction = Random.Range(0f, 1f) > 0.5 ? 1 : -1;
+        EnemyController enemy = other.GetComponent<EnemyController>();
+        if (other.tag == "Enemy" && enemy != null && enemy.IsClimbing) {
+
+            // deal damage
+            enemy.TakeDamage(enemy.Health, transform);
+
+            // make the rock bounce
+            int direction = transform.position.x - enemy.transform.position.x > 0 ? 1 : -1;
             rb.velocity = new Vector2(direction * 1, 2);
+
+            // pop up score text and update to game manager
+            FloatingTextController.CreateFloatingText(scoreForHit.ToString(), enemy.gameObject.transform);
+            gm.addToScore(scoreForHit);
+            scoreForHit += deltaScore;
         }
     }
 }

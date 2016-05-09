@@ -116,12 +116,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnbeginX: -13
   spawnEndX: 13
-  spawnY: -15
-  SpawnRate: 2
-  WaveWait: 30
+  spawnY: -12
+  SpawnRate: 3
+  WaveWait: 10
   numberOfEnemies: 10
-  addEnemiesBetweenWaves: 2
-  enemy: {fileID: 136036, guid: 651d3c278838d4a45ad2d9b22121974c, type: 2}
+  addEnemiesBetweenWaves: 10
+  enemy: {fileID: 134776, guid: 651d3c278838d4a45ad2d9b22121974c, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

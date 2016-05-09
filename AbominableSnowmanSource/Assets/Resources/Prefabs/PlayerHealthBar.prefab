@@ -97,8 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de226dedcf36ca4d9ad0a8c3353d001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  offset: {x: -0.7, y: 2.8, z: 0}
 --- !u!212 &21291002
 SpriteRenderer:
   m_ObjectHideFlags: 1

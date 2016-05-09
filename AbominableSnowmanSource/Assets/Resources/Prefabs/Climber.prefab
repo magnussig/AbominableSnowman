@@ -1,20 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &136036
+--- !u!1 &134776
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 499894}
-  - 212: {fileID: 21274152}
-  - 95: {fileID: 9545552}
-  - 50: {fileID: 5098170}
-  - 61: {fileID: 6100682}
-  - 58: {fileID: 5839288}
-  - 114: {fileID: 11475444}
-  - 82: {fileID: 8283094}
+  - 4: {fileID: 427048}
+  - 212: {fileID: 21211482}
+  - 95: {fileID: 9598058}
+  - 50: {fileID: 5047590}
+  - 61: {fileID: 6102460}
+  - 58: {fileID: 5885938}
+  - 61: {fileID: 6170700}
+  - 114: {fileID: 11429384}
+  - 82: {fileID: 8231308}
   m_Layer: 9
   m_Name: Climber
   m_TagString: Enemy
@@ -22,25 +23,55 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &499894
+--- !u!1 &150842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 416330}
+  - 61: {fileID: 6126590}
+  - 114: {fileID: 11465008}
+  m_Layer: 0
+  m_Name: hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &416330
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136036}
+  m_GameObject: {fileID: 150842}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -8.83, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+  m_Father: {fileID: 427048}
+  m_RootOrder: 0
+--- !u!4 &427048
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134776}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 416330}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5098170
+--- !u!50 &5047590
 Rigidbody2D:
   serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136036}
+  m_GameObject: {fileID: 134776}
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -51,12 +82,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &5839288
+--- !u!58 &5885938
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136036}
+  m_GameObject: {fileID: 134776}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -65,12 +96,12 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.4}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!61 &6100682
+--- !u!61 &6102460
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136036}
+  m_GameObject: {fileID: 134776}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -79,12 +110,40 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.28}
   serializedVersion: 2
   m_Size: {x: 1.03, y: 1.27}
---- !u!82 &8283094
+--- !u!61 &6126590
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150842}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -0.4480648, y: 0.033569813}
+  serializedVersion: 2
+  m_Size: {x: 2.1375985, y: 1.7540765}
+--- !u!61 &6170700
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134776}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1.03, y: 1.78}
+--- !u!82 &8231308
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136036}
+  m_GameObject: {fileID: 134776}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -153,13 +212,13 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!95 &9545552
+--- !u!95 &9598058
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136036}
+  m_GameObject: {fileID: 134776}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: d5cfacac4fde1444c91f2ee0721026ad, type: 2}
@@ -170,12 +229,12 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11475444
+--- !u!114 &11429384
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136036}
+  m_GameObject: {fileID: 134776}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daafdb337c55ace4093b975344ed41fa, type: 3}
@@ -183,9 +242,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 2
   damage: 1
-  healthbar: {fileID: 0}
+  HealthBarObject: {fileID: 118034, guid: 5dbf39231c6683642b9aed15dda4b39c, type: 2}
   deathTime: 10
   takeDamageRate: 0
+  healthbarOffset: {x: -0.75, y: 1, z: 0}
   climbingSpeed: 1
   walkingSpeed: 3
   target: {fileID: 0}
@@ -193,12 +253,23 @@ MonoBehaviour:
   damagingDistance: 5
   lifeDropChance: 0.1
   dropLife: {fileID: 103118, guid: 735fe10eb398b0244ba3106027003abb, type: 2}
---- !u!212 &21274152
+--- !u!114 &11465008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f8be9266aa945544b3d5d7b5a54d073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!212 &21211482
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 136036}
+  m_GameObject: {fileID: 134776}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -232,5 +303,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 136036}
+  m_RootGameObject: {fileID: 134776}
   m_IsPrefabParent: 1

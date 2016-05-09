@@ -2,14 +2,16 @@
 
 public class FollowTarget : MonoBehaviour {
 
-    [SerializeField] private GameObject target;
-    [SerializeField] private Vector3 offset;
+    private GameObject target;
+    private Vector3 offset;
 
-    void Awake () {
-        target = GameObject.FindWithTag("Player");
-	}
 
 	void Update () {
         transform.position = target.transform.position + offset;
 	}
+
+    public void AssignTarget(GameObject target, Vector3 offset) {
+        this.target = target;
+        this.offset = offset;
+    } 
 }

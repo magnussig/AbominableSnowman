@@ -11,6 +11,8 @@ TagManager:
   - GUI
   - HealthPoint
   - HikingBoundary
+  - Trap
+  - PopUpCanvas
   layers:
   - Default
   - TransparentFX
