@@ -57,6 +57,7 @@ public class TrapPlacementScript : MonoBehaviour {
                 sprites[i].material.color = originalColor[i];
 
             trap.isEnabled = true;
+            //this.gameObject.
             Destroy(this);
         }
     }

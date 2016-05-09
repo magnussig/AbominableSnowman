@@ -6,6 +6,7 @@ public class TrapMenuController : MonoBehaviour {
     public GameObject blizzard;
     public void Clicked()
     {
+        Instantiate(blizzard);
         blizzard.SetActive(true);
         Debug.Log("haaalkdsjflkajdsflkajslkfajlkdsa");
         GameObject.Find("Enemy");
