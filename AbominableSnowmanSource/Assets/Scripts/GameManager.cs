@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -21,6 +22,11 @@ public class GameManager : MonoBehaviour {
         get { return score; }
     }
 
+    public Text waveText;
+    public Text hazardText;
+    public Text newWave;
+    public float Wait;
+
     private CharacterController player;
     //public GameObject trapLayingMenu;
     private Camera mainCamera;
@@ -40,6 +46,8 @@ public class GameManager : MonoBehaviour {
         isWaiting = false;
         waveCount = 1;
         score = 0;
+        newWave.text = "";
+        updateCounters();
         FloatingTextController.Initialize();
         StartCoroutine(NextSpawnWave());
 	}
@@ -81,6 +89,7 @@ public class GameManager : MonoBehaviour {
 
         isWaveStarted = false;
         waveCount++;
+        updateCounters();
         yield return WaitForNextSpawnWave();
     }
 
@@ -98,8 +107,13 @@ public class GameManager : MonoBehaviour {
         cs.IsFollowingPlayer = false;
 
         // wait until the waiting time has run out
-        yield return new WaitForSeconds(WaveWait);
-
+        Wait = WaveWait;
+        while (Wait >= 0)
+        {
+            newWave.text = "Next Wave Starts In " + Wait.ToString();
+            Wait--;
+            yield return new WaitForSeconds(1);
+        }
         // Move the camera back to the player
         cs.IsFollowingPlayer = true;
 
@@ -107,6 +121,7 @@ public class GameManager : MonoBehaviour {
         yield return new WaitUntil(new System.Func<bool>(isCameraAtPlayer));
 
         // Enable the player, the next spawn wave is about to start!
+        newWave.text = "";
         player.enabled = true;
         isWaiting = false;
     }
@@ -125,5 +140,13 @@ public class GameManager : MonoBehaviour {
 
     public void addToScore(int add) {
         score += add;
+        updateCounters();
     }
+
+    public void updateCounters()
+    {
+        waveText.text = "Wave : " + waveCount.ToString();
+        hazardText.text = "Hazard Points : " + score.ToString();
+    }
+ 
 }
