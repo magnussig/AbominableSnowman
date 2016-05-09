@@ -2,8 +2,13 @@
 using System.Collections;
 
 public class TrapMenuController : MonoBehaviour {
-    public void OnClick()
+    
+    public GameObject blizzard;
+    public void Clicked()
     {
+        blizzard.SetActive(true);
+        Debug.Log("haaalkdsjflkajdsflkajslkfajlkdsa");
+        GameObject.Find("Enemy");
         /*String
         if (objectClicked.Equals("Blizzard"))
         {
