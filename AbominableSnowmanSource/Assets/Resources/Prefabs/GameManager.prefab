@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 496846}
   - 114: {fileID: 11453460}
-  - 82: {fileID: 8211648}
+  - 82: {fileID: 8225120}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -29,7 +29,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!82 &8211648
+--- !u!82 &8225120
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -38,7 +38,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 101169cc86d77cb4aada0edad1202983, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -117,11 +117,22 @@ MonoBehaviour:
   spawnbeginX: -13
   spawnEndX: 13
   spawnY: -12
-  SpawnRate: 3
+  SwarmSpawnRate: 1.5
+  CalmSpawnRate: 5
+  SwarmThreshold: 10
+  CalmThreshold: 5
+  FastEnemyChance: 1
   WaveWait: 10
   numberOfEnemies: 10
   addEnemiesBetweenWaves: 10
+  fightSong: {fileID: 8300000, guid: 101169cc86d77cb4aada0edad1202983, type: 3}
+  trapSong: {fileID: 8300000, guid: 564844455185ff646b2f3e9dea0e6d8d, type: 3}
   enemy: {fileID: 134776, guid: 651d3c278838d4a45ad2d9b22121974c, type: 2}
+  waveText: {fileID: 0}
+  hazardText: {fileID: 0}
+  newWave: {fileID: 0}
+  Wait: 0
+  TrapMenu: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

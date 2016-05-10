@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
+
+[RequireComponent(typeof(AudioSource))]
 public class GameManager : MonoBehaviour {
 
     // Spawn cords
@@ -10,14 +12,19 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private float spawnY;
 
     // Spawn wave variables
-    [SerializeField] private float SpawnRate;
+    [SerializeField] private float SwarmSpawnRate;
+    [SerializeField] private float CalmSpawnRate;
+    [SerializeField] private float SwarmThreshold;
+    [SerializeField] private float CalmThreshold;
+    [SerializeField] private float FastEnemyChance;
     [SerializeField] private float WaveWait;
     [SerializeField] private int numberOfEnemies;
     [SerializeField] private int addEnemiesBetweenWaves;
 
     // Audio
-    public AudioSource fightSong;
-    public AudioSource trapSong;
+    [SerializeField] private AudioClip fightSong;
+    [SerializeField] private AudioClip trapSong;
+    private AudioSource audioSource;
 
     // Enemy
     [SerializeField] private GameObject enemy;
@@ -39,50 +46,47 @@ public class GameManager : MonoBehaviour {
     private int enemiesKilled;
     private int waveCount;
     private int score;
-
-    private float fastEnemyChance = 0;
-    private float calmThreshold = 4;
-    private float swarmedThreshold = 10;
-    private float swarmSpawnRate = 1.5f;
-    private float calmSpawnRate = 3f;
+    private float SpawnRate;
     private int numberOfEnemiesSpawned = 0;
 
     void Start () {
+
+        audioSource = GetComponent<AudioSource>();
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+
         cs = Camera.main.GetComponent<CameraScript>();
+
         isWaveStarted = false;
+
         isWaiting = false;
+
         waveCount = 1;
+
         score = 0;
+
         newWave.text = "";
+
         updateCounters();
+
         FloatingTextController.Initialize();
 
         StartCoroutine(NextSpawnWave());
-        StartCoroutine(ThresholdholdCheck());
+
+        StartCoroutine(ThresholdManage());
 	}
 
 	void Update () {
-        
-        //mute
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (fightSong.mute)
-            {
-                fightSong.mute = false;
-                AudioListener.volume = 0.0F;
-            }
-            else
-                fightSong.mute = true;
-        }
-
+        updateCounters();
         if (isWaveStarted || isWaiting) return;
+
         StartCoroutine(NextSpawnWave());
     }
 
     IEnumerator NextSpawnWave()
     {
-        fightSong.PlayDelayed(.3f);
+        ChangeMusic(fightSong);
+
         TrapMenu.SetActive(false);
 
         isWaveStarted = true;
@@ -100,16 +104,16 @@ public class GameManager : MonoBehaviour {
         isWaveStarted = false;
         waveCount++;
         updateCounters();
-        fightSong.Stop();
         yield return WaitForNextSpawnWave();
     }
 
     IEnumerator WaitForNextSpawnWave() {
-        trapSong.PlayDelayed(0.3f);
-        // show trap laying menu:
-        TrapMenu.SetActive(true);
+        ChangeMusic(trapSong);
 
         isWaiting = true;
+
+        // show trap laying menu:
+        TrapMenu.SetActive(true);
 
         // Disable the player while waiting
         player.enabled = false;
@@ -119,12 +123,12 @@ public class GameManager : MonoBehaviour {
 
         // wait until the waiting time has run out
         Wait = WaveWait;
-        while (Wait >= 0)
-        {
+        while (Wait >= 0) {
             newWave.text = "Next Wave Starts In " + Wait.ToString();
             Wait--;
             yield return new WaitForSeconds(1);
         }
+
         // Move the camera back to the player
         cs.IsFollowingPlayer = true;
 
@@ -135,18 +139,15 @@ public class GameManager : MonoBehaviour {
         newWave.text = "";
         player.enabled = true;
         isWaiting = false;
-
-        trapSong.Stop();
-       // GameObject.Find("jdkfjs");
     }
 
-    IEnumerator ThresholdholdCheck() {
+    IEnumerator ThresholdManage() {
         while (true)
         {
-            if (numberOfEnemiesSpawned < calmThreshold)
-                SpawnRate = swarmSpawnRate;
-            else if (numberOfEnemiesSpawned > swarmedThreshold)
-                SpawnRate = calmThreshold;
+            if (numberOfEnemiesSpawned < CalmThreshold)
+                SpawnRate = SwarmSpawnRate;
+            else if (numberOfEnemiesSpawned > SwarmThreshold)
+                SpawnRate = CalmThreshold;
             yield return new WaitForSeconds(5);
         }
     }
@@ -156,24 +157,22 @@ public class GameManager : MonoBehaviour {
         Quaternion spawnRotation = Quaternion.identity;
         EnemyController enemyControl = ((GameObject)Instantiate(enemy, spawnPosition, spawnRotation)).GetComponent<EnemyController>();
 
-        if (Random.Range(0f, 100f) < fastEnemyChance)
+        if (Random.Range(0f, 100f) < FastEnemyChance)
             enemyControl.SetClimbingSpeed(3);
     }
 
     void UpdateSpawnVariables() {
-        if (swarmSpawnRate >= 1.5f && waveCount % 2 == 0) {
-            swarmSpawnRate -= .25f;
-            calmSpawnRate += .10f;
-            calmThreshold += 2;
-            swarmedThreshold += 2;
-            
+        if (waveCount % 5 == 0)
+        {
+            SwarmThreshold += 5;
+            CalmThreshold += 2;
+            SwarmSpawnRate -= SwarmSpawnRate >= 1f ? .25f : 0f;
+            CalmSpawnRate -= CalmSpawnRate >= 2f ? .25f : 0f;
         }
         else {
+            FastEnemyChance += FastEnemyChance <= 25f ? 1f : 0f;
             numberOfEnemies += addEnemiesBetweenWaves;
-            addEnemiesBetweenWaves += 2;
         }
-
-        fastEnemyChance += fastEnemyChance < 25f ? 1f : 0;
     }
 
     public void IncrementKillCounter() {
@@ -205,5 +204,10 @@ public class GameManager : MonoBehaviour {
         deduct = deduct < 0 ? deduct : -deduct;
         FloatingTextController.CreateFloatingText(deduct, location);
         score += deduct;
+    }
+
+    void ChangeMusic(AudioClip musicClip) {
+        audioSource.clip = musicClip;
+        audioSource.Play();
     }
 }
