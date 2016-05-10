@@ -32,8 +32,14 @@ public class TrapPlacementScript : MonoBehaviour {
         // make gameobject follow mouse
         Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        gameObject.transform.position = new Vector3(position.x, position.y, 0);
-        
+        if (gm.Wait <= -1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            gameObject.transform.position = new Vector3(position.x, position.y, 0);
+        }
 	}
 
     void OnTriggerStay2D(Collider2D other) {
