@@ -25,9 +25,8 @@ public class DamageEnemyByContact : MonoBehaviour {
             int direction = transform.position.x - enemy.transform.position.x > 0 ? 1 : -1;
             rb.velocity = new Vector2(direction * 1, 2);
 
-            // pop up score text and update to game manager
-            FloatingTextController.CreateFloatingText(scoreForHit.ToString(), enemy.gameObject.transform);
-            gm.addToScore(scoreForHit);
+            // update game manager score
+            gm.addToScore(scoreForHit, enemy.gameObject.transform);
             scoreForHit += deltaScore;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -6,6 +7,7 @@ public class CharacterController : GameCharacter {
 
     [SerializeField] private GameObject objectSlot;
     [SerializeField] private GameObject throwableObject;
+    [SerializeField] private int dashCost;
     [SerializeField] private float pickUpRate;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float throwForce = 20f;
@@ -15,12 +17,15 @@ public class CharacterController : GameCharacter {
     private bool facingRight = false;
     private bool isHoldingObject = false;
     private float nextPickUpTime;
-    private volatile bool isThrowing = false;
-    private volatile bool isAttacking = false;
+    private bool isThrowing = false;
+    private bool isAttacking = false;
+    private bool isDashing = false;
     private AudioSource audioS;
     private HitBox hitbox;
+    private GameManager gm;
     private float attackRate;
     private float nextAttack = 0;
+    private float dashAnimLength;
 
     new void Start () {
         base.Start();
@@ -37,6 +42,7 @@ public class CharacterController : GameCharacter {
         isDead = false;
 
         hitbox = GetComponentInChildren<HitBox>();
+        gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 
 #if UNITY_EDITOR
         UnityEditor.Animations.AnimatorController ac = anim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
@@ -44,20 +50,25 @@ public class CharacterController : GameCharacter {
         foreach (AnimationClip animClip in ac.animationClips) {
             if (animClip.name == "punch")
                 attackRate = animClip.length;
+            else if (animClip.name == "Dash")
+                dashAnimLength = animClip.length;
         }
 #endif
     }
 
     void Update() {
-        Debug.Log("isAttacking: " + isAttacking + ", isThrowing: " + isThrowing + ", isHolding: " + isHoldingObject);
+        //Debug.Log("isAttacking: " + isAttacking + ", isThrowing: " + isThrowing + ", isHolding: " + isHoldingObject);
         if (isDead || isThrowing || isAttacking) return;
 
         if (Input.GetKeyDown(KeyCode.E))
             PickUpRock();
+        else if (isDashing) return;
         else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
             Throw();
         else if (Input.GetKeyDown(KeyCode.Space) && canAttack())
             Attack();
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && gm.Score >= dashCost)
+            StartCoroutine(Dash());
 
         //mute
         if (Input.GetKeyDown(KeyCode.M))
@@ -115,6 +126,17 @@ public class CharacterController : GameCharacter {
         isAttacking = true;
         nextAttack = Time.time + attackRate;
         anim.SetTrigger("Attack");
+    }
+
+     IEnumerator Dash() {
+        gm.deductFromScore(dashCost, transform);
+        isDashing = true;
+        float speed = maxSpeed;
+        maxSpeed = 8;
+        anim.SetTrigger("Dash");
+        yield return new WaitForSeconds(dashAnimLength);
+        maxSpeed = speed;
+        isDashing = false;
     }
 
     void resizeHeldObject(GameObject holding) {

@@ -247,7 +247,7 @@ MonoBehaviour:
   takeDamageRate: 0
   healthbarOffset: {x: -0.75, y: 1, z: 0}
   climbingSpeed: 1
-  walkingSpeed: 3
+  walkingSpeed: 5
   target: {fileID: 0}
   attackDistance: 2
   damagingDistance: 5

@@ -18,4 +18,8 @@ public class FloatingText : MonoBehaviour {
     public void SetText(string text) {
         popupText.text = text;
     }
+
+    public void SetColor(Color p_color) {
+        popupText.color = p_color;
+    }
 }

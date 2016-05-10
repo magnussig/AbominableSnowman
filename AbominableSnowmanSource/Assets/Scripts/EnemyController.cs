@@ -15,6 +15,8 @@ public class EnemyController : GameCharacter {
     private bool isHit;
     private bool facingRight = true;
     private int collidercount = 0;
+    private float attackRate;
+    private float nextAttack;
     private AudioSource audioS;
     private Collider2D climbingTrigger;
     private List<Collider2D> collisionColliders;
@@ -62,15 +64,31 @@ public class EnemyController : GameCharacter {
 
         hitbox = GetComponentInChildren<HitBox>();
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+
+        HealthBarObject.SetActive(false);
+
+#if UNITY_EDITOR
+        UnityEditor.Animations.AnimatorController ac = anim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+
+        foreach (AnimationClip animClip in ac.animationClips)
+        {
+            if (animClip.name == "Climber_Attack")
+                attackRate = animClip.length;
+        }
+#endif
+
+        nextAttack = Time.time;
+
     }
 
     void Update() {
-        if (isDead || isAttacking || isHit) return;
+        //Debug.Log("isAttacking: " + isAttacking + " AttackRate: " + attackRate);
+        if (isDead || isHit) return;
         else if (climbing)
             Climb();
         else if (DistanceFromTarget() > attackDistance)
             MoveToTarget();
-        else
+        else if(!isAttacking)
             Attack();
 
         //mute
@@ -113,6 +131,8 @@ public class EnemyController : GameCharacter {
             // Enable collisions
             EnableCollisionColliders(true);
 
+            HealthBarObject.SetActive(true);
+
             // We no longer need the climbing trigger
             Destroy(climbingTrigger);
         }
@@ -146,23 +166,26 @@ public class EnemyController : GameCharacter {
     }
 
     void Attack() {
-        rb.velocity = Vector2.zero;
-        anim.SetFloat("Speed", 0);
+        if (Time.time >= nextAttack) {
+            nextAttack = Time.time + attackRate;
+            isAttacking = true;
+            rb.velocity = Vector2.zero;
+            anim.SetFloat("Speed", 0);
 
-        anim.SetTrigger("Attack");
+            anim.SetTrigger("Attack");
+        }
     }
 
     /*
     This function is called by the attack animation
     */
-    void triggerIsAttacking()
-    {
+    void triggerIsAttacking() {
         isAttacking = !isAttacking;
+    }
 
-        if (!isAttacking) {
-            foreach (GameCharacter ch in hitbox.GetEnemiesToDamage())
-                ch.TakeDamage(damage, transform);
-        }
+    void HitTargets() {
+        foreach (GameCharacter ch in hitbox.GetEnemiesToDamage())
+            ch.TakeDamage(damage, transform);
     }
 
     protected override void Die() {
@@ -202,5 +225,9 @@ public class EnemyController : GameCharacter {
     IEnumerator DropLife() {
         yield return new WaitForSeconds(2);
         Instantiate(dropLife, transform.position, Quaternion.identity);
+    }
+
+    public void SetClimbingSpeed(float speed) {
+        climbingSpeed = speed;
     }
 }

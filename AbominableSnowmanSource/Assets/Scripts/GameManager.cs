@@ -23,25 +23,31 @@ public class GameManager : MonoBehaviour {
 
     private CharacterController player;
     //public GameObject trapLayingMenu;
-    private Camera mainCamera;
-    private bool isMainCameraEnabled = true;
+    private CameraScript cs;
     private bool isWaveStarted;
     private bool isWaiting;
     private int enemiesKilled;
     private int waveCount;
     private int score;
+    private float fastEnemyChance = 0;
+    private float calmThreshold = 4;
+    private float swarmedThreshold = 10;
+    private float swarmSpawnRate = 1.5f;
+    private float calmSpawnRate = 3f;
+    private int numberOfEnemiesSpawned = 0;
     private AudioSource audioS;
 
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
         audioS = GetComponent<AudioSource>();
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        cs = Camera.main.GetComponent<CameraScript>();
         isWaveStarted = false;
         isWaiting = false;
         waveCount = 1;
         score = 0;
         FloatingTextController.Initialize();
         StartCoroutine(NextSpawnWave());
+        StartCoroutine(ThresholdholdCheck());
 	}
 
 	void Update () {
@@ -67,17 +73,13 @@ public class GameManager : MonoBehaviour {
         enemiesKilled = 0;
 
         for (int i = 0; i < numberOfEnemies; i++) {
-            Vector2 spawnPosition = new Vector2(Random.Range(spawnbeginX, spawnEndX), spawnY);
-            Quaternion spawnRotation = Quaternion.identity;
-            Instantiate(enemy, spawnPosition, spawnRotation);
+            InstantiateEnemy();
             yield return new WaitForSeconds(SpawnRate);
         }
 
         yield return new WaitUntil(new System.Func<bool>(areAllEnemiesKilled));
 
-        numberOfEnemies += addEnemiesBetweenWaves;
-        SpawnRate -= SpawnRate > 1 ? 1f : 0.25f;
-        SpawnRate = SpawnRate <= 0 ? .25f : SpawnRate;
+        UpdateSpawnVariables();
 
         isWaveStarted = false;
         waveCount++;
@@ -92,7 +94,6 @@ public class GameManager : MonoBehaviour {
 
         // Disable the player while waiting
         player.enabled = false;
-        CameraScript cs = mainCamera.GetComponent<CameraScript>();
 
         // Release the camera so the player can place traps anywhere around
         cs.IsFollowingPlayer = false;
@@ -111,8 +112,45 @@ public class GameManager : MonoBehaviour {
         isWaiting = false;
     }
 
+    IEnumerator ThresholdholdCheck() {
+        while (true)
+        {
+            if (numberOfEnemiesSpawned < calmThreshold)
+                SpawnRate = swarmSpawnRate;
+            else if (numberOfEnemiesSpawned > swarmedThreshold)
+                SpawnRate = calmThreshold;
+            yield return new WaitForSeconds(5);
+        }
+    }
+
+    void InstantiateEnemy() {
+        Vector2 spawnPosition = new Vector2(Random.Range(spawnbeginX, spawnEndX), spawnY);
+        Quaternion spawnRotation = Quaternion.identity;
+        EnemyController enemyControl = ((GameObject)Instantiate(enemy, spawnPosition, spawnRotation)).GetComponent<EnemyController>();
+
+        if (Random.Range(0f, 100f) < fastEnemyChance)
+            enemyControl.SetClimbingSpeed(3);
+    }
+
+    void UpdateSpawnVariables() {
+        if (swarmSpawnRate >= 1.5f && waveCount % 2 == 0) {
+            swarmSpawnRate -= .25f;
+            calmSpawnRate += .10f;
+            calmThreshold += 2;
+            swarmedThreshold += 2;
+            
+        }
+        else {
+            numberOfEnemies += addEnemiesBetweenWaves;
+            addEnemiesBetweenWaves += 2;
+        }
+
+        fastEnemyChance += fastEnemyChance < 25f ? 1f : 0;
+    }
+
     public void IncrementKillCounter() {
         enemiesKilled++;
+        numberOfEnemiesSpawned--;
     }
 
     private bool areAllEnemiesKilled() {
@@ -120,10 +158,17 @@ public class GameManager : MonoBehaviour {
     }
 
     private bool isCameraAtPlayer() {
-        return mainCamera.GetComponent<CameraScript>().IsAtPlayer;
+        return cs.IsAtPlayer;
     }
 
-    public void addToScore(int add) {
+    public void addToScore(int add, Transform location) {
+        FloatingTextController.CreateFloatingText(add, location);
         score += add;
+    }
+
+    public void deductFromScore(int deduct, Transform location) {
+        deduct = deduct < 0 ? deduct : -deduct;
+        FloatingTextController.CreateFloatingText(deduct, location);
+        score += deduct;
     }
 }
