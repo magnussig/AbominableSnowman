@@ -73,7 +73,16 @@ public abstract class GameCharacter : MonoBehaviour {
     public void addHealthPoints(int health) {
         if (healthPoints == maxHealth) return;
 
-        healthPoints += health;
+        // so healthPoints don't exceed maxHealth
+        if ((healthPoints + health) >= maxHealth)
+        {
+            healthPoints = maxHealth;
+        }
+        else
+        {
+            healthPoints += health;
+        }
+        
         UpdateHealthBar();
     }
 }
