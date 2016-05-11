@@ -24,9 +24,37 @@ public class FloatingTextController : MonoBehaviour {
         screenPos.x = screenPos.x > Camera.main.pixelWidth ? Camera.main.pixelWidth - 30: screenPos.x;
         floatText.transform.position = screenPos;
 
+        Color c = Color.blue;
         if (score < 0)
-            floatText.SetColor(Color.red);
+            c = Color.red;
 
+        if (score == 20)
+        {
+            c = Color.green;
+            floatText.transform.localScale = new Vector3(2, 2, 2);
+        }
+        else if(score == 30)
+        {
+            // set c to orange
+            c = new Color(255, 165, 0);
+            floatText.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+        }
+        else if (score == 40)
+        {
+            c = Color.yellow;
+            floatText.transform.localScale = new Vector3(2.7f, 2.7f, 2.7f);
+        }
+        else if (score > 40)
+        {
+            // set c to pink
+            c = new Color(255, 192, 203);
+            floatText.transform.localScale = new Vector3(3, 3, 3);
+        }
+        if(score > 10)
+        {
+            floatText.SetColor(c);
+        }
         floatText.SetText(score.ToString());
+
     }
 }

@@ -15,11 +15,15 @@ public class EnemyController : GameCharacter {
     private bool facingRight = true;
     private float attackRate;
     private float nextAttack;
-    private AudioSource audioS;
     private Collider2D climbingTrigger;
     private List<Collider2D> collisionColliders;
     private HitBox hitbox;
     private GameManager gm;
+
+    // Audio
+    private AudioSource audioSource;
+    private AudioClip loserDeath;
+    private AudioClip wilhelmScream;
 
     [SerializeField] private float climbingSpeed;
     [SerializeField] private float walkingSpeed;
@@ -31,7 +35,10 @@ public class EnemyController : GameCharacter {
     new void Start () {
         base.Start();
 
-        audioS = GetComponent<AudioSource>();
+        // Audio
+        audioSource = GetComponent<AudioSource>();
+        wilhelmScream = Resources.Load<AudioClip>("Audio/wilhelmScream");
+        loserDeath = Resources.Load<AudioClip>("Audio/loserDeath");
 
         if (target == null)
             target = GameObject.FindWithTag("Player");
@@ -86,15 +93,6 @@ public class EnemyController : GameCharacter {
             MoveToTarget();
         else if(!isAttacking)
             Attack();
-
-        //mute
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            if (audioS.mute)
-                audioS.mute = false;
-            else
-                audioS.mute = true;
-        }
     }
 
     void Climb() {
@@ -188,13 +186,16 @@ public class EnemyController : GameCharacter {
         if (climbing) // If climbing then just let gravity pull down
         {
             rb.velocity = Vector2.zero;
-            audioS.Play();
+            PlaySound(wilhelmScream, 0);
 
             foreach (Collider2D c in GetComponents<Collider2D>())
                 c.enabled = false;
         }
         else
+        {
             anim.SetTrigger("Death");
+            PlaySound(loserDeath, 0);
+        }
 
         gm.IncrementKillCounter();
         Destroy(gameObject, deathTime);
@@ -225,5 +226,11 @@ public class EnemyController : GameCharacter {
 
     public void SetClimbingSpeed(float speed) {
         climbingSpeed = speed;
+    }
+
+    void PlaySound(AudioClip musicClip, float delay)
+    {
+        audioSource.clip = musicClip;
+        audioSource.PlayDelayed(delay);
     }
 }
