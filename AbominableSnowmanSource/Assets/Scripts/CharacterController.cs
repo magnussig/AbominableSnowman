@@ -22,19 +22,25 @@ public class CharacterController : GameCharacter {
     private bool isThrowing = false;
     private bool isAttacking = false;
     private bool isDashing = false;
-    private AudioSource audioS;
     private HitBox hitbox;
     private GameManager gm;
     private float attackRate;
     private float nextAttack = 0;
     private float dashAnimLength;
     private SpriteRenderer manabar;
+    
+    // Audio
+    private AudioSource audioSource;
+    private AudioClip deathSound;
+    private AudioClip grunt;
 
     new void Start () {
         base.Start();
         mana = maxMana;
 
-        audioS = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
+        deathSound = Resources.Load<AudioClip>("Audio/deathSound");
+        grunt = Resources.Load<AudioClip>("Audio/grunt");
 
         if (objectSlot == null)
             Debug.Log("Player object slot not found");
@@ -121,7 +127,7 @@ public class CharacterController : GameCharacter {
         isThrowing = true;
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
-        audioS.PlayDelayed(0.5f);
+        PlaySound(grunt, 0.5f);
     }
 
     void Attack() {
@@ -162,6 +168,7 @@ public class CharacterController : GameCharacter {
 
     protected override void Die() {
         anim.SetTrigger("Death");
+        PlaySound(deathSound, 0);
     }
 
     void TriggerIsThrowing() {
@@ -198,5 +205,11 @@ public class CharacterController : GameCharacter {
     void UpdateManaBar() {
         if (manabar != null)
             manabar.transform.localScale = new Vector3(((float)mana / maxMana), manabar.transform.localScale.y, manabar.transform.localScale.z);
+    }
+
+    void PlaySound(AudioClip musicClip, float delay)
+    {
+        audioSource.clip = musicClip;
+        audioSource.PlayDelayed(delay);
     }
 }
