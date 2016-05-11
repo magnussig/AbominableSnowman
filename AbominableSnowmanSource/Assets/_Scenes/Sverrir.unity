@@ -1702,6 +1702,38 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Clicked
       objectReference: {fileID: 0}
+    - target: {fileID: 155572, guid: 8385763b20128754ba45a51fdd0cbfd3, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22423356, guid: 8385763b20128754ba45a51fdd0cbfd3, type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22423356, guid: 8385763b20128754ba45a51fdd0cbfd3, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -122.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22423356, guid: 8385763b20128754ba45a51fdd0cbfd3, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 22423356, guid: 8385763b20128754ba45a51fdd0cbfd3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.21643963
+      objectReference: {fileID: 0}
+    - target: {fileID: 22423356, guid: 8385763b20128754ba45a51fdd0cbfd3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.976296
+      objectReference: {fileID: 0}
+    - target: {fileID: 22423356, guid: 8385763b20128754ba45a51fdd0cbfd3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22423356, guid: 8385763b20128754ba45a51fdd0cbfd3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8385763b20128754ba45a51fdd0cbfd3, type: 2}
   m_IsPrefabParent: 0
