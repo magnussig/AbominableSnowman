@@ -8,12 +8,14 @@ public class CharacterController : GameCharacter {
     [SerializeField] private GameObject objectSlot;
     [SerializeField] private GameObject throwableObject;
     [SerializeField] private int dashCost;
+    [SerializeField] private int maxMana;
+    [SerializeField] private int ManaRegenerationPerSecond;
     [SerializeField] private float pickUpRate;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float throwForce = 20f;
-    [SerializeField] private float damagingDistance = 1f;
 
     public bool CanPickUpRocks {get; set;}
+    private int mana;
     private bool facingRight = false;
     private bool isHoldingObject = false;
     private float nextPickUpTime;
@@ -26,9 +28,12 @@ public class CharacterController : GameCharacter {
     private float attackRate;
     private float nextAttack = 0;
     private float dashAnimLength;
+    private SpriteRenderer manabar;
 
     new void Start () {
         base.Start();
+        mana = maxMana;
+
         audioS = GetComponent<AudioSource>();
 
         if (objectSlot == null)
@@ -54,30 +59,27 @@ public class CharacterController : GameCharacter {
                 dashAnimLength = animClip.length;
         }
 #endif
+
+        foreach (Transform child in HealthBarObject.transform) {
+            if (child.name == "manabar")
+                manabar = child.GetComponent<SpriteRenderer>();
+        }
+
+        StartCoroutine(ManaRegeneration());
     }
 
     void Update() {
-        //Debug.Log("isAttacking: " + isAttacking + ", isThrowing: " + isThrowing + ", isHolding: " + isHoldingObject);
         if (isDead || isThrowing || isAttacking) return;
 
         if (Input.GetKeyDown(KeyCode.E))
             PickUpRock();
         else if (isDashing) return;
-        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && isHoldingObject)
             Throw();
-        else if (Input.GetKeyDown(KeyCode.Space) && canAttack())
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && canAttack())
             Attack();
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && gm.Score >= dashCost)
+        else if (Input.GetKeyDown(KeyCode.Space) && mana >= dashCost)
             StartCoroutine(Dash());
-
-        //mute
-        if (Input.GetKeyDown(KeyCode.M))
-        { 
-            if (audioS.mute)
-                audioS.mute = false;
-            else
-                audioS.mute = true;
-        }
 }
 	
 	void FixedUpdate () {
@@ -129,7 +131,8 @@ public class CharacterController : GameCharacter {
     }
 
      IEnumerator Dash() {
-        gm.deductFromScore(dashCost, transform);
+        mana -= dashCost;
+        UpdateManaBar();
         isDashing = true;
         float speed = maxSpeed;
         maxSpeed = 8;
@@ -182,5 +185,18 @@ public class CharacterController : GameCharacter {
                 enemy.TakeDamage(damage, transform);
                 
         }
+    }
+
+    IEnumerator ManaRegeneration() {
+        while (true) {
+            mana += maxMana - mana < ManaRegenerationPerSecond ? maxMana - mana : ManaRegenerationPerSecond;
+            UpdateManaBar();
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    void UpdateManaBar() {
+        if (manabar != null)
+            manabar.transform.localScale = new Vector3(((float)mana / maxMana), manabar.transform.localScale.y, manabar.transform.localScale.z);
     }
 }

@@ -161,21 +161,19 @@ public class GameManager : MonoBehaviour {
         EnemyController enemyControl = ((GameObject)Instantiate(enemy, spawnPosition, spawnRotation)).GetComponent<EnemyController>();
 
         if (Random.Range(0f, 100f) < FastEnemyChance)
-            enemyControl.SetClimbingSpeed(3);
+            enemyControl.SetClimbingSpeed(Random.Range(1.5f, 2.5f));
     }
 
     void UpdateSpawnVariables() {
-        if (waveCount % 5 == 0)
-        {
+        if (waveCount % 5 == 0) {
             SwarmThreshold += 5;
             CalmThreshold += 2;
             SwarmSpawnRate -= SwarmSpawnRate >= 1f ? .25f : 0f;
             CalmSpawnRate -= CalmSpawnRate >= 2f ? .25f : 0f;
         }
-        else {
-            FastEnemyChance += FastEnemyChance <= 25f ? 1f : 0f;
-            numberOfEnemies += addEnemiesBetweenWaves;
-        }
+
+        numberOfEnemies += addEnemiesBetweenWaves;
+        FastEnemyChance += FastEnemyChance <= 10f ? .5f : 0f;
     }
 
     public void IncrementKillCounter() {

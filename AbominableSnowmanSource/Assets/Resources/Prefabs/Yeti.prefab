@@ -2638,17 +2638,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 5
   damage: 1
-  HealthBarObject: {fileID: 118034, guid: 5dbf39231c6683642b9aed15dda4b39c, type: 2}
+  HealthBarObject: {fileID: 111612, guid: e2f61919900102e4b81424d2b95d951b, type: 2}
   deathTime: 0
   takeDamageRate: 0.5
   healthbarOffset: {x: -1, y: 3, z: 0}
   objectSlot: {fileID: 196300}
   throwableObject: {fileID: 145298, guid: 9e82c7e1e20c2594fbdb043e667483e3, type: 2}
   dashCost: 100
+  maxMana: 0
+  ManaRegenerationPerSecond: 0
   pickUpRate: 1
   maxSpeed: 5
   throwForce: 20
-  damagingDistance: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

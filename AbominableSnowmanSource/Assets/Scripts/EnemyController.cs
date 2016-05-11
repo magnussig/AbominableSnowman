@@ -10,11 +10,9 @@ public class EnemyController : GameCharacter {
     
     public bool IsClimbing { get { return climbing; } }
     private bool climbing;
-    private bool isFalling;
     private bool isAttacking;
     private bool isHit;
     private bool facingRight = true;
-    private int collidercount = 0;
     private float attackRate;
     private float nextAttack;
     private AudioSource audioS;
@@ -27,7 +25,6 @@ public class EnemyController : GameCharacter {
     [SerializeField] private float walkingSpeed;
     [SerializeField] private GameObject target;
     [SerializeField] private float attackDistance;
-    [SerializeField] private float damagingDistance;
     [SerializeField] private float lifeDropChance;
     [SerializeField] private GameObject dropLife;
 
@@ -45,7 +42,6 @@ public class EnemyController : GameCharacter {
 
         // The climbers spawn and starts climb
         climbing = true;
-        isFalling = false;
         isAttacking = false;
         isHit = false;
         anim.SetBool("isClimbing", true);
