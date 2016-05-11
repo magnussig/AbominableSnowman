@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Out
+  m_Name: isOut
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,11 +20,6 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: -600
-        inSlope: 154.5
-        outSlope: 154.5
-        tangentMode: 10
-      - time: 0.6666667
         value: -497
         inSlope: 154.5
         outSlope: 154.5
@@ -56,7 +51,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6666667
+    m_StopTime: 0
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -76,11 +71,6 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - time: 0
-        value: -600
-        inSlope: 154.5
-        outSlope: 154.5
-        tangentMode: 10
-      - time: 0.6666667
         value: -497
         inSlope: 154.5
         outSlope: 154.5

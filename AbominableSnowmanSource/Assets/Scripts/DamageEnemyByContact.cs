@@ -25,7 +25,7 @@ public class DamageEnemyByContact : MonoBehaviour {
             int direction = transform.position.x - enemy.transform.position.x > 0 ? 1 : -1;
             rb.velocity = new Vector2(direction * 1, 2);
 
-            // update game manager score
+            // update game manager scoreW
             gm.addToScore(scoreForHit, enemy.gameObject.transform);
             scoreForHit += deltaScore;
         }

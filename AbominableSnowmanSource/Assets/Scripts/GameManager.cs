@@ -33,24 +33,25 @@ public class GameManager : MonoBehaviour {
         get { return score; }
     }
 
-    public Text waveText;
-    public Text hazardText;
-    public Text newWave;
+    private UIManager uiManager;
+
     public float Wait;
-    public Text textWavesCompleted;
-    public Text textEnemiesKilled;
-    public Text textHazardPointsCollected;
 
     private CharacterController player;
     private CameraScript cs;
-    public GameObject TrapMenu;
     private bool isWaveStarted;
     private bool isWaiting;
     private int enemiesKilled;
+    private int totalKillCount = 0;
     private int waveCount;
     private int score;
     private float SpawnRate;
     private int numberOfEnemiesSpawned = 0;
+    private bool isPaused;
+
+    void Awake() {
+        uiManager = GameObject.FindGameObjectWithTag("GUI").GetComponent<UIManager>();
+    }
 
     void Start () {
 
@@ -64,15 +65,19 @@ public class GameManager : MonoBehaviour {
 
         isWaiting = false;
 
+        isPaused = false;
+
         waveCount = 1;
 
         score = 0;
 
-        newWave.text = "";
-
         updateCounters();
 
         FloatingTextController.Initialize();
+
+        uiManager.showGameOverPanel(false);
+        uiManager.showPauseMenu(false);
+        uiManager.showCountDown(false);
 
         StartCoroutine(NextSpawnWave());
 
@@ -80,6 +85,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
+        if (player.IsDead)
+            GameOver();
+        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P) && !player.IsDead)
+            PauseToggle();
+
         updateCounters();
         if (isWaveStarted || isWaiting) return;
 
@@ -89,8 +99,6 @@ public class GameManager : MonoBehaviour {
     IEnumerator NextSpawnWave()
     {
         ChangeMusic(fightSong);
-
-        TrapMenu.SetActive(false);
 
         isWaveStarted = true;
         enemiesKilled = 0;
@@ -112,11 +120,9 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator WaitForNextSpawnWave() {
         ChangeMusic(trapSong);
+        uiManager.showTrapMenu(true);
 
         isWaiting = true;
-
-        // show trap laying menu:
-        TrapMenu.SetActive(true);
 
         // Disable the player while waiting
         player.enabled = false;
@@ -126,20 +132,26 @@ public class GameManager : MonoBehaviour {
 
         // wait until the waiting time has run out
         Wait = WaveWait;
+        uiManager.showCountDown(true);
         while (Wait >= 0) {
-            newWave.text = "Next Wave Starts In " + Wait.ToString();
             Wait--;
-            yield return new WaitForSeconds(1);
+
+            if (Mathf.RoundToInt(Wait) >= 0) {
+                uiManager.UpdateCountDown(Mathf.RoundToInt(Wait));
+                yield return new WaitForSeconds(1);
+            }
         }
+        uiManager.showCountDown(false);
 
         // Move the camera back to the player
         cs.IsFollowingPlayer = true;
+
+        uiManager.showTrapMenu(false);
 
         // Wait until the camera has reached the player
         yield return new WaitUntil(new System.Func<bool>(isCameraAtPlayer));
 
         // Enable the player, the next spawn wave is about to start!
-        newWave.text = "";
         player.enabled = true;
         isWaiting = false;
     }
@@ -178,6 +190,7 @@ public class GameManager : MonoBehaviour {
 
     public void IncrementKillCounter() {
         enemiesKilled++;
+        totalKillCount++;
         numberOfEnemiesSpawned--;
     }
 
@@ -195,13 +208,8 @@ public class GameManager : MonoBehaviour {
         updateCounters();
     }
 
-    public void updateCounters()
-    {
-        waveText.text = "Wave : " + waveCount.ToString();
-        hazardText.text = "Hazard Points : " + score.ToString();
-        textWavesCompleted.text = "Waves Completed : " + (waveCount-1).ToString();
-        textEnemiesKilled.text = "Enemies Killed : " + enemiesKilled.ToString();
-        textHazardPointsCollected.text = "Hazard Points Collected : " + score.ToString();
+    public void updateCounters() {
+        uiManager.UpdateCounters(waveCount, score);
     }
 
     public void deductFromScore(int deduct, Transform location) {
@@ -213,5 +221,16 @@ public class GameManager : MonoBehaviour {
     void ChangeMusic(AudioClip musicClip) {
         audioSource.clip = musicClip;
         audioSource.Play();
+    }
+
+    void PauseToggle() {
+        isPaused = !isPaused;
+        uiManager.showPauseMenu(isPaused);
+        Time.timeScale = isPaused ? 0f : 1f;
+    }
+
+    void GameOver() {
+        uiManager.showGameOverPanel(true);
+        uiManager.SetGameOverStats(waveCount, totalKillCount, score);
     }
 }
