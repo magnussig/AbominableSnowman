@@ -242,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 2
   damage: 1
-  HealthBarObject: {fileID: 118034, guid: 5dbf39231c6683642b9aed15dda4b39c, type: 2}
+  HealthBarObject: {fileID: 190780, guid: 7fe6178ed09ab514591ee6604b25b86b, type: 2}
   deathTime: 10
   takeDamageRate: 0
   healthbarOffset: {x: -0.75, y: 1, z: 0}
