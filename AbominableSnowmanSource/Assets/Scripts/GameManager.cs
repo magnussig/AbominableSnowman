@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour {
     public Text hazardText;
     public Text newWave;
     public float Wait;
+    public Text textWavesCompleted;
+    public Text textEnemiesKilled;
+    public Text textHazardPointsCollected;
 
     private CharacterController player;
     private CameraScript cs;
@@ -196,6 +199,9 @@ public class GameManager : MonoBehaviour {
     {
         waveText.text = "Wave : " + waveCount.ToString();
         hazardText.text = "Hazard Points : " + score.ToString();
+        textWavesCompleted.text = "Waves Completed : " + (waveCount-1).ToString();
+        textEnemiesKilled.text = "Enemies Killed : " + enemiesKilled.ToString();
+        textHazardPointsCollected.text = "Hazard Points Collected : " + score.ToString();
     }
 
     public void deductFromScore(int deduct, Transform location) {
