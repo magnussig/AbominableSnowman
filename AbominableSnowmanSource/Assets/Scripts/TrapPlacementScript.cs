@@ -32,7 +32,7 @@ public class TrapPlacementScript : MonoBehaviour {
         // make gameobject follow mouse
         Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (gm.Wait <= -1)
+        if (gm.Wait <= 0)
         {
             Destroy(gameObject);
         }

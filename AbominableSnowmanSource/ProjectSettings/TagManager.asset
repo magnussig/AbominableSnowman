@@ -13,6 +13,7 @@ TagManager:
   - HikingBoundary
   - Trap
   - PopUpCanvas
+  - Instruction
   layers:
   - Default
   - TransparentFX
