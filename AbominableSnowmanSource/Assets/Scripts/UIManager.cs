@@ -17,10 +17,13 @@ public class UIManager : MonoBehaviour {
 
     private bool isGameOverShowing;
     private bool isPauseMenuShowing;
+    private InstructionsController instructionController;
     private Animator anim;
 
     void Start() {
         anim = GetComponent<Animator>();
+        instructionController = GameObject.FindGameObjectWithTag("Instruction").GetComponent<InstructionsController>();
+        instructionController.gameObject.SetActive(false);
     }
 
     public void showGameOverPanel(bool show) {
@@ -63,5 +66,14 @@ public class UIManager : MonoBehaviour {
         GameOverWave.text = "Wave: " + wave;
         GameOverKillCount.text = "Enemies killed: " + killed;
         GameOverScore.text = "Score: " + score;
+    }
+
+    public void ShowInstruction(string instruction) {
+        instructionController.gameObject.SetActive(true);
+        instructionController.ShowInstruction(instruction);
+    }
+
+    public void UnShowInstruction() {
+        instructionController.gameObject.SetActive(false);
     }
 }
