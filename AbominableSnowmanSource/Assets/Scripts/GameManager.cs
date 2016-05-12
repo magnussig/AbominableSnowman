@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour {
     private bool isWaiting;
     private int enemiesKilled;
     private int totalKillCount = 0;
-    private int waveCount;
-    private int score;
+    public int waveCount;
+    [SerializeField] private int score;
     private float SpawnRate;
     private int numberOfEnemiesSpawned = 0;
     private bool isPaused;
