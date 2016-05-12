@@ -13,6 +13,8 @@ public class CharacterController : GameCharacter {
     [SerializeField] private float pickUpRate;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float throwForce = 20f;
+    [SerializeField] private Motion attackAnim;
+    [SerializeField] private Motion dashAnim;
 
     public bool CanPickUpRocks {get; set;}
     private int mana;
@@ -25,8 +27,8 @@ public class CharacterController : GameCharacter {
     private HitBox hitbox;
     private GameManager gm;
     private float attackRate;
-    private float nextAttack = 0;
-    private float dashAnimLength;
+    [SerializeField] private float nextAttack = 0;
+    [SerializeField] private float dashAnimLength;
     private SpriteRenderer manabar;
     
     // Audio
@@ -54,17 +56,6 @@ public class CharacterController : GameCharacter {
 
         hitbox = GetComponentInChildren<HitBox>();
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-
-#if UNITY_EDITOR
-        UnityEditor.Animations.AnimatorController ac = anim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
-
-        foreach (AnimationClip animClip in ac.animationClips) {
-            if (animClip.name == "punch")
-                attackRate = animClip.length;
-            else if (animClip.name == "Dash")
-                dashAnimLength = animClip.length;
-        }
-#endif
 
         foreach (Transform child in HealthBarObject.transform) {
             if (child.name == "manabar")

@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private bool areAllEnemiesKilled() {
-        return enemiesKilled == numberOfEnemies;
+        return enemiesKilled >= numberOfEnemies;
     }
 
     private bool isCameraAtPlayer() {

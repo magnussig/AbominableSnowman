@@ -2644,12 +2644,16 @@ MonoBehaviour:
   healthbarOffset: {x: -1, y: 3, z: 0}
   objectSlot: {fileID: 196300}
   throwableObject: {fileID: 145298, guid: 9e82c7e1e20c2594fbdb043e667483e3, type: 2}
-  dashCost: 100
-  maxMana: 0
-  ManaRegenerationPerSecond: 0
+  dashCost: 20
+  maxMana: 100
+  ManaRegenerationPerSecond: 2
   pickUpRate: 1
   maxSpeed: 5
   throwForce: 20
+  attackAnim: {fileID: 7400000, guid: 397f59b59d509a445901056d19fcca9e, type: 2}
+  dashAnim: {fileID: 7400000, guid: c3c70b30788155e439c3848a30d62d9f, type: 2}
+  nextAttack: 0.725
+  dashAnimLength: 1.113
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

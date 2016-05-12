@@ -13,7 +13,6 @@ public class EnemyController : GameCharacter {
     private bool isAttacking;
     private bool isHit;
     private bool facingRight = true;
-    private float attackRate;
     private float nextAttack;
     private Collider2D climbingTrigger;
     private List<Collider2D> collisionColliders;
@@ -31,6 +30,7 @@ public class EnemyController : GameCharacter {
     [SerializeField] private float attackDistance;
     [SerializeField] private float lifeDropChance;
     [SerializeField] private GameObject dropLife;
+    [SerializeField] private float attackRate;
 
     new void Start () {
         base.Start();
@@ -69,16 +69,6 @@ public class EnemyController : GameCharacter {
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
 
         HealthBarObject.SetActive(false);
-
-#if UNITY_EDITOR
-        UnityEditor.Animations.AnimatorController ac = anim.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
-
-        foreach (AnimationClip animClip in ac.animationClips)
-        {
-            if (animClip.name == "Climber_Attack")
-                attackRate = animClip.length;
-        }
-#endif
 
         nextAttack = Time.time;
 

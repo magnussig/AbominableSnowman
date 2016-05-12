@@ -36,6 +36,9 @@ public abstract class GameCharacter : MonoBehaviour {
 
         HealthBarObject = (GameObject)Instantiate(HealthBarObject, transform.position, Quaternion.identity);
 
+        if (HealthBarObject == null)
+            Destroy(gameObject);
+
         HealthBarObject.GetComponent<FollowTarget>().AssignTarget(gameObject, healthbarOffset);
 
         foreach (Transform child in HealthBarObject.transform) {

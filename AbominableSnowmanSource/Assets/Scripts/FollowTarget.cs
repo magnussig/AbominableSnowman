@@ -5,7 +5,6 @@ public class FollowTarget : MonoBehaviour {
     private GameObject target;
     private Vector3 offset;
 
-
 	void Update () {
         transform.position = target.transform.position + offset;
 	}

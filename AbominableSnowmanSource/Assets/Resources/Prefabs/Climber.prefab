@@ -250,9 +250,9 @@ MonoBehaviour:
   walkingSpeed: 5
   target: {fileID: 0}
   attackDistance: 2
-  damagingDistance: 5
   lifeDropChance: 0.1
   dropLife: {fileID: 103118, guid: 735fe10eb398b0244ba3106027003abb, type: 2}
+  attackRate: 2.067
 --- !u!114 &11465008
 MonoBehaviour:
   m_ObjectHideFlags: 1
