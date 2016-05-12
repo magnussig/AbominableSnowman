@@ -8,27 +8,46 @@ public class TrapMenuController : MonoBehaviour
     public GameObject blizzard;
     [SerializeField]    private int healthPoints;
     private GameManager gm;
-    private GameObject player;
+    private CharacterController player;
+    private Transform t;
 
     void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+        t = player.transform;
+
     }
 
     public void Clicked(string objectClicked)
     {
-        Debug.Log("inside clicked bra " + objectClicked);
-        CharacterController player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
         if (objectClicked == "Blizzard")
         {
-            Instantiate(blizzard);
-            //deduct from score inside TrapPlacementScript to get mouse position
+            // Make sure player affords buying a blizzard
+            if(gm.Score - 200 >= 0)
+            {
+                //deduct from score inside TrapPlacementScript to get mouse position
+                Instantiate(blizzard);
+            }            
+            else
+            {
+                //notify:
+                //FloatingTextController.CreateFloatingText(0, t, true);
+            }
         }
         else if (objectClicked == "Health")
         {
-            player.addHealthPoints(healthPoints);
-
-            gm.deductFromScore(100, transform);
+            // Make sure player affords buying health
+            if (gm.Score - 100 >= 0)
+            {
+                player.addHealthPoints(healthPoints);
+                gm.deductFromScore(100, transform);
+            }
+            else
+            {
+                //notify:
+                //FloatingTextController.CreateFloatingText(0, t, true);
+            }            
         }
     }
 }
