@@ -168,7 +168,7 @@ public class EnemyController : GameCharacter {
     }
 
     void HitTargets() {
-        foreach (GameCharacter ch in hitbox.GetEnemiesToDamage())
+        foreach (CharacterController ch in hitbox.GetEnemiesToDamage())
             ch.TakeDamage(damage, transform);
     }
 

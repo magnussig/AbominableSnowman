@@ -13,8 +13,8 @@ public class CharacterController : GameCharacter {
     [SerializeField] private float pickUpRate;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float throwForce = 20f;
-    [SerializeField] private Motion attackAnim;
-    [SerializeField] private Motion dashAnim;
+    [SerializeField] private float blockReductionRate;
+    [SerializeField] private int blockCost;
 
     public bool CanPickUpRocks {get; set;}
     private int mana;
@@ -24,6 +24,7 @@ public class CharacterController : GameCharacter {
     private bool isThrowing = false;
     private bool isAttacking = false;
     private bool isDashing = false;
+    private bool isBlocking = false;
     private HitBox hitbox;
     private GameManager gm;
     private float attackRate;
@@ -66,9 +67,10 @@ public class CharacterController : GameCharacter {
     }
 
     void Update() {
+        Debug.Log("isDead: " + isDead + "isThrowing: " + isThrowing + "isAttacking: " + isAttacking + "isBlocking: " + isBlocking);
         if (isDead || isThrowing || isAttacking) return;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !isBlocking)
             PickUpRock();
         else if (isDashing) return;
         else if (Input.GetKeyDown(KeyCode.Mouse0) && isHoldingObject)
@@ -77,10 +79,12 @@ public class CharacterController : GameCharacter {
             Attack();
         else if (Input.GetKeyDown(KeyCode.Space) && mana >= dashCost)
             StartCoroutine(Dash());
-}
+        else if (!isBlocking && Input.GetKey(KeyCode.Mouse1) && mana >= blockCost)
+            StartCoroutine(Block());
+    }
 	
 	void FixedUpdate () {
-        if (isDead || isThrowing) return;
+        if (isDead || isThrowing || isBlocking) return;
 
         float move = Input.GetAxis("Horizontal");
 
@@ -202,5 +206,42 @@ public class CharacterController : GameCharacter {
     {
         audioSource.clip = musicClip;
         audioSource.PlayDelayed(delay);
+    }
+
+    IEnumerator Block() {
+        // record the start block time
+        float startBlock = Time.time;
+        float nextReduction = startBlock + blockReductionRate;
+
+        // stop movement
+        rb.velocity = Vector2.zero;
+
+        // update animator state
+        isBlocking = true;
+        anim.SetTrigger("TriggerBlock");
+        anim.SetBool("Block", true);
+
+        // block loop
+        while (isBlocking) {
+
+            if (Time.time >= nextReduction) {
+                nextReduction = Time.time + blockReductionRate;
+                mana -= mana - blockCost < 0 ? mana : blockCost;
+            }
+
+            // Check whether player is still blocking
+            if (mana <= 0 || !Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Space))
+                isBlocking = false;
+            else
+                yield return new WaitForEndOfFrame();
+        }
+
+        // update animator state, no longer blocking
+        anim.SetBool("Block", false);
+    }
+
+    public new void TakeDamage(int p_damage, Transform attackerTransform) {
+        if (!isBlocking)
+            base.TakeDamage(p_damage, attackerTransform);
     }
 }
