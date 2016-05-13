@@ -77,11 +77,18 @@ public class EnemyController : GameCharacter {
     void Update() {
         //Debug.Log("isAttacking: " + isAttacking + " AttackRate: " + attackRate);
         if (isDead || isHit) return;
-        else if (climbing)
+        else if (climbing) {
             Climb();
+            return;
+        }
+
+        int direction = (target.transform.position.x - transform.position.x) < 0 ? -1 : 1;
+
+        if (direction > 0 && !facingRight || direction < 0 && facingRight)
+            Flip();
         else if (DistanceFromTarget() > attackDistance)
             MoveToTarget();
-        else if(!isAttacking)
+        else if (!isAttacking)
             Attack();
     }
 
@@ -142,9 +149,6 @@ public class EnemyController : GameCharacter {
     void MoveToTarget() {
         int direction = (target.transform.position.x - transform.position.x) < 0 ? -1 : 1;
 
-        if (direction > 0 && !facingRight || direction < 0 && facingRight)
-            Flip();
-
         rb.velocity = new Vector2(direction * walkingSpeed, 0);
         anim.SetFloat("Speed", walkingSpeed);
     }
@@ -202,10 +206,16 @@ public class EnemyController : GameCharacter {
         base.TakeDamage(p_damage, attackerTransform);
         if (!IsClimbing)
         {
-            if (IsDead) {
+            if (IsDead)
+            {
                 isHit = true;
                 int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
                 rb.velocity = new Vector2(direction * 5, 5);
+            }
+            else {
+                isHit = true;
+                int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
+                rb.velocity = new Vector2(direction * 3, 2);
             }
         }
     }
@@ -219,9 +229,9 @@ public class EnemyController : GameCharacter {
         climbingSpeed = speed;
     }
 
-    void PlaySound(AudioClip musicClip, float delay)
+    void PlaySound(AudioClip clip, float delay)
     {
-        audioSource.clip = musicClip;
+        audioSource.clip = clip;
         audioSource.PlayDelayed(delay);
     }
 }
