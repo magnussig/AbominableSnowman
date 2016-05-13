@@ -566,6 +566,18 @@ Prefab:
       propertyPath: blockReductionRate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11456522, guid: b5cbe9ca9213c6e40ae742f4f1b43936, type: 2}
+      propertyPath: nextAttack
+      value: 0.483
+      objectReference: {fileID: 0}
+    - target: {fileID: 11456522, guid: b5cbe9ca9213c6e40ae742f4f1b43936, type: 2}
+      propertyPath: attackRate
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11456522, guid: b5cbe9ca9213c6e40ae742f4f1b43936, type: 2}
+      propertyPath: ThrowAnimationLength
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b5cbe9ca9213c6e40ae742f4f1b43936, type: 2}
   m_IsPrefabParent: 0
@@ -700,7 +712,7 @@ Prefab:
       objectReference: {fileID: 693329895}
     - target: {fileID: 22470356, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 32
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 107744, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
       propertyPath: m_IsActive

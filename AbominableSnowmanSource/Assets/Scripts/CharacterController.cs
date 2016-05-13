@@ -15,6 +15,9 @@ public class CharacterController : GameCharacter {
     [SerializeField] private float throwForce = 20f;
     [SerializeField] private float blockReductionRate;
     [SerializeField] private int blockCost;
+    [SerializeField] private float attackRate;
+    [SerializeField] private float dashAnimLength;
+    [SerializeField] private float ThrowAnimationLength;
 
     public bool CanPickUpRocks {get; set;}
     private int mana;
@@ -27,9 +30,7 @@ public class CharacterController : GameCharacter {
     private bool isBlocking = false;
     private HitBox hitbox;
     private GameManager gm;
-    private float attackRate;
-    [SerializeField] private float nextAttack = 0;
-    [SerializeField] private float dashAnimLength;
+    private float nextAttack = 0;
     private SpriteRenderer manabar;
     
     // Audio
@@ -67,16 +68,16 @@ public class CharacterController : GameCharacter {
     }
 
     void Update() {
-        Debug.Log("isDead: " + isDead + "isThrowing: " + isThrowing + "isAttacking: " + isAttacking + "isBlocking: " + isBlocking);
+        Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
         if (isDead || isThrowing || isAttacking) return;
 
         if (Input.GetKeyDown(KeyCode.E) && !isBlocking)
             PickUpRock();
         else if (isDashing) return;
         else if (Input.GetKeyDown(KeyCode.Mouse0) && isHoldingObject)
-            Throw();
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && canAttack())
-            Attack();
+            StartCoroutine(Throw());
+        else if (Input.GetKeyDown(KeyCode.Mouse0))
+            StartCoroutine(Attack());
         else if (Input.GetKeyDown(KeyCode.Space) && mana >= dashCost)
             StartCoroutine(Dash());
         else if (!isBlocking && Input.GetKey(KeyCode.Mouse1) && mana >= blockCost)
@@ -118,23 +119,29 @@ public class CharacterController : GameCharacter {
         resizeHeldObject(rock);
     }
 
-    void Throw() {
+    IEnumerator Throw() {
+        isBlocking = false;
         isThrowing = true;
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
         PlaySound(grunt, 0.5f);
+        yield return new WaitForSeconds(ThrowAnimationLength);
+        isThrowing = false;
     }
 
-    void Attack() {
+    IEnumerator Attack() {
+        isBlocking = false;
         isAttacking = true;
-        nextAttack = Time.time + attackRate;
         anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(attackRate);
+        isAttacking = false;
     }
 
      IEnumerator Dash() {
+        isBlocking = false;
+        isDashing = true;
         mana -= dashCost;
         UpdateManaBar();
-        isDashing = true;
         float speed = maxSpeed;
         maxSpeed = 8;
         anim.SetTrigger("Dash");
@@ -157,28 +164,16 @@ public class CharacterController : GameCharacter {
         return CanPickUpRocks && !isHoldingObject && Time.time >= nextPickUpTime;
     }
 
-    private bool canAttack() {
-        return Time.time >= nextAttack;
-    }
-
     protected override void Die() {
         anim.SetTrigger("Death");
         PlaySound(deathSound, 0);
     }
 
     void TriggerIsThrowing() {
-        isThrowing = !isThrowing;
-
-        if (!isThrowing) {
-            isHoldingObject = false;
-            Transform holding = objectSlot.transform.GetChild(0);
-            holding.GetComponent<Rock>().Throw(throwForce);
-            holding.transform.localScale = throwableObject.transform.localScale;
-        }
-    }
-
-    void TriggerisAttacing() {
-        isAttacking = !isAttacking;
+        isHoldingObject = false;
+        Transform holding = objectSlot.transform.GetChild(0);
+        holding.GetComponent<Rock>().Throw(throwForce);
+        holding.transform.localScale = throwableObject.transform.localScale;
     }
 
     void HitTargets() {
@@ -202,8 +197,7 @@ public class CharacterController : GameCharacter {
             manabar.transform.localScale = new Vector3(((float)mana / maxMana), manabar.transform.localScale.y, manabar.transform.localScale.z);
     }
 
-    void PlaySound(AudioClip musicClip, float delay)
-    {
+    void PlaySound(AudioClip musicClip, float delay) {
         audioSource.clip = musicClip;
         audioSource.PlayDelayed(delay);
     }
@@ -212,6 +206,7 @@ public class CharacterController : GameCharacter {
         // record the start block time
         float startBlock = Time.time;
         float nextReduction = startBlock + blockReductionRate;
+        mana -= blockCost;
 
         // stop movement
         rb.velocity = Vector2.zero;
@@ -230,7 +225,7 @@ public class CharacterController : GameCharacter {
             }
 
             // Check whether player is still blocking
-            if (mana <= 0 || !Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Space))
+            if (mana <= 0 || !Input.GetKey(KeyCode.Mouse1))
                 isBlocking = false;
             else
                 yield return new WaitForEndOfFrame();
@@ -241,7 +236,11 @@ public class CharacterController : GameCharacter {
     }
 
     public new void TakeDamage(int p_damage, Transform attackerTransform) {
-        if (!isBlocking)
+        if (!isBlocking || !IsBlockingInDirectionOfAttacker(attackerTransform))
             base.TakeDamage(p_damage, attackerTransform);
+    }
+
+    bool IsBlockingInDirectionOfAttacker(Transform attacker) {
+        return (attacker.position.x >= transform.position.x && facingRight) || (attacker.position.x <= transform.position.x && !facingRight);
     }
 }
