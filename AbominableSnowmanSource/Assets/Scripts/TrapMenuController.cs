@@ -49,5 +49,18 @@ public class TrapMenuController : MonoBehaviour
                 //FloatingTextController.CreateFloatingText(0, t, true);
             }            
         }
+        else if(objectClicked == "Mana")
+        { 
+            // Make sure player affords buying health
+            if (gm.Score - 50 >= 0)
+            {
+                player.BuyMana();
+                gm.deductFromScore(50, transform);
+            }
+            else
+            {
+                //notify
+            }
+        }
     }
 }

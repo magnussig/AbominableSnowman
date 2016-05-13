@@ -66,7 +66,10 @@ public class CharacterController : GameCharacter {
         StartCoroutine(ManaRegeneration());
     }
 
-    void Update() {
+    //  Sverrisversion:
+
+    void Update()
+    {
         Debug.Log("isDead: " + isDead + "isThrowing: " + isThrowing + "isAttacking: " + isAttacking + "isBlocking: " + isBlocking);
         if (isDead || isThrowing || isAttacking) return;
 
@@ -82,8 +85,27 @@ public class CharacterController : GameCharacter {
         else if (!isBlocking && Input.GetKey(KeyCode.Mouse1) && mana >= blockCost)
             StartCoroutine(Block());
     }
-	
-	void FixedUpdate () {
+    
+
+    //Magnoos version:
+    /*
+    void Update()
+    {
+        if (isDead || isThrowing || isAttacking) return;
+
+        if (Input.GetKeyDown(KeyCode.E))
+            PickUpRock();
+        else if (isDashing) return;
+        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
+            Throw();
+        else if (Input.GetKeyDown(KeyCode.Space) && canAttack())
+            Attack();
+        else if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)) && mana >= dashCost)
+            StartCoroutine(Dash());
+    }
+    */
+
+    void FixedUpdate () {
         if (isDead || isThrowing || isBlocking) return;
 
         float move = Input.GetAxis("Horizontal");
@@ -200,6 +222,11 @@ public class CharacterController : GameCharacter {
     void UpdateManaBar() {
         if (manabar != null)
             manabar.transform.localScale = new Vector3(((float)mana / maxMana), manabar.transform.localScale.y, manabar.transform.localScale.z);
+    }
+
+    public void BuyMana() {
+        mana = maxMana;
+        UpdateManaBar();
     }
 
     void PlaySound(AudioClip musicClip, float delay)
