@@ -25,6 +25,7 @@ public class EnemyController : GameCharacter {
     private AudioSource audioSource;
     private AudioClip loserDeath;
     private AudioClip wilhelmScream;
+    private AudioClip enemyHit;
 
     [SerializeField] private float climbingSpeed;
     [SerializeField] private float walkingSpeed;
@@ -41,6 +42,7 @@ public class EnemyController : GameCharacter {
         audioSource = GetComponent<AudioSource>();
         wilhelmScream = Resources.Load<AudioClip>("Audio/wilhelmScream");
         loserDeath = Resources.Load<AudioClip>("Audio/loserDeath");
+        enemyHit = Resources.Load<AudioClip>("Audio/enemyHit");
 
         if (target == null)
             target = GameObject.FindWithTag("Player");
@@ -217,6 +219,7 @@ public class EnemyController : GameCharacter {
 
     public new void TakeDamage(int p_damage, Transform attackerTransform)
     {
+        PlaySound(enemyHit, 0);
         base.TakeDamage(p_damage, attackerTransform);
         if (!IsClimbing)
         {
