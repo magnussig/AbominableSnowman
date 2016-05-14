@@ -37,6 +37,7 @@ public class CharacterController : GameCharacter {
     private AudioSource audioSource;
     private AudioClip deathSound;
     private AudioClip grunt;
+    private AudioClip hit;
 
     new void Start () {
         base.Start();
@@ -47,6 +48,7 @@ public class CharacterController : GameCharacter {
         audioSource = GetComponent<AudioSource>();
         deathSound = Resources.Load<AudioClip>("Audio/deathSound");
         grunt = Resources.Load<AudioClip>("Audio/grunt");
+        hit = Resources.Load<AudioClip>("Audio/hit");
 
         if (objectSlot == null)
             Debug.Log("Player object slot not found");
@@ -69,7 +71,25 @@ public class CharacterController : GameCharacter {
         StartCoroutine(ManaRegeneration());
     }
     
-    void Update() {
+    /*void Update() {
+        Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
+        if (isDead || isThrowing || isAttacking) return;
+
+        if (Input.GetKeyDown(KeyCode.E) && !isBlocking)
+            PickUpRock();
+        else if (isDashing) return;
+        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
+            StartCoroutine(Throw());
+        else if (Input.GetKeyDown(KeyCode.Space))
+            StartCoroutine(Attack());
+        else if (Input.GetKeyDown(KeyCode.LeftControl) && mana >= dashCost)
+            StartCoroutine(Dash());
+        else if (!isBlocking && Input.GetKey(KeyCode.LeftShift) && mana >= blockCost)
+            StartCoroutine(Block());
+    }*/
+
+    void Update()
+    {
         Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
         if (isDead || isThrowing || isAttacking) return;
 
@@ -246,6 +266,7 @@ public class CharacterController : GameCharacter {
     }
 
     public new void TakeDamage(int p_damage, Transform attackerTransform) {
+        PlaySound(hit, 0);
         if (!isBlocking || !IsBlockingInDirectionOfAttacker(attackerTransform))
             base.TakeDamage(p_damage, attackerTransform);
     }
