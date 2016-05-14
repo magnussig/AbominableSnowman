@@ -26,7 +26,6 @@ public class EnemyController : GameCharacter {
     private AudioSource audioSource2;
     private AudioClip loserDeath;
     private AudioClip wilhelmScream;
-    private AudioClip enemyHit;
     private AudioClip impact;
     private AudioClip notsure;
 
@@ -46,7 +45,6 @@ public class EnemyController : GameCharacter {
         audioSource2 = GetComponent<AudioSource>();
         wilhelmScream = Resources.Load<AudioClip>("Audio/wilhelmScream");
         loserDeath = Resources.Load<AudioClip>("Audio/loserDeath");
-        enemyHit = Resources.Load<AudioClip>("Audio/enemyHit");
         notsure = Resources.Load<AudioClip>("Audio/notsure");
 
         if (target == null)
