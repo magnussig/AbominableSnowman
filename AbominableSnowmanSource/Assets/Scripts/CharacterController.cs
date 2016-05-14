@@ -38,6 +38,7 @@ public class CharacterController : GameCharacter {
     private AudioClip deathSound;
     private AudioClip grunt;
     private AudioClip hit;
+    private AudioClip enemyHit;
 
     new void Start () {
         base.Start();
@@ -49,6 +50,7 @@ public class CharacterController : GameCharacter {
         deathSound = Resources.Load<AudioClip>("Audio/deathSound");
         grunt = Resources.Load<AudioClip>("Audio/grunt");
         hit = Resources.Load<AudioClip>("Audio/hit");
+        enemyHit = Resources.Load<AudioClip>("Audio/enemyHit");
 
         if (objectSlot == null)
             Debug.Log("Player object slot not found");
@@ -183,10 +185,18 @@ public class CharacterController : GameCharacter {
     }
 
     void HitTargets() {
+        bool isHit = false;
         foreach (EnemyController enemy in hitbox.GetEnemiesToDamage()) {
             if (!enemy.IsClimbing && !enemy.IsDead)
+            {
                 enemy.TakeDamage(damage, transform);
+                isHit = true;
+            }
                 
+        }
+        if (isHit)
+        {
+            PlaySound(enemyHit, 0);
         }
     }
 
@@ -236,7 +246,7 @@ public class CharacterController : GameCharacter {
             }
 
             // Check whether player is still blocking
-            if (mana <= 0 || !Input.GetKey(KeyCode.Mouse1))
+            if (mana <= 0 || !Input.GetKey(KeyCode.LeftShift))
                 isBlocking = false;
             else
                 yield return new WaitForEndOfFrame();
