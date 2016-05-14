@@ -2650,10 +2650,11 @@ MonoBehaviour:
   pickUpRate: 1
   maxSpeed: 5
   throwForce: 20
-  attackAnim: {fileID: 7400000, guid: 397f59b59d509a445901056d19fcca9e, type: 2}
-  dashAnim: {fileID: 7400000, guid: c3c70b30788155e439c3848a30d62d9f, type: 2}
-  nextAttack: 0.725
+  blockReductionRate: 1
+  blockCost: 10
+  attackRate: 0.6
   dashAnimLength: 1.113
+  ThrowAnimationLength: 0.8
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -91,7 +91,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -128,11 +128,8 @@ MonoBehaviour:
   fightSong: {fileID: 8300000, guid: 101169cc86d77cb4aada0edad1202983, type: 3}
   trapSong: {fileID: 8300000, guid: 564844455185ff646b2f3e9dea0e6d8d, type: 3}
   enemy: {fileID: 134776, guid: 651d3c278838d4a45ad2d9b22121974c, type: 2}
-  waveText: {fileID: 0}
-  hazardText: {fileID: 0}
-  newWave: {fileID: 0}
   Wait: 0
-  TrapMenu: {fileID: 0}
+  waveCount: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
