@@ -23,9 +23,12 @@ public class EnemyController : GameCharacter {
 
     // Audio
     private AudioSource audioSource;
+    private AudioSource audioSource2;
     private AudioClip loserDeath;
     private AudioClip wilhelmScream;
     private AudioClip enemyHit;
+    private AudioClip impact;
+    private AudioClip notsure;
 
     [SerializeField] private float climbingSpeed;
     [SerializeField] private float walkingSpeed;
@@ -40,9 +43,11 @@ public class EnemyController : GameCharacter {
 
         // Audio
         audioSource = GetComponent<AudioSource>();
+        audioSource2 = GetComponent<AudioSource>();
         wilhelmScream = Resources.Load<AudioClip>("Audio/wilhelmScream");
         loserDeath = Resources.Load<AudioClip>("Audio/loserDeath");
         enemyHit = Resources.Load<AudioClip>("Audio/enemyHit");
+        notsure = Resources.Load<AudioClip>("Audio/notsure");
 
         if (target == null)
             target = GameObject.FindWithTag("Player");
@@ -196,7 +201,7 @@ public class EnemyController : GameCharacter {
         if (climbing) // If climbing then just let gravity pull down
         {
             rb.velocity = Vector2.zero;
-            PlaySound(wilhelmScream, 0);
+            PlaySound(wilhelmScream, 0.5f);
 
             foreach (Collider2D c in GetComponents<Collider2D>())
                 c.enabled = false;

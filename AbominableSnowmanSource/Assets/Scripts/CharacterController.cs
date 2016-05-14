@@ -71,7 +71,7 @@ public class CharacterController : GameCharacter {
         StartCoroutine(ManaRegeneration());
     }
     
-    /*void Update() {
+    void Update() {
         Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
         if (isDead || isThrowing || isAttacking) return;
 
@@ -86,9 +86,9 @@ public class CharacterController : GameCharacter {
             StartCoroutine(Dash());
         else if (!isBlocking && Input.GetKey(KeyCode.LeftShift) && mana >= blockCost)
             StartCoroutine(Block());
-    }*/
+    }
 
-    void Update()
+    /*void Update()
     {
         Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
         if (isDead || isThrowing || isAttacking) return;
@@ -104,7 +104,7 @@ public class CharacterController : GameCharacter {
             StartCoroutine(Dash());
         else if (!isBlocking && Input.GetKey(KeyCode.Mouse1) && mana >= blockCost)
             StartCoroutine(Block());
-    }
+    }*/
 
     void FixedUpdate () {
         if (isDead || isThrowing || isBlocking) return;
