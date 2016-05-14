@@ -51,7 +51,7 @@ public class FloatingTextController : MonoBehaviour {
             floatText.transform.localScale = new Vector3(3, 3, 3);
         }
 
-        if(score != 10)
+        if(score > 10 || score < 0)
             floatText.SetColor(c);
 
         floatText.SetText(score.ToString());

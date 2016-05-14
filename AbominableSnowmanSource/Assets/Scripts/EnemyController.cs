@@ -208,6 +208,7 @@ public class EnemyController : GameCharacter {
         }
         else
         {
+            gm.addToScore(5, transform);
             anim.SetTrigger("Death");
             PlaySound(loserDeath, 0);
         }
@@ -227,17 +228,9 @@ public class EnemyController : GameCharacter {
         base.TakeDamage(p_damage, attackerTransform);
         if (!IsClimbing)
         {
-            if (IsDead)
-            {
-                isHit = true;
-                int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
-                rb.velocity = new Vector2(direction * 5, 5);
-            }
-            else {
-                isHit = true;
-                int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
-                rb.velocity = new Vector2(direction * 3, 2);
-            }
+            isHit = true;
+            int direction = transform.position.x - attackerTransform.position.x >= 0 ? 1 : -1;
+            rb.velocity = IsDead ? new Vector2(direction * 5, 5) : new Vector2(direction * 2, 2);
         }
     }
 
@@ -259,6 +252,7 @@ public class EnemyController : GameCharacter {
     public void ClimbDown() {
         rb.velocity = Vector2.zero;
         EnableCollisionColliders(false);
+        isHit = false;
         climbing = true;
         climbUp = false;
         HealthBarObject.SetActive(false);

@@ -88,26 +88,8 @@ public class CharacterController : GameCharacter {
             StartCoroutine(Block());
     }
 
-    /*void Update()
-    {
-        Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
-        if (isDead || isThrowing || isAttacking) return;
-
-        if (Input.GetKeyDown(KeyCode.E) && !isBlocking)
-            PickUpRock();
-        else if (isDashing) return;
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && isHoldingObject)
-            StartCoroutine(Throw());
-        else if (Input.GetKeyDown(KeyCode.Mouse0))
-            StartCoroutine(Attack());
-        else if (Input.GetKeyDown(KeyCode.Space) && mana >= dashCost)
-            StartCoroutine(Dash());
-        else if (!isBlocking && Input.GetKey(KeyCode.Mouse1) && mana >= blockCost)
-            StartCoroutine(Block());
-    }*/
-
     void FixedUpdate () {
-        if (isDead || isThrowing || isBlocking) return;
+        if (isDead || isThrowing) return;
 
         float move = Input.GetAxis("Horizontal");
 
@@ -226,8 +208,7 @@ public class CharacterController : GameCharacter {
         UpdateManaBar();
     }
 
-    void PlaySound(AudioClip musicClip, float delay)
-    {
+    void PlaySound(AudioClip musicClip, float delay) {
         audioSource.clip = musicClip;
         audioSource.PlayDelayed(delay);
     }
