@@ -68,7 +68,7 @@ public class CharacterController : GameCharacter {
 
         StartCoroutine(ManaRegeneration());
     }
-
+    
     void Update() {
         Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
         if (isDead || isThrowing || isAttacking) return;
@@ -85,9 +85,9 @@ public class CharacterController : GameCharacter {
         else if (!isBlocking && Input.GetKey(KeyCode.Mouse1) && mana >= blockCost)
             StartCoroutine(Block());
     }
-	
-	void FixedUpdate () {
-        if (isDead || isThrowing ) return;
+
+    void FixedUpdate () {
+        if (isDead || isThrowing || isBlocking) return;
 
         float move = Input.GetAxis("Horizontal");
 
@@ -201,7 +201,13 @@ public class CharacterController : GameCharacter {
             manabar.transform.localScale = new Vector3(((float)mana / maxMana), manabar.transform.localScale.y, manabar.transform.localScale.z);
     }
 
-    void PlaySound(AudioClip musicClip, float delay) {
+    public void BuyMana() {
+        mana = maxMana;
+        UpdateManaBar();
+    }
+
+    void PlaySound(AudioClip musicClip, float delay)
+    {
         audioSource.clip = musicClip;
         audioSource.PlayDelayed(delay);
     }
