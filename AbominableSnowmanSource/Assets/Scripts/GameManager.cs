@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     // Spawn cords
     [SerializeField] private float spawnbeginX;
     [SerializeField] private float spawnEndX;
+    [SerializeField] private float spawnMiddleX;
     [SerializeField] private float spawnY;
 
     // Spawn wave variables
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour {
     private int numberOfEnemiesSpawned = 0;
     private bool isPaused;
     private bool isGameOver = false;
+    private bool lastSpawnLeft = false;
 
     void Awake() {
         uiManager = GameObject.FindGameObjectWithTag("GUI").GetComponent<UIManager>();
@@ -79,6 +81,8 @@ public class GameManager : MonoBehaviour {
         uiManager.showGameOverPanel(false);
         uiManager.showPauseMenu(false);
         uiManager.showCountDown(false);
+
+        SpawnRate = SwarmSpawnRate;
 
         StartCoroutine(NextSpawnWave());
 
@@ -167,16 +171,31 @@ public class GameManager : MonoBehaviour {
     IEnumerator ThresholdManage() {
         while (true)
         {
-            if (numberOfEnemiesSpawned < CalmThreshold)
-                SpawnRate = SwarmSpawnRate;
+            Debug.Log("SpawnRate: " + SpawnRate + " number of enemies spawned: " + numberOfEnemiesSpawned);
+            if (numberOfEnemiesSpawned < CalmThreshold) {
+                if (player.Health == 5 && enemiesKilled >= numberOfEnemies / 2) {
+                    FastEnemyChance = 25f;
+                    SpawnRate = .5f;
+                }
+                else if(player.Health >= 3 && enemiesKilled >= numberOfEnemies / 2) {
+                    FastEnemyChance = 15f;
+                    SpawnRate = .75f;
+                } 
+                else {
+                    SpawnRate = SwarmSpawnRate;
+                    FastEnemyChance = 2;
+                }
+            }
             else if (numberOfEnemiesSpawned > SwarmThreshold)
-                SpawnRate = CalmThreshold;
-            yield return new WaitForSeconds(5);
+                SpawnRate = CalmSpawnRate;
+            yield return new WaitForSeconds(SpawnRate);
         }
     }
 
     void InstantiateEnemy() {
-        Vector2 spawnPosition = new Vector2(Random.Range(spawnbeginX, spawnEndX), spawnY);
+        numberOfEnemiesSpawned++;
+        Vector2 spawnPosition = lastSpawnLeft ? new Vector2(Random.Range(spawnMiddleX, spawnEndX), spawnY) : new Vector2(Random.Range(spawnbeginX, spawnMiddleX), spawnY);
+        lastSpawnLeft = !lastSpawnLeft;
         Quaternion spawnRotation = Quaternion.identity;
         EnemyController enemyControl = ((GameObject)Instantiate(enemy, spawnPosition, spawnRotation)).GetComponent<EnemyController>();
 
@@ -193,7 +212,7 @@ public class GameManager : MonoBehaviour {
         }
 
         numberOfEnemies += addEnemiesBetweenWaves;
-        FastEnemyChance += FastEnemyChance <= 10f ? .5f : 0f;
+        FastEnemyChance += FastEnemyChance <= 15f ? 1f : 0f;
     }
 
     public void IncrementKillCounter() {

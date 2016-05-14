@@ -70,7 +70,7 @@ public class CharacterController : GameCharacter {
     }
     
     void Update() {
-        Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
+        //Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
         if (isDead || isThrowing || isAttacking) return;
 
         if (Input.GetKeyDown(KeyCode.E) && !isBlocking)
@@ -87,7 +87,7 @@ public class CharacterController : GameCharacter {
     }
 
     void FixedUpdate () {
-        if (isDead || isThrowing || isBlocking) return;
+        if (isDead || isThrowing) return;
 
         float move = Input.GetAxis("Horizontal");
 
@@ -206,8 +206,7 @@ public class CharacterController : GameCharacter {
         UpdateManaBar();
     }
 
-    void PlaySound(AudioClip musicClip, float delay)
-    {
+    void PlaySound(AudioClip musicClip, float delay) {
         audioSource.clip = musicClip;
         audioSource.PlayDelayed(delay);
     }
