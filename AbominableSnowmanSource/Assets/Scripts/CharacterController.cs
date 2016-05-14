@@ -130,7 +130,7 @@ public class CharacterController : GameCharacter {
         isThrowing = true;
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
-        PlaySound(grunt, 0.5f);
+        PlaySound(grunt, 0.7f);
         yield return new WaitForSeconds(ThrowAnimationLength);
         isThrowing = false;
     }
