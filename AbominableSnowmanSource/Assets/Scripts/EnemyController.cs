@@ -13,11 +13,13 @@ public class EnemyController : GameCharacter {
     private bool isAttacking;
     private bool isHit;
     private bool facingRight = true;
+    private bool isBlocked;
     private float nextAttack;
     private Collider2D climbingTrigger;
     private List<Collider2D> collisionColliders;
     private HitBox hitbox;
     private GameManager gm;
+    private bool climbUp = true;
 
     // Audio
     private AudioSource audioSource;
@@ -71,7 +73,7 @@ public class EnemyController : GameCharacter {
         HealthBarObject.SetActive(false);
 
         nextAttack = Time.time;
-
+       
     }
 
     void Update() {
@@ -87,19 +89,27 @@ public class EnemyController : GameCharacter {
         if (direction > 0 && !facingRight || direction < 0 && facingRight)
             Flip();
         else if (DistanceFromTarget() > attackDistance)
+        {
             MoveToTarget();
+        }
         else if (!isAttacking)
+        {
             Attack();
+        }
     }
 
     void Climb() {
-        rb.velocity = new Vector2(rb.velocity.x, climbingSpeed);
+        float direction = climbUp ? 1f : -1f;
+        rb.velocity = new Vector2(rb.velocity.x, direction * climbingSpeed);
     }
 
-    void OnCollisionEnter2D(Collision2D other) {
-        if (isHit && other.gameObject.tag.Equals("SummitGround"))
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (isHit && other.gameObject.tag.Equals("SummitGround")) {
             isHit = false;
+        }
     }
+    
 
     void OnTriggerExit2D(Collider2D other) {
         ClimbCheck(other);
@@ -110,7 +120,7 @@ public class EnemyController : GameCharacter {
     moves him to the summit ground
     */
     void ClimbCheck(Collider2D other) {
-        if (climbing && other.tag.Equals("SummitGround") && !isDead) {
+        if (climbing && other.tag.Equals("SummitGround") && !isDead && climbUp) {
 
             // Climber has reached the summit
             climbing = false;
@@ -178,6 +188,9 @@ public class EnemyController : GameCharacter {
 
     protected override void Die() {
 
+        gameObject.layer = target.layer;
+        HealthBarObject.SetActive(false);
+
         if (climbing) // If climbing then just let gravity pull down
         {
             rb.velocity = Vector2.zero;
@@ -233,5 +246,15 @@ public class EnemyController : GameCharacter {
     {
         audioSource.clip = clip;
         audioSource.PlayDelayed(delay);
+    }
+
+    public void ClimbDown() {
+        rb.velocity = Vector2.zero;
+        EnableCollisionColliders(false);
+        climbing = true;
+        climbUp = false;
+        HealthBarObject.SetActive(false);
+        anim.SetBool("isClimbing", true);
+        anim.SetFloat("Speed", 0);
     }
 }

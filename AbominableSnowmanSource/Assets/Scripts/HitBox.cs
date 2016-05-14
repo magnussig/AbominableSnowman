@@ -9,7 +9,7 @@ public class HitBox : MonoBehaviour {
     void Start () {
         gameObject.layer = 0;
         enemiesInHitbox = new HashSet<GameCharacter>();
-	}
+    }
 
     void OnTriggerEnter2D(Collider2D other) {
         GameCharacter character = other.gameObject.GetComponent<GameCharacter>();

@@ -42,6 +42,8 @@ public class CharacterController : GameCharacter {
         base.Start();
         mana = maxMana;
 
+        Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
+
         audioSource = GetComponent<AudioSource>();
         deathSound = Resources.Load<AudioClip>("Audio/deathSound");
         grunt = Resources.Load<AudioClip>("Audio/grunt");
@@ -85,14 +87,16 @@ public class CharacterController : GameCharacter {
     }
 	
 	void FixedUpdate () {
-        if (isDead || isThrowing || isBlocking) return;
+        if (isDead || isThrowing ) return;
 
         float move = Input.GetAxis("Horizontal");
 
-        rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
-
         if (move > 0 && !facingRight || move < 0 && facingRight)
             Flip();
+
+        if (isBlocking) return;
+
+        rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
 
         anim.SetFloat("MoveSpeed", Mathf.Abs(move));
 	}

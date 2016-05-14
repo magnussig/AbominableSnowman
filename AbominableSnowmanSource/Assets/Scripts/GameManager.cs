@@ -44,10 +44,11 @@ public class GameManager : MonoBehaviour {
     private int enemiesKilled;
     private int totalKillCount = 0;
     public int waveCount;
-    [SerializeField] private int score;
+    private int score;
     private float SpawnRate;
     private int numberOfEnemiesSpawned = 0;
     private bool isPaused;
+    private bool isGameOver = false;
 
     void Awake() {
         uiManager = GameObject.FindGameObjectWithTag("GUI").GetComponent<UIManager>();
@@ -85,8 +86,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
-        if (player.IsDead)
+        if (isGameOver) return;
+        else if (player.IsDead) {
             GameOver();
+        }
         else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P) && !player.IsDead)
             PauseToggle();
 
@@ -104,18 +107,23 @@ public class GameManager : MonoBehaviour {
         enemiesKilled = 0;
 
         for (int i = 0; i < numberOfEnemies; i++) {
+            if (isGameOver) break;
+
             InstantiateEnemy();
             yield return new WaitForSeconds(SpawnRate);
         }
 
-        yield return new WaitUntil(new System.Func<bool>(areAllEnemiesKilled));
+        if (!isGameOver)
+        {
+            yield return new WaitUntil(new System.Func<bool>(areAllEnemiesKilled));
 
-        UpdateSpawnVariables();
+            UpdateSpawnVariables();
 
-        isWaveStarted = false;
-        waveCount++;
-        updateCounters();
-        yield return WaitForNextSpawnWave();
+            isWaveStarted = false;
+            waveCount++;
+            updateCounters();
+            yield return WaitForNextSpawnWave();
+        }
     }
 
     IEnumerator WaitForNextSpawnWave() {
@@ -230,7 +238,18 @@ public class GameManager : MonoBehaviour {
     }
 
     void GameOver() {
+        isGameOver = true;
         uiManager.showGameOverPanel(true);
         uiManager.SetGameOverStats(waveCount, totalKillCount, score);
+        CleanUp();
+    }
+
+    void CleanUp() {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            EnemyController c = g.GetComponent<EnemyController>();
+            if (!c.IsDead)
+                c.ClimbDown();
+        }
     }
 }

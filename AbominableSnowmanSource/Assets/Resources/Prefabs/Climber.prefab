@@ -22,7 +22,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &150842
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,9 +121,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -1.0589019, y: 0.033569813}
+  m_Offset: {x: -0.44934285, y: 0.019283175}
   serializedVersion: 2
-  m_Size: {x: 3.3592727, y: 1.7540765}
+  m_Size: {x: 2.1401553, y: 1.7826498}
 --- !u!61 &6170700
 BoxCollider2D:
   m_ObjectHideFlags: 1
