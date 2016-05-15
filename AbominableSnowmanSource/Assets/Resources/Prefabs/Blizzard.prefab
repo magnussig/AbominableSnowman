@@ -88,9 +88,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -0.239151, y: -0.40471148}
+  m_Offset: {x: -0.239151, y: -0.15871263}
   serializedVersion: 2
-  m_Size: {x: 6.629151, y: 2.839592}
+  m_Size: {x: 6.629151, y: 2.3475943}
 --- !u!114 &11425534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeColor: {r: 0.50735295, g: 1, b: 1, a: 0.953}
-  effectStartTime: 2
+  effectStartTime: 0
 --- !u!114 &11471730
 MonoBehaviour:
   m_ObjectHideFlags: 1
