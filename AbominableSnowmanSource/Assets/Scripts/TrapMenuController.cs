@@ -30,9 +30,6 @@ public class TrapMenuController : MonoBehaviour
         healthButton = GameObject.Find("health").GetComponent<Button>();
         manaButton = GameObject.Find("mana").GetComponent<Button>();
         blizzardButton = GameObject.Find("cloud").GetComponent<Button>();
-        healthCost = 100;
-        manaCost = 100;
-        blizzardCost = 200;
         //might want to use this later
         healthEventTrigger = GameObject.Find("health").GetComponent<EventTrigger>();
     }
