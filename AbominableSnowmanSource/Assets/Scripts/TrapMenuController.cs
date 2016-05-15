@@ -1,6 +1,8 @@
 ﻿
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class TrapMenuController : MonoBehaviour
 {
@@ -10,13 +12,50 @@ public class TrapMenuController : MonoBehaviour
     private GameManager gm;
     private CharacterController player;
     private Transform t;
+    Button healthButton;
+    Button manaButton;
+    Button blizzardButton;
+    [SerializeField] int healthCost;
+    [SerializeField] int manaCost;
+    [SerializeField] int blizzardCost;
+    EventTrigger healthEventTrigger;
+
 
     void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
         t = player.transform;
+        healthButton = GameObject.Find("health").GetComponent<Button>();
+        manaButton = GameObject.Find("mana").GetComponent<Button>();
+        blizzardButton = GameObject.Find("cloud").GetComponent<Button>();
+        healthCost = 100;
+        manaCost = 100;
+        blizzardCost = 200;
+        //might want to use this later
+        healthEventTrigger = GameObject.Find("health").GetComponent<EventTrigger>();
+    }
 
+    void Update()
+    {
+        if(gm.Score < healthCost)
+        {
+            healthButton.interactable = false;
+            manaButton.interactable = false;
+        }
+        else
+        {
+            healthButton.interactable = true;
+            manaButton.interactable = true;
+        }
+        if(gm.Score < blizzardCost)
+        {
+            blizzardButton.interactable = false;
+        }
+        else
+        {
+            blizzardButton.interactable = true;
+        }
     }
 
     public void Clicked(string objectClicked)
@@ -24,7 +63,7 @@ public class TrapMenuController : MonoBehaviour
         if (objectClicked == "Blizzard")
         {
             // Make sure player affords buying a blizzard
-            if(gm.Score - 200 >= 0)
+            if(gm.Score - blizzardCost >= 0)
             {
                 //deduct from score inside TrapPlacementScript to get mouse position
                 Instantiate(blizzard);
@@ -38,10 +77,10 @@ public class TrapMenuController : MonoBehaviour
         else if (objectClicked == "Health")
         {
             // Make sure player affords buying health
-            if (gm.Score - 100 >= 0)
+            if (gm.Score - healthCost >= 0)
             {
                 player.addHealthPoints(healthPoints);
-                gm.deductFromScore(100, transform);
+                gm.deductFromScore(healthCost, transform);
             }
             else
             {
@@ -52,10 +91,10 @@ public class TrapMenuController : MonoBehaviour
         else if(objectClicked == "Mana")
         { 
             // Make sure player affords buying health
-            if (gm.Score - 50 >= 0)
+            if (gm.Score - manaCost >= 0)
             {
                 player.BuyMana();
-                gm.deductFromScore(50, transform);
+                gm.deductFromScore(manaCost, transform);
             }
             else
             {
