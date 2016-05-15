@@ -57,4 +57,27 @@ public class FloatingTextController : MonoBehaviour {
         floatText.SetText(score.ToString());
 
     }
+
+    public static void CreateDamageText(Transform location, bool isHit, bool leftOfTarget) {
+        FloatingText floatText = Instantiate(scoreText);
+
+        floatText.transform.SetParent(canvas.transform, false);
+
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(new Vector2(location.transform.position.x, location.transform.position.y));
+        screenPos.y = screenPos.y < 0 ? 30 : screenPos.y;
+        screenPos.x = screenPos.x < 0 ? 30 : screenPos.x;
+        screenPos.x = screenPos.x > Camera.main.pixelWidth ? Camera.main.pixelWidth - 30 : screenPos.x;
+        screenPos.x += leftOfTarget ? -50 : 50;
+        floatText.transform.position = screenPos;
+
+
+        if (!isHit){
+            floatText.SetColor(Color.cyan);
+            floatText.SetText("Blocked");
+        }
+        else {
+            floatText.SetColor(Color.red);
+            floatText.SetText("Hit");
+        }
+    }
 }

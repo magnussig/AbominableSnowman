@@ -227,7 +227,6 @@ public class CharacterController : GameCharacter {
         // record the start block time
         float startBlock = Time.time;
         float nextReduction = startBlock + blockReductionRate;
-        mana -= blockCost;
 
         // stop movement
         rb.velocity = Vector2.zero;
@@ -258,8 +257,17 @@ public class CharacterController : GameCharacter {
 
     public new void TakeDamage(int p_damage, Transform attackerTransform) {
         PlaySound(hit, 0);
-        if (!isBlocking || !IsBlockingInDirectionOfAttacker(attackerTransform))
+
+        if (IsDead) return;
+
+        bool isLeftOfTarget = attackerTransform.position.x < transform.position.x ? true : false;
+
+        if (!isBlocking || !IsBlockingInDirectionOfAttacker(attackerTransform)) {
             base.TakeDamage(p_damage, attackerTransform);
+            FloatingTextController.CreateDamageText(transform, true, isLeftOfTarget);
+        }
+        else
+            FloatingTextController.CreateDamageText(transform, false, isLeftOfTarget);
     }
 
     bool IsBlockingInDirectionOfAttacker(Transform attacker) {
