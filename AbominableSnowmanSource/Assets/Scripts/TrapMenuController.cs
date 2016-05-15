@@ -8,16 +8,17 @@ public class TrapMenuController : MonoBehaviour
 {
 
     public GameObject blizzard;
-    [SerializeField]    private int healthPoints;
+    [SerializeField]    public int healthPoints;
+    [SerializeField]    public int manaPoints;
     private GameManager gm;
     private CharacterController player;
     private Transform t;
     Button healthButton;
     Button manaButton;
     Button blizzardButton;
-    [SerializeField] int healthCost;
-    [SerializeField] int manaCost;
-    [SerializeField] int blizzardCost;
+    [SerializeField] public int healthCost;
+    [SerializeField] public int manaCost;
+    [SerializeField] public int blizzardCost;
     EventTrigger healthEventTrigger;
 
 
@@ -93,7 +94,7 @@ public class TrapMenuController : MonoBehaviour
             // Make sure player affords buying health
             if (gm.Score - manaCost >= 0)
             {
-                player.BuyMana();
+                player.BuyMana(manaPoints);
                 gm.deductFromScore(manaCost, transform);
             }
             else

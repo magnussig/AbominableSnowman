@@ -216,8 +216,12 @@ public class CharacterController : GameCharacter {
             manabar.transform.localScale = new Vector3(((float)mana / maxMana), manabar.transform.localScale.y, manabar.transform.localScale.z);
     }
 
-    public void BuyMana() {
-        mana = maxMana;
+    public void BuyMana(int manaToAdd) {
+        mana += manaToAdd;
+        if(mana > maxMana)
+        {
+            mana = maxMana;
+        }
         UpdateManaBar();
     }
 

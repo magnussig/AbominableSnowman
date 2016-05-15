@@ -485,6 +485,18 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Mana
       objectReference: {fileID: 0}
+    - target: {fileID: 11465740, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Mana
+      objectReference: {fileID: 0}
+    - target: {fileID: 11426988, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428540, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Blizzard
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
   m_IsPrefabParent: 0
