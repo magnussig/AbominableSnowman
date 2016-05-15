@@ -34,7 +34,7 @@ public class DamageEnemyByContact : MonoBehaviour {
             Debug.Log(direction);
             rb.velocity = new Vector2(direction * 2, 2);
 
-            // update game manager scoreW
+            // update game manager score
             gm.addToScore(scoreForHit, enemy.gameObject.transform);
             scoreForHit += deltaScore;
         }
