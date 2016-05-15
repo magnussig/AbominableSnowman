@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private Text waveCountDown;
     [SerializeField] private Text waveCounter;
     [SerializeField] private Text hazardPoints;
+    [SerializeField] private Text spawnStats;
     [SerializeField] private Text GameOverWave;
     [SerializeField] private Text GameOverKillCount;
     [SerializeField] private Text GameOverScore;
@@ -60,6 +61,10 @@ public class UIManager : MonoBehaviour {
 
     public void UpdateCountDown(int count) {
         waveCountDown.text = "Next wave starts in: " + count;
+    }
+
+    public void UpdateSpawnStats(int numberspawned, int total) {
+        spawnStats.text = "Enemies: " + numberspawned + "/" + total;
     }
 
     public void SetGameOverStats(int wave, int killed, int score) {

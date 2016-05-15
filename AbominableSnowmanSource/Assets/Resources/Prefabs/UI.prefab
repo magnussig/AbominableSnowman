@@ -367,6 +367,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &168322
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 22410468}
+  - 222: {fileID: 22268152}
+  - 114: {fileID: 11433302}
+  - 114: {fileID: 11476212}
+  m_Layer: 5
+  m_Name: HazardPoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &183238
 GameObject:
   m_ObjectHideFlags: 1
@@ -448,7 +466,7 @@ GameObject:
   - 114: {fileID: 11416174}
   - 114: {fileID: 11431322}
   m_Layer: 5
-  m_Name: HazardPoints
+  m_Name: spawnStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -498,7 +516,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveCountDown: {fileID: 11437734}
   waveCounter: {fileID: 11411054}
-  hazardPoints: {fileID: 11416174}
+  hazardPoints: {fileID: 11433302}
+  spawnStats: {fileID: 11416174}
   GameOverWave: {fileID: 11457660}
   GameOverKillCount: {fileID: 11489850}
   GameOverScore: {fileID: 11464046}
@@ -709,7 +728,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Hazard Points :'
+  m_Text: 'Enemies: 1000/1000'
 --- !u!114 &11419972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1008,6 +1027,39 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &11433302
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 168322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.44279844, g: 0.5493318, b: 0.8602941, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: cd4e770c1e55e3347a60a30a40734266, type: 3}
+    m_FontSize: 26
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 226
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Hazard Points :'
 --- !u!114 &11433710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1133,6 +1185,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blizzard: {fileID: 143060, guid: 2e067f302454e5946a138731a0866f2f, type: 2}
   healthPoints: 2
+  healthCost: 0
+  manaCost: 0
+  blizzardCost: 0
 --- !u!114 &11450124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1566,6 +1621,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &11476212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 168322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11479398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1822,6 +1891,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149144}
+--- !u!222 &22268152
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 168322}
 --- !u!222 &22269078
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1896,7 +1971,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 476.5008, y: -7.3020096}
-  m_SizeDelta: {x: 1956, y: 333.6}
+  m_SizeDelta: {x: 2123, y: 334}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &22406440
 RectTransform:
@@ -1954,6 +2029,23 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -113}
   m_SizeDelta: {x: 720, y: 75}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &22410468
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 168322}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 22486890}
+  m_RootOrder: 1
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 336.5, y: 113.5}
+  m_SizeDelta: {x: 280, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22412692
 RectTransform:
@@ -2052,10 +2144,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 22486890}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 336.5, y: 113.5}
+  m_AnchoredPosition: {x: 336.5, y: 38.199997}
   m_SizeDelta: {x: 280, y: 39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22448024
@@ -2247,7 +2339,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 289.5, y: 64.5}
+  m_AnchoredPosition: {x: 289.5, y: 75.2}
   m_SizeDelta: {x: 186, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22486890
@@ -2261,13 +2353,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 22485078}
-  - {fileID: 22440344}
+  - {fileID: 22410468}
   - {fileID: 22403414}
+  - {fileID: 22440344}
   m_Father: {fileID: 22407290}
   m_RootOrder: 2
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -496, y: 0}
+  m_AnchoredPosition: {x: -700, y: 0}
   m_SizeDelta: {x: 40, y: -320}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22491426

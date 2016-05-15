@@ -121,6 +121,8 @@ public class GameManager : MonoBehaviour {
         {
             yield return new WaitUntil(new System.Func<bool>(areAllEnemiesKilled));
 
+            enemiesKilled = 0;
+
             UpdateSpawnVariables();
 
             isWaveStarted = false;
@@ -173,11 +175,11 @@ public class GameManager : MonoBehaviour {
         {
             Debug.Log("SpawnRate: " + SpawnRate + " number of enemies spawned: " + numberOfEnemiesSpawned);
             if (numberOfEnemiesSpawned < CalmThreshold) {
-                if (player.Health == 5 && enemiesKilled >= numberOfEnemies / 2) {
-                    FastEnemyChance = 25f;
+                if (player.Health == 5 && enemiesKilled >= (2*numberOfEnemies)/3) {
+                    FastEnemyChance = 20f;
                     SpawnRate = .5f;
                 }
-                else if(player.Health >= 3 && enemiesKilled >= numberOfEnemies / 2) {
+                else if(player.Health >= 3 && enemiesKilled >= (2*numberOfEnemies)/ 2) {
                     FastEnemyChance = 15f;
                     SpawnRate = .75f;
                 } 
@@ -237,6 +239,7 @@ public class GameManager : MonoBehaviour {
 
     public void updateCounters() {
         uiManager.UpdateCounters(waveCount, score);
+        uiManager.UpdateSpawnStats(enemiesKilled, numberOfEnemies);
     }
 
     public void deductFromScore(int deduct, Transform location) {
@@ -270,8 +273,10 @@ public class GameManager : MonoBehaviour {
 
             if (g != null) {
                 EnemyController c = g.GetComponent<EnemyController>();
-                if (!c.IsDead)
+                if (!c.IsDead) {
                     c.ClimbDown();
+                    Destroy(c, 500);
+                }
             }
         }
     }
