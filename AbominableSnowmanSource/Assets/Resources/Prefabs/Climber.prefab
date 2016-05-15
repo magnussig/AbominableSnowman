@@ -16,6 +16,7 @@ GameObject:
   - 61: {fileID: 6170700}
   - 114: {fileID: 11429384}
   - 82: {fileID: 8231308}
+  - 82: {fileID: 8290844}
   m_Layer: 9
   m_Name: Climber
   m_TagString: Enemy
@@ -121,9 +122,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -1.0589019, y: 0.033569813}
+  m_Offset: {x: -0.1472739, y: 0.019283175}
   serializedVersion: 2
-  m_Size: {x: 3.3592727, y: 1.7540765}
+  m_Size: {x: 2.744293, y: 1.7826498}
 --- !u!61 &6170700
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -150,6 +151,80 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 4742d094ba36b7b43b8be33b75678c7d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.098
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &8290844
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134776}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 380b7d11f10dce64f8956a41d212709b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -252,7 +327,7 @@ MonoBehaviour:
   attackDistance: 2
   lifeDropChance: 0.1
   dropLife: {fileID: 103118, guid: 735fe10eb398b0244ba3106027003abb, type: 2}
-  attackRate: 2.067
+  attackRate: 1.3
 --- !u!114 &11465008
 MonoBehaviour:
   m_ObjectHideFlags: 1

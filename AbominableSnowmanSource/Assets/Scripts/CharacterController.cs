@@ -15,6 +15,9 @@ public class CharacterController : GameCharacter {
     [SerializeField] private float throwForce = 20f;
     [SerializeField] private float blockReductionRate;
     [SerializeField] private int blockCost;
+    [SerializeField] private float attackRate;
+    [SerializeField] private float dashAnimLength;
+    [SerializeField] private float ThrowAnimationLength;
 
     public bool CanPickUpRocks {get; set;}
     private int mana;
@@ -27,23 +30,29 @@ public class CharacterController : GameCharacter {
     private bool isBlocking = false;
     private HitBox hitbox;
     private GameManager gm;
-    private float attackRate;
-    [SerializeField] private float nextAttack = 0;
-    [SerializeField] private float dashAnimLength;
+    private float nextAttack = 0;
     private SpriteRenderer manabar;
     
     // Audio
     private AudioSource audioSource;
     private AudioClip deathSound;
     private AudioClip grunt;
+    private AudioClip hit;
+    private AudioClip enemyHit;
+    private AudioClip dash;
 
     new void Start () {
         base.Start();
         mana = maxMana;
 
+        Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
+
         audioSource = GetComponent<AudioSource>();
         deathSound = Resources.Load<AudioClip>("Audio/deathSound");
         grunt = Resources.Load<AudioClip>("Audio/grunt");
+        hit = Resources.Load<AudioClip>("Audio/hit");
+        enemyHit = Resources.Load<AudioClip>("Audio/enemyHit");
+        dash = Resources.Load<AudioClip>("Audio/roll");
 
         if (objectSlot == null)
             Debug.Log("Player object slot not found");
@@ -65,55 +74,35 @@ public class CharacterController : GameCharacter {
 
         StartCoroutine(ManaRegeneration());
     }
-
-    //  Sverrisversion:
-
-    void Update()
-    {
-        Debug.Log("isDead: " + isDead + "isThrowing: " + isThrowing + "isAttacking: " + isAttacking + "isBlocking: " + isBlocking);
+    
+    void Update() {
+        Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
         if (isDead || isThrowing || isAttacking) return;
 
         if (Input.GetKeyDown(KeyCode.E) && !isBlocking)
             PickUpRock();
         else if (isDashing) return;
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && isHoldingObject)
-            Throw();
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && canAttack())
-            Attack();
-        else if (Input.GetKeyDown(KeyCode.Space) && mana >= dashCost)
+        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
+            StartCoroutine(Throw());
+        else if (Input.GetKeyDown(KeyCode.Space))
+            StartCoroutine(Attack());
+        else if (Input.GetKeyDown(KeyCode.LeftControl) && mana >= dashCost)
             StartCoroutine(Dash());
-        else if (!isBlocking && Input.GetKey(KeyCode.Mouse1) && mana >= blockCost)
+        else if (!isBlocking && Input.GetKey(KeyCode.LeftShift) && mana >= blockCost)
             StartCoroutine(Block());
     }
-    
-
-    //Magnoos version:
-    /*
-    void Update()
-    {
-        if (isDead || isThrowing || isAttacking) return;
-
-        if (Input.GetKeyDown(KeyCode.E))
-            PickUpRock();
-        else if (isDashing) return;
-        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
-            Throw();
-        else if (Input.GetKeyDown(KeyCode.Space) && canAttack())
-            Attack();
-        else if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)) && mana >= dashCost)
-            StartCoroutine(Dash());
-    }
-    */
 
     void FixedUpdate () {
-        if (isDead || isThrowing || isBlocking) return;
+        if (isDead || isThrowing) return;
 
         float move = Input.GetAxis("Horizontal");
 
-        rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
-
         if (move > 0 && !facingRight || move < 0 && facingRight)
             Flip();
+
+        if (isBlocking) return;
+
+        rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
 
         anim.SetFloat("MoveSpeed", Mathf.Abs(move));
 	}
@@ -140,23 +129,30 @@ public class CharacterController : GameCharacter {
         resizeHeldObject(rock);
     }
 
-    void Throw() {
+    IEnumerator Throw() {
+        isBlocking = false;
         isThrowing = true;
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
-        PlaySound(grunt, 0.5f);
+        PlaySound(grunt, 0.7f);
+        yield return new WaitForSeconds(ThrowAnimationLength);
+        isThrowing = false;
     }
 
-    void Attack() {
+    IEnumerator Attack() {
+        isBlocking = false;
         isAttacking = true;
-        nextAttack = Time.time + attackRate;
         anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(attackRate);
+        isAttacking = false;
     }
 
      IEnumerator Dash() {
+        PlaySound(dash, 0.1f);
+        isBlocking = false;
+        isDashing = true;
         mana -= dashCost;
         UpdateManaBar();
-        isDashing = true;
         float speed = maxSpeed;
         maxSpeed = 8;
         anim.SetTrigger("Dash");
@@ -179,35 +175,31 @@ public class CharacterController : GameCharacter {
         return CanPickUpRocks && !isHoldingObject && Time.time >= nextPickUpTime;
     }
 
-    private bool canAttack() {
-        return Time.time >= nextAttack;
-    }
-
     protected override void Die() {
         anim.SetTrigger("Death");
         PlaySound(deathSound, 0);
     }
 
     void TriggerIsThrowing() {
-        isThrowing = !isThrowing;
-
-        if (!isThrowing) {
-            isHoldingObject = false;
-            Transform holding = objectSlot.transform.GetChild(0);
-            holding.GetComponent<Rock>().Throw(throwForce);
-            holding.transform.localScale = throwableObject.transform.localScale;
-        }
-    }
-
-    void TriggerisAttacing() {
-        isAttacking = !isAttacking;
+        isHoldingObject = false;
+        Transform holding = objectSlot.transform.GetChild(0);
+        holding.GetComponent<Rock>().Throw(throwForce);
+        holding.transform.localScale = throwableObject.transform.localScale;
     }
 
     void HitTargets() {
+        bool isHit = false;
         foreach (EnemyController enemy in hitbox.GetEnemiesToDamage()) {
             if (!enemy.IsClimbing && !enemy.IsDead)
+            {
                 enemy.TakeDamage(damage, transform);
+                isHit = true;
+            }
                 
+        }
+        if (isHit)
+        {
+            PlaySound(enemyHit, 0);
         }
     }
 
@@ -224,13 +216,16 @@ public class CharacterController : GameCharacter {
             manabar.transform.localScale = new Vector3(((float)mana / maxMana), manabar.transform.localScale.y, manabar.transform.localScale.z);
     }
 
-    public void BuyMana() {
-        mana = maxMana;
+    public void BuyMana(int manaToAdd) {
+        mana += manaToAdd;
+        if(mana > maxMana)
+        {
+            mana = maxMana;
+        }
         UpdateManaBar();
     }
 
-    void PlaySound(AudioClip musicClip, float delay)
-    {
+    void PlaySound(AudioClip musicClip, float delay) {
         audioSource.clip = musicClip;
         audioSource.PlayDelayed(delay);
     }
@@ -257,7 +252,7 @@ public class CharacterController : GameCharacter {
             }
 
             // Check whether player is still blocking
-            if (mana <= 0 || !Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Space))
+            if (mana <= 0 || !Input.GetKey(KeyCode.LeftShift))
                 isBlocking = false;
             else
                 yield return new WaitForEndOfFrame();
@@ -268,7 +263,21 @@ public class CharacterController : GameCharacter {
     }
 
     public new void TakeDamage(int p_damage, Transform attackerTransform) {
-        if (!isBlocking)
+        PlaySound(hit, 0);
+
+        if (IsDead) return;
+
+        bool isLeftOfTarget = attackerTransform.position.x < transform.position.x ? true : false;
+
+        if (!isBlocking || !IsBlockingInDirectionOfAttacker(attackerTransform)) {
             base.TakeDamage(p_damage, attackerTransform);
+            FloatingTextController.CreateDamageText(transform, true, isLeftOfTarget);
+        }
+        else
+            FloatingTextController.CreateDamageText(transform, false, isLeftOfTarget);
+    }
+
+    bool IsBlockingInDirectionOfAttacker(Transform attacker) {
+        return (attacker.position.x >= transform.position.x && facingRight) || (attacker.position.x <= transform.position.x && !facingRight);
     }
 }

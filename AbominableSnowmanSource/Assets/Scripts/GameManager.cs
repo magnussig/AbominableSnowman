@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     // Spawn cords
     [SerializeField] private float spawnbeginX;
     [SerializeField] private float spawnEndX;
+    [SerializeField] private float spawnMiddleX;
     [SerializeField] private float spawnY;
 
     // Spawn wave variables
@@ -44,10 +45,12 @@ public class GameManager : MonoBehaviour {
     private int enemiesKilled;
     private int totalKillCount = 0;
     public int waveCount;
-    [SerializeField] private int score;
+    private int score;
     private float SpawnRate;
     private int numberOfEnemiesSpawned = 0;
     private bool isPaused;
+    private bool isGameOver = false;
+    private bool lastSpawnLeft = false;
 
     void Awake() {
         uiManager = GameObject.FindGameObjectWithTag("GUI").GetComponent<UIManager>();
@@ -79,14 +82,18 @@ public class GameManager : MonoBehaviour {
         uiManager.showPauseMenu(false);
         uiManager.showCountDown(false);
 
+        SpawnRate = SwarmSpawnRate;
+
         StartCoroutine(NextSpawnWave());
 
         StartCoroutine(ThresholdManage());
 	}
 
 	void Update () {
-        if (player.IsDead)
+        if (isGameOver) return;
+        else if (player.IsDead) {
             GameOver();
+        }
         else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P) && !player.IsDead)
             PauseToggle();
 
@@ -104,18 +111,23 @@ public class GameManager : MonoBehaviour {
         enemiesKilled = 0;
 
         for (int i = 0; i < numberOfEnemies; i++) {
+            if (isGameOver) break;
+
             InstantiateEnemy();
             yield return new WaitForSeconds(SpawnRate);
         }
 
-        yield return new WaitUntil(new System.Func<bool>(areAllEnemiesKilled));
+        if (!isGameOver)
+        {
+            yield return new WaitUntil(new System.Func<bool>(areAllEnemiesKilled));
 
-        UpdateSpawnVariables();
+            UpdateSpawnVariables();
 
-        isWaveStarted = false;
-        waveCount++;
-        updateCounters();
-        yield return WaitForNextSpawnWave();
+            isWaveStarted = false;
+            waveCount++;
+            updateCounters();
+            yield return WaitForNextSpawnWave();
+        }
     }
 
     IEnumerator WaitForNextSpawnWave() {
@@ -159,16 +171,31 @@ public class GameManager : MonoBehaviour {
     IEnumerator ThresholdManage() {
         while (true)
         {
-            if (numberOfEnemiesSpawned < CalmThreshold)
-                SpawnRate = SwarmSpawnRate;
+            Debug.Log("SpawnRate: " + SpawnRate + " number of enemies spawned: " + numberOfEnemiesSpawned);
+            if (numberOfEnemiesSpawned < CalmThreshold) {
+                if (player.Health == 5 && enemiesKilled >= numberOfEnemies / 2) {
+                    FastEnemyChance = 25f;
+                    SpawnRate = .5f;
+                }
+                else if(player.Health >= 3 && enemiesKilled >= numberOfEnemies / 2) {
+                    FastEnemyChance = 15f;
+                    SpawnRate = .75f;
+                } 
+                else {
+                    SpawnRate = SwarmSpawnRate;
+                    FastEnemyChance = 2;
+                }
+            }
             else if (numberOfEnemiesSpawned > SwarmThreshold)
-                SpawnRate = CalmThreshold;
-            yield return new WaitForSeconds(5);
+                SpawnRate = CalmSpawnRate;
+            yield return new WaitForSeconds(SpawnRate);
         }
     }
 
     void InstantiateEnemy() {
-        Vector2 spawnPosition = new Vector2(Random.Range(spawnbeginX, spawnEndX), spawnY);
+        numberOfEnemiesSpawned++;
+        Vector2 spawnPosition = lastSpawnLeft ? new Vector2(Random.Range(spawnMiddleX, spawnEndX), spawnY) : new Vector2(Random.Range(spawnbeginX, spawnMiddleX), spawnY);
+        lastSpawnLeft = !lastSpawnLeft;
         Quaternion spawnRotation = Quaternion.identity;
         EnemyController enemyControl = ((GameObject)Instantiate(enemy, spawnPosition, spawnRotation)).GetComponent<EnemyController>();
 
@@ -185,7 +212,7 @@ public class GameManager : MonoBehaviour {
         }
 
         numberOfEnemies += addEnemiesBetweenWaves;
-        FastEnemyChance += FastEnemyChance <= 10f ? .5f : 0f;
+        FastEnemyChance += FastEnemyChance <= 15f ? 1f : 0f;
     }
 
     public void IncrementKillCounter() {
@@ -230,8 +257,26 @@ public class GameManager : MonoBehaviour {
     }
 
     void GameOver() {
+
         uiManager.isHighScore(waveCount);
+
+        isGameOver = true;
+
         uiManager.showGameOverPanel(true);
         uiManager.SetGameOverStats(waveCount, totalKillCount, score);
+        StartCoroutine( CleanUp() );
+    }
+
+    IEnumerator CleanUp() {
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            yield return new WaitForSeconds(1f);
+
+            if (g != null) {
+                EnemyController c = g.GetComponent<EnemyController>();
+                if (!c.IsDead)
+                    c.ClimbDown();
+            }
+        }
     }
 }

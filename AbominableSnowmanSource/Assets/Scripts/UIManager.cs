@@ -21,12 +21,14 @@ public class UIManager : MonoBehaviour {
     private bool isPauseMenuShowing;
     private InstructionsController instructionController;
     private Animator anim;
+    private TrapMenuController trapMenuController;
 
     void Start() {
         highscore = PlayerPrefs.GetInt("Highscore", 0);
         anim = GetComponent<Animator>();
         instructionController = GameObject.FindGameObjectWithTag("Instruction").GetComponent<InstructionsController>();
         instructionController.gameObject.SetActive(false);
+        trapMenuController = GameObject.Find("TrapPanel").GetComponent<TrapMenuController>();
     }
 
     public void showGameOverPanel(bool show) {
@@ -73,6 +75,18 @@ public class UIManager : MonoBehaviour {
     }
 
     public void ShowInstruction(string instruction) {
+        if(instruction == "Mana")
+        {
+            instruction = "Energy: replenishes players energy by " + trapMenuController.manaPoints + "/100. Cost: " + trapMenuController.manaCost + " points.";
+        }
+        else if(instruction == "Health")
+        {
+            instruction = "Health: heals player by " + trapMenuController.healthPoints + "/5 HP. Cost: " + trapMenuController.healthCost + " points.";
+        }
+        else if(instruction == "Blizzard")
+        {
+            instruction = "Blizzard: Kills enemies that enter cloud, duration: 1 round. Cost: " + trapMenuController.healthCost + " points.";
+        }
         instructionController.gameObject.SetActive(true);
         instructionController.ShowInstruction(instruction);
     }
