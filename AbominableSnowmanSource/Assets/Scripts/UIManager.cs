@@ -12,10 +12,12 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private Text GameOverWave;
     [SerializeField] private Text GameOverKillCount;
     [SerializeField] private Text GameOverScore;
+    [SerializeField] private Text GameOverHighScore;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Image background;
 
+    int highscore;
     private bool isGameOverShowing;
     private bool isPauseMenuShowing;
     private InstructionsController instructionController;
@@ -23,6 +25,7 @@ public class UIManager : MonoBehaviour {
     private TrapMenuController trapMenuController;
 
     void Start() {
+        highscore = PlayerPrefs.GetInt("Highscore", 0);
         anim = GetComponent<Animator>();
         instructionController = GameObject.FindGameObjectWithTag("Instruction").GetComponent<InstructionsController>();
         instructionController.gameObject.SetActive(false);
@@ -70,9 +73,10 @@ public class UIManager : MonoBehaviour {
     }
 
     public void SetGameOverStats(int wave, int killed, int score) {
-        GameOverWave.text = "Wave: " + wave;
-        GameOverKillCount.text = "Enemies killed: " + killed;
-        GameOverScore.text = "Score: " + score;
+        GameOverWave.text = " Reached Wave : " + wave;
+        GameOverKillCount.text = "Enemies killed : " + killed;
+        GameOverScore.text = "Score : " + score;
+        GameOverHighScore.text = "Highscore : " + highscore + " Waves";
     }
 
     public void ShowInstruction(string instruction) {
@@ -94,5 +98,15 @@ public class UIManager : MonoBehaviour {
 
     public void UnShowInstruction() {
         instructionController.gameObject.SetActive(false);
+    }
+
+    public void isHighScore(int waveCount)
+    {
+        if(waveCount > highscore)
+        {
+            Debug.Log("saving highscore");
+            PlayerPrefs.SetInt("Highscore", waveCount);
+        }
+
     }
 }
