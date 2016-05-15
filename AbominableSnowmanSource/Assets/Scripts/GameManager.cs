@@ -157,6 +157,10 @@ public class GameManager : MonoBehaviour {
         }
         uiManager.showCountDown(false);
 
+        // Destroy unplaced traps
+        GameObject unplacedTrap = GameObject.FindGameObjectWithTag("Unplaced");
+        Destroy(unplacedTrap);
+
         // Move the camera back to the player
         cs.IsFollowingPlayer = true;
 

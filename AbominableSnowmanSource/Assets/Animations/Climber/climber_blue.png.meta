@@ -1,58 +1,58 @@
 fileFormatVersion: 2
-guid: 34ebc993843a4f641995fd0cbbdb4cbd
-timeCreated: 1462193900
+guid: caaf5393d25c7f74e949071b8586d7c7
+timeCreated: 1463334386
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: climber3_0
-    21300002: climber3_1
-    21300004: climber3_2
-    21300006: climber3_3
-    21300008: climber3_4
-    21300010: climber3_5
-    21300012: climber3_6
-    21300014: climber3_7
-    21300016: climber3_8
-    21300018: climber3_9
-    21300020: climber3_10
-    21300022: climber3_11
-    21300024: climber3_12
-    21300026: climber3_13
-    21300028: climber3_14
-    21300030: climber3_15
-    21300032: climber3_16
-    21300034: climber3_17
-    21300036: climber3_18
-    21300038: climber3_19
-    21300040: climber3_20
-    21300042: climber3_21
-    21300044: climber3_22
-    21300046: climber3_23
-    21300048: climber3_24
-    21300050: climber3_25
-    21300052: climber3_26
-    21300054: climber3_27
-    21300056: climber3_28
-    21300058: climber3_29
-    21300060: climber3_30
-    21300062: climber3_31
-    21300064: climber3_32
-    21300066: climber3_33
-    21300068: climber3_34
-    21300070: climber3_35
-    21300072: climber3_36
-    21300074: climber3_37
-    21300076: climber3_38
-    21300078: climber3_39
-    21300080: climber3_40
-    21300082: climber3_41
-    21300084: climber3_42
-    21300086: climber3_43
-    21300088: climber3_44
-    21300090: climber3_45
-    21300092: climber3_46
-    21300094: climber3_47
-    21300096: climber3_48
+    21300000: climber_blue_0
+    21300002: climber_blue_1
+    21300004: climber_blue_2
+    21300006: climber_blue_3
+    21300008: climber_blue_4
+    21300010: climber_blue_5
+    21300012: climber_blue_6
+    21300014: climber_blue_7
+    21300016: climber_blue_8
+    21300018: climber_blue_9
+    21300020: climber_blue_10
+    21300022: climber_blue_11
+    21300024: climber_blue_12
+    21300026: climber_blue_13
+    21300028: climber_blue_14
+    21300030: climber_blue_15
+    21300032: climber_blue_16
+    21300034: climber_blue_17
+    21300036: climber_blue_18
+    21300038: climber_blue_19
+    21300040: climber_blue_20
+    21300042: climber_blue_21
+    21300044: climber_blue_22
+    21300046: climber_blue_23
+    21300048: climber_blue_24
+    21300050: climber_blue_25
+    21300052: climber_blue_26
+    21300054: climber_blue_27
+    21300056: climber_blue_28
+    21300058: climber_blue_29
+    21300060: climber_blue_30
+    21300062: climber_blue_31
+    21300064: climber_blue_32
+    21300066: climber_blue_33
+    21300068: climber_blue_34
+    21300070: climber_blue_35
+    21300072: climber_blue_36
+    21300074: climber_blue_37
+    21300076: climber_blue_38
+    21300078: climber_blue_39
+    21300080: climber_blue_40
+    21300082: climber_blue_41
+    21300084: climber_blue_42
+    21300086: climber_blue_43
+    21300088: climber_blue_44
+    21300090: climber_blue_45
+    21300092: climber_blue_46
+    21300094: climber_blue_47
+    21300096: climber_blue_48
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -99,7 +99,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: climber3_0
+    - name: climber_blue_0
       rect:
         serializedVersion: 2
         x: 41
@@ -118,7 +118,7 @@ TextureImporter:
         - {x: -40.5, y: -88.5}
         - {x: 47.5, y: -88.5}
         - {x: 47.5, y: 88.5}
-    - name: climber3_1
+    - name: climber_blue_1
       rect:
         serializedVersion: 2
         x: 293
@@ -140,7 +140,7 @@ TextureImporter:
         - {x: 1.5, y: -80.5}
         - {x: 7.5, y: -88.5}
         - {x: 23.5, y: -88.5}
-    - name: climber3_2
+    - name: climber_blue_2
       rect:
         serializedVersion: 2
         x: 550
@@ -161,7 +161,7 @@ TextureImporter:
         - {x: 35.5, y: -88.5}
         - {x: 49.5, y: -80.5}
         - {x: 49.5, y: 88.5}
-    - name: climber3_3
+    - name: climber_blue_3
       rect:
         serializedVersion: 2
         x: 794
@@ -180,7 +180,7 @@ TextureImporter:
         - {x: 52, y: -88.5}
         - {x: 52, y: 63.5}
         - {x: 34, y: 79.5}
-    - name: climber3_4
+    - name: climber_blue_4
       rect:
         serializedVersion: 2
         x: 1055
@@ -198,7 +198,7 @@ TextureImporter:
         - {x: 47.5, y: -47.5}
         - {x: 47.5, y: 70.5}
         - {x: 42.5, y: 88.5}
-    - name: climber3_5
+    - name: climber_blue_5
       rect:
         serializedVersion: 2
         x: 1313
@@ -216,7 +216,7 @@ TextureImporter:
         - {x: 47.5, y: -70}
         - {x: 47.5, y: 85}
         - {x: 46.5, y: 89}
-    - name: climber3_6
+    - name: climber_blue_6
       rect:
         serializedVersion: 2
         x: 1565
@@ -240,7 +240,7 @@ TextureImporter:
         - {x: 32.5, y: -80}
         - {x: 32.5, y: -70}
         - {x: 20.5, y: -61}
-    - name: climber3_7
+    - name: climber_blue_7
       rect:
         serializedVersion: 2
         x: 44
@@ -258,7 +258,7 @@ TextureImporter:
         - {x: 48.5, y: -75.5}
         - {x: 48.5, y: 83.5}
         - {x: 40.5, y: 88.5}
-    - name: climber3_8
+    - name: climber_blue_8
       rect:
         serializedVersion: 2
         x: 293
@@ -276,7 +276,7 @@ TextureImporter:
         - {x: 47.5, y: -39.5}
         - {x: 47.5, y: 68.5}
         - {x: 15.5, y: 88.5}
-    - name: climber3_9
+    - name: climber_blue_9
       rect:
         serializedVersion: 2
         x: 551
@@ -294,7 +294,7 @@ TextureImporter:
         - {x: 47.5, y: -78.5}
         - {x: 47.5, y: 78.5}
         - {x: 23.5, y: 88.5}
-    - name: climber3_10
+    - name: climber_blue_10
       rect:
         serializedVersion: 2
         x: 798
@@ -312,7 +312,7 @@ TextureImporter:
         - {x: 63.5, y: -31.5}
         - {x: 63.5, y: 83.5}
         - {x: 30.5, y: 88.5}
-    - name: climber3_11
+    - name: climber_blue_11
       rect:
         serializedVersion: 2
         x: 1050
@@ -341,7 +341,7 @@ TextureImporter:
         - {x: 12, y: -77}
         - {x: 15, y: -85}
         - {x: 55, y: -76}
-    - name: climber3_12
+    - name: climber_blue_12
       rect:
         serializedVersion: 2
         x: 1274
@@ -360,7 +360,7 @@ TextureImporter:
         - {x: 75, y: -88}
         - {x: 75, y: 55}
         - {x: 71, y: 72}
-    - name: climber3_13
+    - name: climber_blue_13
       rect:
         serializedVersion: 2
         x: 1550
@@ -388,7 +388,7 @@ TextureImporter:
         - {x: 62.5, y: -86.5}
         - {x: 63.5, y: -80.5}
         - {x: 63.5, y: -72.5}
-    - name: climber3_14
+    - name: climber_blue_14
       rect:
         serializedVersion: 2
         x: 27
@@ -411,7 +411,7 @@ TextureImporter:
         - {x: -24, y: -74}
         - {x: -22, y: -88}
         - {x: -20, y: -89}
-    - name: climber3_15
+    - name: climber_blue_15
       rect:
         serializedVersion: 2
         x: 283
@@ -436,7 +436,7 @@ TextureImporter:
         - {x: 100, y: -51}
         - {x: 100, y: 11}
         - {x: 61, y: 38}
-    - name: climber3_16
+    - name: climber_blue_16
       rect:
         serializedVersion: 2
         x: 541
@@ -464,7 +464,7 @@ TextureImporter:
         - {x: 7, y: -79}
         - {x: 5, y: -75}
         - {x: 47, y: -88}
-    - name: climber3_17
+    - name: climber_blue_17
       rect:
         serializedVersion: 2
         x: 834
@@ -485,7 +485,7 @@ TextureImporter:
         - {x: 2, y: -63}
         - {x: 4, y: -80}
         - {x: 25, y: -88}
-    - name: climber3_18
+    - name: climber_blue_18
       rect:
         serializedVersion: 2
         x: 1093
@@ -505,7 +505,7 @@ TextureImporter:
         - {x: 4, y: -63}
         - {x: 12, y: -88}
         - {x: 48, y: -74}
-    - name: climber3_19
+    - name: climber_blue_19
       rect:
         serializedVersion: 2
         x: 1341
@@ -525,7 +525,7 @@ TextureImporter:
         - {x: 2, y: -63}
         - {x: 4, y: -80}
         - {x: 46, y: -85}
-    - name: climber3_20
+    - name: climber_blue_20
       rect:
         serializedVersion: 2
         x: 1594
@@ -544,7 +544,7 @@ TextureImporter:
         - {x: 47.5, y: -79}
         - {x: 50.5, y: -48}
         - {x: 50.5, y: 52}
-    - name: climber3_21
+    - name: climber_blue_21
       rect:
         serializedVersion: 2
         x: 73
@@ -561,7 +561,7 @@ TextureImporter:
         - {x: 46.5, y: -88}
         - {x: 46.5, y: 66}
         - {x: 30.5, y: 88}
-    - name: climber3_22
+    - name: climber_blue_22
       rect:
         serializedVersion: 2
         x: 322
@@ -580,7 +580,7 @@ TextureImporter:
         - {x: 47.5, y: -79}
         - {x: 50.5, y: -48}
         - {x: 50.5, y: 52}
-    - name: climber3_23
+    - name: climber_blue_23
       rect:
         serializedVersion: 2
         x: 556
@@ -600,7 +600,7 @@ TextureImporter:
         - {x: 20, y: -86}
         - {x: 63, y: -13}
         - {x: 63, y: 54}
-    - name: climber3_24
+    - name: climber_blue_24
       rect:
         serializedVersion: 2
         x: 813
@@ -619,7 +619,7 @@ TextureImporter:
         - {x: 25, y: -79}
         - {x: 67, y: -37}
         - {x: 67, y: 52}
-    - name: climber3_25
+    - name: climber_blue_25
       rect:
         serializedVersion: 2
         x: 1071
@@ -640,7 +640,7 @@ TextureImporter:
         - {x: 79.5, y: -42.5}
         - {x: 79.5, y: 60.5}
         - {x: 76.5, y: 70.5}
-    - name: climber3_26
+    - name: climber_blue_26
       rect:
         serializedVersion: 2
         x: 1328
@@ -659,7 +659,7 @@ TextureImporter:
         - {x: 85, y: 60.5}
         - {x: 26, y: 60.5}
         - {x: -70, y: 27.5}
-    - name: climber3_27
+    - name: climber_blue_27
       rect:
         serializedVersion: 2
         x: 1568
@@ -677,7 +677,7 @@ TextureImporter:
         - {x: 89.5, y: -56}
         - {x: 89.5, y: 30}
         - {x: 76.5, y: 56}
-    - name: climber3_28
+    - name: climber_blue_28
       rect:
         serializedVersion: 2
         x: 35
@@ -697,7 +697,7 @@ TextureImporter:
         - {x: 52, y: -17}
         - {x: 52, y: 71}
         - {x: 42, y: 85}
-    - name: climber3_29
+    - name: climber_blue_29
       rect:
         serializedVersion: 2
         x: 286
@@ -714,7 +714,7 @@ TextureImporter:
         - {x: -40.5, y: -88}
         - {x: 55.5, y: -88}
         - {x: 55.5, y: 88}
-    - name: climber3_30
+    - name: climber_blue_30
       rect:
         serializedVersion: 2
         x: 532
@@ -731,7 +731,7 @@ TextureImporter:
         - {x: 59.5, y: -88}
         - {x: 59.5, y: 82}
         - {x: 43.5, y: 88}
-    - name: climber3_31
+    - name: climber_blue_31
       rect:
         serializedVersion: 2
         x: 771
@@ -756,7 +756,7 @@ TextureImporter:
         - {x: 63.5, y: -76.5}
         - {x: 63.5, y: -72.5}
         - {x: 59.5, y: -64.5}
-    - name: climber3_32
+    - name: climber_blue_32
       rect:
         serializedVersion: 2
         x: 1053
@@ -781,7 +781,7 @@ TextureImporter:
         - {x: 53, y: -3}
         - {x: 53, y: 66}
         - {x: 41, y: 83}
-    - name: climber3_33
+    - name: climber_blue_33
       rect:
         serializedVersion: 2
         x: 1310
@@ -802,7 +802,7 @@ TextureImporter:
         - {x: 45, y: -50}
         - {x: 52, y: 6}
         - {x: 52, y: 58}
-    - name: climber3_34
+    - name: climber_blue_34
       rect:
         serializedVersion: 2
         x: 1562
@@ -819,7 +819,7 @@ TextureImporter:
         - {x: 30, y: -89}
         - {x: 52, y: -71}
         - {x: 52, y: 89}
-    - name: climber3_35
+    - name: climber_blue_35
       rect:
         serializedVersion: 2
         x: 42
@@ -842,7 +842,7 @@ TextureImporter:
         - {x: -20, y: -84.5}
         - {x: -18, y: -79.5}
         - {x: -3, y: -86.5}
-    - name: climber3_36
+    - name: climber_blue_36
       rect:
         serializedVersion: 2
         x: 292
@@ -862,7 +862,7 @@ TextureImporter:
         - {x: 52.5, y: -64}
         - {x: 52.5, y: 64}
         - {x: 18.5, y: 88}
-    - name: climber3_37
+    - name: climber_blue_37
       rect:
         serializedVersion: 2
         x: 543
@@ -884,7 +884,7 @@ TextureImporter:
         - {x: 29.5, y: -77.5}
         - {x: 54.5, y: -35.5}
         - {x: 54.5, y: 59.5}
-    - name: climber3_38
+    - name: climber_blue_38
       rect:
         serializedVersion: 2
         x: 800
@@ -902,7 +902,7 @@ TextureImporter:
         - {x: 52, y: -56}
         - {x: 52, y: 80}
         - {x: 23, y: 88}
-    - name: climber3_39
+    - name: climber_blue_39
       rect:
         serializedVersion: 2
         x: 1052
@@ -924,7 +924,7 @@ TextureImporter:
         - {x: 19, y: -84}
         - {x: 18, y: -74}
         - {x: 15, y: -55}
-    - name: climber3_40
+    - name: climber_blue_40
       rect:
         serializedVersion: 2
         x: 41
@@ -942,7 +942,7 @@ TextureImporter:
         - {x: 47.5, y: -78.5}
         - {x: 47.5, y: 67.5}
         - {x: 16.5, y: 88.5}
-    - name: climber3_41
+    - name: climber_blue_41
       rect:
         serializedVersion: 2
         x: 296
@@ -959,7 +959,7 @@ TextureImporter:
         - {x: 47.5, y: -85}
         - {x: 47.5, y: 68}
         - {x: 35.5, y: 88}
-    - name: climber3_42
+    - name: climber_blue_42
       rect:
         serializedVersion: 2
         x: 545
@@ -975,7 +975,7 @@ TextureImporter:
         - {x: 47.5, y: -87.5}
         - {x: 47.5, y: 75.5}
         - {x: 20.5, y: 87.5}
-    - name: climber3_43
+    - name: climber_blue_43
       rect:
         serializedVersion: 2
         x: 803
@@ -998,7 +998,7 @@ TextureImporter:
         - {x: 47.5, y: -22}
         - {x: 47.5, y: 70}
         - {x: 16.5, y: 87}
-    - name: climber3_44
+    - name: climber_blue_44
       rect:
         serializedVersion: 2
         x: 1058
@@ -1014,7 +1014,7 @@ TextureImporter:
         - {x: 47.5, y: -87.5}
         - {x: 47.5, y: 75.5}
         - {x: 20.5, y: 87.5}
-    - name: climber3_45
+    - name: climber_blue_45
       rect:
         serializedVersion: 2
         x: 1310
@@ -1031,7 +1031,7 @@ TextureImporter:
         - {x: 47.5, y: -85}
         - {x: 47.5, y: 68}
         - {x: 35.5, y: 88}
-    - name: climber3_46
+    - name: climber_blue_46
       rect:
         serializedVersion: 2
         x: 49
@@ -1051,7 +1051,7 @@ TextureImporter:
         - {x: 20, y: -86}
         - {x: 63, y: -13}
         - {x: 63, y: 54}
-    - name: climber3_47
+    - name: climber_blue_47
       rect:
         serializedVersion: 2
         x: 303
@@ -1070,7 +1070,7 @@ TextureImporter:
         - {x: 67, y: -47}
         - {x: 67, y: 51}
         - {x: 53, y: 79}
-    - name: climber3_48
+    - name: climber_blue_48
       rect:
         serializedVersion: 2
         x: 553

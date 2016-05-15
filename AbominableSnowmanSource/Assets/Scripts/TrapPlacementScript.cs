@@ -11,6 +11,7 @@ public class TrapPlacementScript : MonoBehaviour {
     private GameObject hikingZoneBoundary;
     private bool canPlaceAtPosition;
     private Trap trap;
+    private string originalTag;
 
 	void Start () {
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
@@ -25,6 +26,8 @@ public class TrapPlacementScript : MonoBehaviour {
 
         trap = GetComponent<Trap>();
         Debug.Log(trap.name);
+        originalTag = gameObject.tag;
+        gameObject.tag = "Unplaced";
         trap.isEnabled = false;
     }
 	
@@ -32,15 +35,13 @@ public class TrapPlacementScript : MonoBehaviour {
         // make gameobject follow mouse
         Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (gm.Wait <= 0)
-        {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            Place();
+        else if (Input.GetKeyDown(KeyCode.Mouse1))
             Destroy(gameObject);
-        }
-        else
-        {
-            gameObject.transform.position = new Vector3(position.x, position.y, 0);
-        }
-	}
+
+        gameObject.transform.position = new Vector3(position.x, position.y, 0);
+    }
 
     void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.Equals(hikingZoneBoundary)) {
@@ -61,8 +62,11 @@ public class TrapPlacementScript : MonoBehaviour {
             s.material.color = color;
     }
 
-    void OnMouseDown() {
-        if (canPlaceAtPosition) {
+    void Place()
+    {
+        if (canPlaceAtPosition)
+        {
+            gameObject.tag = originalTag;
             for (int i = 0; i < sprites.Length; i++)
                 sprites[i].material.color = originalColor[i];
 
