@@ -206,15 +206,15 @@ public class EnemyController : GameCharacter {
             gm.addToScore(5, transform);
             anim.SetTrigger("Death");
             PlaySound(loserDeath, 0);
+
+            float chance = Random.Range(0f, 1f);
+
+            if (chance <= lifeDropChance)
+                StartCoroutine(DropLife());
         }
 
         gm.IncrementKillCounter();
         Destroy(gameObject, deathTime);
-
-        float chance = Random.Range(0f, 1f);
-
-        if (chance <= lifeDropChance)
-            StartCoroutine(DropLife());
     }
 
     public new void TakeDamage(int p_damage, Transform attackerTransform)

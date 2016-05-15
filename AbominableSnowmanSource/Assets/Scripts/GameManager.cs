@@ -260,15 +260,19 @@ public class GameManager : MonoBehaviour {
         isGameOver = true;
         uiManager.showGameOverPanel(true);
         uiManager.SetGameOverStats(waveCount, totalKillCount, score);
-        CleanUp();
+        StartCoroutine( CleanUp() );
     }
 
-    void CleanUp() {
+    IEnumerator CleanUp() {
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Enemy"))
         {
-            EnemyController c = g.GetComponent<EnemyController>();
-            if (!c.IsDead)
-                c.ClimbDown();
+            yield return new WaitForSeconds(1f);
+
+            if (g != null) {
+                EnemyController c = g.GetComponent<EnemyController>();
+                if (!c.IsDead)
+                    c.ClimbDown();
+            }
         }
     }
 }
