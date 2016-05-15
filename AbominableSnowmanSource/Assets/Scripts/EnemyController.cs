@@ -27,7 +27,6 @@ public class EnemyController : GameCharacter {
     private AudioClip loserDeath;
     private AudioClip wilhelmScream;
     private AudioClip impact;
-    private AudioClip notsure;
 
     [SerializeField] private float climbingSpeed;
     [SerializeField] private float walkingSpeed;
@@ -45,7 +44,6 @@ public class EnemyController : GameCharacter {
         audioSource2 = GetComponent<AudioSource>();
         wilhelmScream = Resources.Load<AudioClip>("Audio/wilhelmScream");
         loserDeath = Resources.Load<AudioClip>("Audio/loserDeath");
-        notsure = Resources.Load<AudioClip>("Audio/notsure");
 
         if (target == null)
             target = GameObject.FindWithTag("Player");
@@ -209,20 +207,19 @@ public class EnemyController : GameCharacter {
             gm.addToScore(5, transform);
             anim.SetTrigger("Death");
             PlaySound(loserDeath, 0);
+
+            float chance = Random.Range(0f, 1f);
+
+            if (chance <= lifeDropChance)
+                StartCoroutine(DropLife());
         }
 
         gm.IncrementKillCounter();
         Destroy(gameObject, deathTime);
-
-        float chance = Random.Range(0f, 1f);
-
-        if (chance <= lifeDropChance)
-            StartCoroutine(DropLife());
     }
 
     public new void TakeDamage(int p_damage, Transform attackerTransform)
     {
-        PlaySound(enemyHit, 0);
         base.TakeDamage(p_damage, attackerTransform);
         if (!IsClimbing)
         {
