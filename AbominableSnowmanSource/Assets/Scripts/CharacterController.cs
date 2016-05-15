@@ -39,6 +39,7 @@ public class CharacterController : GameCharacter {
     private AudioClip grunt;
     private AudioClip hit;
     private AudioClip enemyHit;
+    private AudioClip dash;
 
     new void Start () {
         base.Start();
@@ -51,6 +52,7 @@ public class CharacterController : GameCharacter {
         grunt = Resources.Load<AudioClip>("Audio/grunt");
         hit = Resources.Load<AudioClip>("Audio/hit");
         enemyHit = Resources.Load<AudioClip>("Audio/enemyHit");
+        dash = Resources.Load<AudioClip>("Audio/roll");
 
         if (objectSlot == null)
             Debug.Log("Player object slot not found");
@@ -146,6 +148,7 @@ public class CharacterController : GameCharacter {
     }
 
      IEnumerator Dash() {
+        PlaySound(dash, 0.1f);
         isBlocking = false;
         isDashing = true;
         mana -= dashCost;
