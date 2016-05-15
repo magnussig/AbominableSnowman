@@ -230,6 +230,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void GameOver() {
+        uiManager.isHighScore(waveCount);
         uiManager.showGameOverPanel(true);
         uiManager.SetGameOverStats(waveCount, totalKillCount, score);
     }
