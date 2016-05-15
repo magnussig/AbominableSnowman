@@ -38,6 +38,7 @@ public class CharacterController : GameCharacter {
     private AudioClip deathSound;
     private AudioClip grunt;
     private AudioClip hit;
+    private AudioClip enemyHit;
 
     new void Start () {
         base.Start();
@@ -49,6 +50,7 @@ public class CharacterController : GameCharacter {
         deathSound = Resources.Load<AudioClip>("Audio/deathSound");
         grunt = Resources.Load<AudioClip>("Audio/grunt");
         hit = Resources.Load<AudioClip>("Audio/hit");
+        enemyHit = Resources.Load<AudioClip>("Audio/enemyHit");
 
         if (objectSlot == null)
             Debug.Log("Player object slot not found");
@@ -72,18 +74,19 @@ public class CharacterController : GameCharacter {
     }
     
     void Update() {
+        Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
         if (isDead || isThrowing || isAttacking) return;
 
         if (Input.GetKeyDown(KeyCode.E) && !isBlocking)
             PickUpRock();
         else if (isDashing) return;
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && isHoldingObject)
+        else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
             StartCoroutine(Throw());
-        else if (Input.GetKeyDown(KeyCode.Mouse0))
+        else if (Input.GetKeyDown(KeyCode.Space))
             StartCoroutine(Attack());
-        else if (Input.GetKeyDown(KeyCode.Space) && mana >= dashCost)
+        else if (Input.GetKeyDown(KeyCode.LeftControl) && mana >= dashCost)
             StartCoroutine(Dash());
-        else if (!isBlocking && Input.GetKey(KeyCode.Mouse1) && mana >= blockCost)
+        else if (!isBlocking && Input.GetKey(KeyCode.LeftShift) && mana >= blockCost)
             StartCoroutine(Block());
     }
 
@@ -129,7 +132,7 @@ public class CharacterController : GameCharacter {
         isThrowing = true;
         rb.velocity = Vector2.zero;
         anim.SetTrigger("Throw");
-        PlaySound(grunt, 0.5f);
+        PlaySound(grunt, 0.7f);
         yield return new WaitForSeconds(ThrowAnimationLength);
         isThrowing = false;
     }
@@ -182,10 +185,18 @@ public class CharacterController : GameCharacter {
     }
 
     void HitTargets() {
+        bool isHit = false;
         foreach (EnemyController enemy in hitbox.GetEnemiesToDamage()) {
             if (!enemy.IsClimbing && !enemy.IsDead)
+            {
                 enemy.TakeDamage(damage, transform);
+                isHit = true;
+            }
                 
+        }
+        if (isHit)
+        {
+            PlaySound(enemyHit, 0);
         }
     }
 
@@ -235,7 +246,7 @@ public class CharacterController : GameCharacter {
             }
 
             // Check whether player is still blocking
-            if (mana <= 0 || !Input.GetKey(KeyCode.Mouse1))
+            if (mana <= 0 || !Input.GetKey(KeyCode.LeftShift))
                 isBlocking = false;
             else
                 yield return new WaitForEndOfFrame();

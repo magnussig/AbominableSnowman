@@ -9,14 +9,22 @@ public class DamageEnemyByContact : MonoBehaviour {
     private Rigidbody2D rb;
     private GameManager gm;
 
+    // Audio
+    private AudioClip impact;
+    private AudioSource audioSource;
+
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        audioSource = GetComponent<AudioSource>();
+        impact = Resources.Load<AudioClip>("Audio/impact");
     }
 
 	void OnTriggerEnter2D(Collider2D other) {
         EnemyController enemy = other.GetComponent<EnemyController>();
         if (other.tag == "Enemy" && enemy != null && enemy.IsClimbing) {
+
+            PlaySound(impact, 0);
 
             // deal damage
             enemy.TakeDamage(enemy.Health, transform);
@@ -29,5 +37,11 @@ public class DamageEnemyByContact : MonoBehaviour {
             gm.addToScore(scoreForHit, enemy.gameObject.transform);
             scoreForHit += deltaScore;
         }
+    }
+
+    void PlaySound(AudioClip clip, float delay)
+    {
+        audioSource.clip = clip;
+        audioSource.PlayDelayed(delay);
     }
 }
