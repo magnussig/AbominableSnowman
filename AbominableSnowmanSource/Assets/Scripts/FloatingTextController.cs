@@ -30,13 +30,13 @@ public class FloatingTextController : MonoBehaviour {
 
         if (score == 20)
         {
-            c = Color.green;
+            // set c to orange
+            c = new Color32(255, 165, 0, 0);
             floatText.transform.localScale = new Vector3(2, 2, 2);
         }
         else if(score == 30)
         {
-            // set c to orange
-            c = new Color(255, 165, 0);
+            c = Color.green;
             floatText.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
         }
         else if (score == 40)
@@ -47,8 +47,13 @@ public class FloatingTextController : MonoBehaviour {
         else if (score > 40)
         {
             // set c to pink
-            c = new Color(255, 192, 203);
+            c = new Color32(255, 192, 203, 0);
             floatText.transform.localScale = new Vector3(3, 3, 3);
+        }
+        else if(score > 50)
+        {
+            c = Color.magenta;
+            floatText.transform.localScale = new Vector3(3.3f, 3.3f, 3.3f);
         }
 
         if(score > 10 || score < 0)

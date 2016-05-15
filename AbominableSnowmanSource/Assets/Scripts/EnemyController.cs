@@ -197,7 +197,12 @@ public class EnemyController : GameCharacter {
         if (climbing) // If climbing then just let gravity pull down
         {
             rb.velocity = Vector2.zero;
-            PlaySound(wilhelmScream, 0.5f);
+            //only play wilhelm scream every fifth time
+            float random = Random.Range(0, 5);
+            if(random == 1)
+            {
+                PlaySound(wilhelmScream, 0.5f);
+            }
 
             foreach (Collider2D c in GetComponents<Collider2D>())
                 c.enabled = false;
