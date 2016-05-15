@@ -258,6 +258,14 @@ Prefab:
       propertyPath: m_Navigation.m_Mode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11409584, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11421050, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
   m_IsPrefabParent: 0
