@@ -85,4 +85,12 @@ public class FloatingTextController : MonoBehaviour {
             floatText.SetText("Hit");
         }
     }
+
+    public static void checkpointNotice() {
+        FloatingText floatText = Instantiate(scoreText);
+        floatText.transform.SetParent(canvas.transform, false);
+        floatText.transform.position = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2, 0);
+        floatText.SetColor(Color.white);
+        floatText.SetText("Checkpoint");
+    }
 }

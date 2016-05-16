@@ -15,12 +15,13 @@ public class GameManager : MonoBehaviour {
     // Spawn wave variables
     [SerializeField] private float SwarmSpawnRate;
     [SerializeField] private float CalmSpawnRate;
-    [SerializeField] private float SwarmThreshold;
-    [SerializeField] private float CalmThreshold;
+    [SerializeField] private int SwarmThreshold;
+    [SerializeField] private int CalmThreshold;
     [SerializeField] private float FastEnemyChance;
     [SerializeField] private float WaveWait;
     [SerializeField] private int numberOfEnemies;
     [SerializeField] private int addEnemiesBetweenWaves;
+    [SerializeField] private int numberOfWavesBetweenCheckpoints;
 
     // Audio
     [SerializeField] private AudioClip fightSong;
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour {
     private bool isPaused;
     private bool isGameOver = false;
     private bool lastSpawnLeft = false;
+    private CheckPoint checkpoint;
 
     void Awake() {
         uiManager = GameObject.FindGameObjectWithTag("GUI").GetComponent<UIManager>();
@@ -172,6 +174,28 @@ public class GameManager : MonoBehaviour {
         // Wait until the camera has reached the player
         yield return new WaitUntil(new System.Func<bool>(isCameraAtPlayer));
 
+        // Create CheckPoint
+        if (waveCount % numberOfWavesBetweenCheckpoints == 0)
+        {
+            uiManager.IsCheckPoint = true;
+            uiManager.ChangeCheckPointButtonWaveNumber(waveCount);
+            FloatingTextController.checkpointNotice();
+            checkpoint = new CheckPoint
+                        (
+                            player.Health,
+                            player.Mana,
+                            waveCount,
+                            score,
+                            numberOfEnemies,
+                            FastEnemyChance,
+                            SwarmSpawnRate,
+                            CalmSpawnRate,
+                            SwarmThreshold,
+                            CalmThreshold,
+                            player.transform.position.x
+                        );
+        }
+
         // Enable the player, the next spawn wave is about to start!
         player.enabled = true;
         isWaiting = false;
@@ -289,5 +313,59 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void LoadCheckPoint() {
+        if (checkpoint == null) return;
+
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Enemy"))
+            Destroy(g);
+
+        numberOfEnemies = checkpoint.NumberOfEnemies;
+        score = checkpoint.Score;
+        SwarmSpawnRate = checkpoint.SwarmSpawnRate;
+        CalmSpawnRate = checkpoint.CalmSpawnRate;
+        SwarmThreshold = checkpoint.SwarmThreshold;
+        CalmThreshold = checkpoint.CalmThreshold;
+        player.Mana = checkpoint.PlayerMana;
+        player.Health = checkpoint.PlayerLife;
+        player.IsDead = false;
+        player.Revive(checkpoint.PlayerPosX);
+        isGameOver = false;
+        uiManager.showGameOverPanel(false);
+        isWaiting = false;
+        isWaveStarted = false;
+        numberOfEnemiesSpawned = 0;
+        SpawnRate = SwarmSpawnRate;
+    }
+}
+
+public class CheckPoint {
+    public int PlayerLife { get; set; }
+    public int PlayerMana { get; set; }
+    public int WaveNumber { get; set; }
+    public int Score { get; set; }
+    public int NumberOfEnemies { get; set; }
+    public float FastEnemyChance { get; set; }
+    public float SwarmSpawnRate { get; set; }
+    public float CalmSpawnRate { get; set; }
+    public int SwarmThreshold { get; set; }
+    public int CalmThreshold { get; set; }
+    public float PlayerPosX { get; set; }
+
+    public CheckPoint(int life, int mana, int waveNumber, int score, int numberOfEnemies, float fastEnemtChance, 
+                      float swarmspawnrate, float calmspawnrate, int swarmthreshold, int calmthreshold,
+                      float playerposx) {
+        PlayerLife = life;
+        PlayerMana = mana;
+        WaveNumber = waveNumber;
+        Score = score;
+        NumberOfEnemies = numberOfEnemies;
+        FastEnemyChance = fastEnemtChance;
+        SwarmSpawnRate = swarmspawnrate;
+        CalmSpawnRate = calmspawnrate;
+        SwarmThreshold = swarmthreshold;
+        CalmThreshold = calmthreshold;
+        PlayerPosX = playerposx;
     }
 }

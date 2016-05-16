@@ -15,7 +15,6 @@ public abstract class GameCharacter : MonoBehaviour {
     [SerializeField] protected Vector3 healthbarOffset;
 
     protected SpriteRenderer healthbar;
-    protected bool isDead = false;
     protected float lastTakenDamageTime;
     protected int maxHealth;
 
@@ -23,11 +22,12 @@ public abstract class GameCharacter : MonoBehaviour {
         get {
             return healthPoints;
         }
+        set {
+            healthPoints = value;
+        }
     }
 
-    public bool IsDead {
-        get { return isDead; }
-    }
+    public bool IsDead { get; set; }
 
     protected void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -45,6 +45,8 @@ public abstract class GameCharacter : MonoBehaviour {
             if (child.name == "healthbar")
                 healthbar = child.GetComponent<SpriteRenderer>();
         }
+
+        IsDead = false;
     }
 
     void OnDestroy() {
@@ -52,19 +54,19 @@ public abstract class GameCharacter : MonoBehaviour {
     }
 
     public void TakeDamage(int p_damage, Transform attackerTransform) {
-        if (isDead || Time.time < lastTakenDamageTime + takeDamageRate) return;
+        if (IsDead || Time.time < lastTakenDamageTime + takeDamageRate) return;
         lastTakenDamageTime = Time.time;
 
         healthPoints -= p_damage;
-        isDead = healthPoints <= 0 ? true : false;
+        IsDead = healthPoints <= 0 ? true : false;
 
         UpdateHealthBar();
 
-        if (isDead)
+        if (IsDead)
             Die();
     }
 
-    void UpdateHealthBar() {
+    protected void UpdateHealthBar() {
         if (healthbar != null) {
             healthbar.material.color = Color.Lerp(Color.green, Color.red, 1 - ((float)healthPoints/maxHealth));
             healthbar.transform.localScale = new Vector3(((float)healthPoints / maxHealth), 1, 1);

@@ -81,7 +81,7 @@ public class EnemyController : GameCharacter {
 
     void Update() {
         //Debug.Log("isAttacking: " + isAttacking + " AttackRate: " + attackRate);
-        if (isDead || isHit) return;
+        if (IsDead || isHit) return;
         else if (climbing) {
             Climb();
             return;
@@ -123,7 +123,7 @@ public class EnemyController : GameCharacter {
     moves him to the summit ground
     */
     void ClimbCheck(Collider2D other) {
-        if (climbing && other.tag.Equals("SummitGround") && !isDead && climbUp) {
+        if (climbing && other.tag.Equals("SummitGround") && !IsDead && climbUp) {
 
             // Climber has reached the summit
             climbing = false;
@@ -191,7 +191,8 @@ public class EnemyController : GameCharacter {
 
     protected override void Die() {
 
-        gameObject.layer = target.layer;
+        //gameObject.layer = target.layer;
+        Debug.Log(HealthBarObject);
         HealthBarObject.SetActive(false);
 
         if (climbing) // If climbing then just let gravity pull down

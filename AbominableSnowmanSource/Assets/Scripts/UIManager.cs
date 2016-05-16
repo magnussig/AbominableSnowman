@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Image background;
+    [SerializeField] private GameObject checkpointButton;
 
     public int highscore;
     public int highwave;
@@ -25,6 +26,8 @@ public class UIManager : MonoBehaviour {
     private Animator anim;
     private TrapMenuController trapMenuController;
     private GameManager gManager;
+    
+    public bool IsCheckPoint { get; set; }
 
     void Start() {
         highscore = PlayerPrefs.GetInt("highscore", 0);
@@ -34,12 +37,15 @@ public class UIManager : MonoBehaviour {
         instructionController = GameObject.FindGameObjectWithTag("Instruction").GetComponent<InstructionsController>();
         instructionController.gameObject.SetActive(false);
         trapMenuController = GameObject.Find("TrapPanel").GetComponent<TrapMenuController>();
+        IsCheckPoint = false;
     }
 
     public void showGameOverPanel(bool show) {
         gameOverPanel.SetActive(show);
         isGameOverShowing = show;
         backgroundManage();
+
+        checkpointButton.SetActive(IsCheckPoint);
     }
 
     public void showPauseMenu(bool show) {
@@ -123,5 +129,9 @@ public class UIManager : MonoBehaviour {
     public void Resume()
     {
         gManager.PauseToggle();
+    }
+
+    public void ChangeCheckPointButtonWaveNumber(int waveNumber) {
+        checkpointButton.transform.GetChild(0).GetComponent<Text>().text = "Start at checkpoint: wave " + waveNumber;
     }
 }
