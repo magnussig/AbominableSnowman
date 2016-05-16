@@ -80,16 +80,16 @@ public class CharacterController : GameCharacter {
         //Debug.Log("isDead: " + IsDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
         if (IsDead || isThrowing || isAttacking) return;
 
-        if (Input.GetKeyDown(KeyCode.E) && !isBlocking)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isBlocking)
             PickUpRock();
         else if (isDashing) return;
         else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
             StartCoroutine(Throw());
         else if (Input.GetKeyDown(KeyCode.Space))
             StartCoroutine(Attack());
-        else if (Input.GetKeyDown(KeyCode.LeftControl) && Mana >= dashCost)
+        else if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Mana >= dashCost)
             StartCoroutine(Dash());
-        else if (!isBlocking && Input.GetKey(KeyCode.LeftShift) && Mana >= blockCost)
+        else if (!isBlocking && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Mana >= blockCost)
             StartCoroutine(Block());
     }
 
@@ -253,7 +253,7 @@ public class CharacterController : GameCharacter {
             }
 
             // Check whether player is still blocking
-            if (Mana <= 0 || !Input.GetKey(KeyCode.LeftShift))
+            if (Mana <= 0 || !(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
                 isBlocking = false;
             else
                 yield return new WaitForEndOfFrame();
