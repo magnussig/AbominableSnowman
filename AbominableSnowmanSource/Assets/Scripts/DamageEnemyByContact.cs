@@ -31,7 +31,7 @@ public class DamageEnemyByContact : MonoBehaviour {
 
             // make the rock bounce
             float direction = (transform.position.x - enemy.transform.position.x) < 0 ? -1 : 1;
-            Debug.Log(direction);
+            //Debug.Log(direction);
             rb.velocity = new Vector2(direction * 1, 2);
 
             // update game manager score
