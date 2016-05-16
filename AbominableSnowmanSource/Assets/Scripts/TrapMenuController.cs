@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class TrapMenuController : MonoBehaviour
 {
@@ -19,31 +20,60 @@ public class TrapMenuController : MonoBehaviour
     [SerializeField] public int healthCost;
     [SerializeField] public int manaCost;
     [SerializeField] public int blizzardCost;
+    [SerializeField] public double healthPercentage;
+    [SerializeField] public double manaPercentage;
+    [SerializeField] public double blizzardPercentage;
     EventTrigger healthEventTrigger;
+    int waveCounter;
+    Transform ui;
 
 
     void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+        //just instansiate to something
+        ui = gm.transform;
+        //set pos to correct pos
+        ui.position = GameObject.Find("HazardPoints").GetComponent<RectTransform>().localPosition;
+        Debug.Log("UUUUUUUUIIIIIIIII: " + ui.position);
         t = player.transform;
         healthButton = GameObject.Find("health").GetComponent<Button>();
         manaButton = GameObject.Find("mana").GetComponent<Button>();
         blizzardButton = GameObject.Find("cloud").GetComponent<Button>();
+        waveCounter = gm.waveCount;
+        blizzardPercentage = 0.01 * blizzardPercentage;
+        manaPercentage = 0.01 * manaPercentage;
+        healthPercentage = 0.01 * healthPercentage;
     }
 
     void Update()
     {
-        if(gm.Score < healthCost)
+        // only call CalculateCost once every wave
+        if(waveCounter == gm.waveCount)
+        {
+            CalculateCost();
+            waveCounter++;
+            Debug.Log("waaaves: " + waveCounter);
+        }
+        if (gm.Score < healthCost)
         {
             healthButton.interactable = false;
-            manaButton.interactable = false;
         }
         else
         {
             healthButton.interactable = true;
+        }
+
+        if(gm.Score < manaCost)
+        {
+            manaButton.interactable = false;
+        }
+        else
+        {
             manaButton.interactable = true;
         }
+
         if(gm.Score < blizzardCost)
         {
             blizzardButton.interactable = false;
@@ -54,6 +84,29 @@ public class TrapMenuController : MonoBehaviour
         }
     }
 
+    private void CalculateCost()
+    {
+        int newManaCost = (int)Math.Floor(manaPercentage * gm.Score);
+        Debug.Log("newManacost: " + newManaCost);
+        if(newManaCost > manaCost)
+        {
+            manaCost = newManaCost;
+        }
+        int newHealthCost = (int)Math.Floor(healthPercentage * gm.Score);
+        Debug.Log("newHealthCost: " + newHealthCost);
+        if (newHealthCost > healthCost)
+        {
+            healthCost = newHealthCost;
+        }
+        int newBlizzardCost = (int)Math.Floor(blizzardPercentage * gm.Score);
+        Debug.Log("newBlizzardCost: " + newBlizzardCost);
+        if (newBlizzardCost > blizzardCost)
+        {
+            blizzardCost = newBlizzardCost;
+        }
+    }
+
+
     public void Clicked(string objectClicked)
     {
         if (objectClicked == "Blizzard")
@@ -63,11 +116,6 @@ public class TrapMenuController : MonoBehaviour
             {
                 //deduct from score inside TrapPlacementScript to get mouse position
                 Instantiate(blizzard);
-            }            
-            else
-            {
-                //notify:
-                //FloatingTextController.CreateFloatingText(0, t, true);
             }
         }
         else if (objectClicked == "Health")
@@ -77,12 +125,8 @@ public class TrapMenuController : MonoBehaviour
             {
                 player.addHealthPoints(healthPoints);
                 gm.deductFromScore(healthCost, transform);
+                FloatingTextController.CreateFloatingText(-healthCost, ui);
             }
-            else
-            {
-                //notify:
-                //FloatingTextController.CreateFloatingText(0, t, true);
-            }            
         }
         else if(objectClicked == "Mana")
         { 
@@ -91,10 +135,7 @@ public class TrapMenuController : MonoBehaviour
             {
                 player.BuyMana(manaPoints);
                 gm.deductFromScore(manaCost, transform);
-            }
-            else
-            {
-                //notify
+                FloatingTextController.CreateFloatingText(-manaCost, ui);
             }
         }
     }

@@ -15,12 +15,13 @@ public class GameManager : MonoBehaviour {
     // Spawn wave variables
     [SerializeField] private float SwarmSpawnRate;
     [SerializeField] private float CalmSpawnRate;
-    [SerializeField] private float SwarmThreshold;
-    [SerializeField] private float CalmThreshold;
+    [SerializeField] private int SwarmThreshold;
+    [SerializeField] private int CalmThreshold;
     [SerializeField] private float FastEnemyChance;
     [SerializeField] private float WaveWait;
     [SerializeField] private int numberOfEnemies;
     [SerializeField] private int addEnemiesBetweenWaves;
+    [SerializeField] private int numberOfWavesBetweenCheckpoints;
 
     // Audio
     [SerializeField] private AudioClip fightSong;
@@ -47,10 +48,12 @@ public class GameManager : MonoBehaviour {
     public int waveCount;
     private int score;
     private float SpawnRate;
+    private float fast_enemy_chance;
     private int numberOfEnemiesSpawned = 0;
     private bool isPaused;
     private bool isGameOver = false;
     private bool lastSpawnLeft = false;
+    private CheckPoint checkpoint;
 
     void Awake() {
         uiManager = GameObject.FindGameObjectWithTag("GUI").GetComponent<UIManager>();
@@ -109,6 +112,8 @@ public class GameManager : MonoBehaviour {
 
         isWaveStarted = true;
         enemiesKilled = 0;
+
+        yield return new WaitForSeconds(2);
 
         for (int i = 0; i < numberOfEnemies; i++) {
             if (isGameOver) break;
@@ -169,6 +174,29 @@ public class GameManager : MonoBehaviour {
         // Wait until the camera has reached the player
         yield return new WaitUntil(new System.Func<bool>(isCameraAtPlayer));
 
+        // Create CheckPoint
+        if (waveCount % numberOfWavesBetweenCheckpoints == 0)
+        {
+            uiManager.IsCheckPoint = true;
+            uiManager.ChangeCheckPointButtonWaveNumber(waveCount);
+            FloatingTextController.checkpointNotice();
+            checkpoint = new CheckPoint
+                        (
+                            player.Health,
+                            player.Mana,
+                            waveCount,
+                            score,
+                            numberOfEnemies,
+                            FastEnemyChance,
+                            SwarmSpawnRate,
+                            CalmSpawnRate,
+                            SwarmThreshold,
+                            CalmThreshold,
+                            player.transform.position.x,
+                            totalKillCount
+                        );
+        }
+
         // Enable the player, the next spawn wave is about to start!
         player.enabled = true;
         isWaiting = false;
@@ -177,19 +205,19 @@ public class GameManager : MonoBehaviour {
     IEnumerator ThresholdManage() {
         while (true)
         {
-            Debug.Log("SpawnRate: " + SpawnRate + " number of enemies spawned: " + numberOfEnemiesSpawned);
+            //Debug.Log("SpawnRate: " + SpawnRate + " number of enemies spawned: " + numberOfEnemiesSpawned);
             if (numberOfEnemiesSpawned < CalmThreshold) {
                 if (player.Health == 5 && enemiesKilled >= (2*numberOfEnemies)/3) {
-                    FastEnemyChance = 20f;
-                    SpawnRate = .5f;
+                    fast_enemy_chance = FastEnemyChance * 1.3f;
+                    SpawnRate = SwarmSpawnRate * 0.8f;
                 }
                 else if(player.Health >= 3 && enemiesKilled >= (2*numberOfEnemies)/ 2) {
-                    FastEnemyChance = 15f;
-                    SpawnRate = .75f;
+                    fast_enemy_chance = FastEnemyChance * 1.1f;
+                    SpawnRate = SwarmSpawnRate * 0.9f;
                 } 
                 else {
                     SpawnRate = SwarmSpawnRate;
-                    FastEnemyChance = 2;
+                    fast_enemy_chance = FastEnemyChance;
                 }
             }
             else if (numberOfEnemiesSpawned > SwarmThreshold)
@@ -202,17 +230,18 @@ public class GameManager : MonoBehaviour {
         numberOfEnemiesSpawned++;
         Vector2 spawnPosition = lastSpawnLeft ? new Vector2(Random.Range(spawnMiddleX, spawnEndX), spawnY) : new Vector2(Random.Range(spawnbeginX, spawnMiddleX), spawnY);
         lastSpawnLeft = !lastSpawnLeft;
+        //Vector2 spawnPosition = new Vector2(Random.Range(spawnbeginX, spawnEndX), spawnY);
         Quaternion spawnRotation = Quaternion.identity;
         EnemyController enemyControl = ((GameObject)Instantiate(enemy, spawnPosition, spawnRotation)).GetComponent<EnemyController>();
 
-        if (Random.Range(0f, 100f) < FastEnemyChance)
+        if (Random.Range(0f, 100f) < fast_enemy_chance)
             enemyControl.SetClimbingSpeed(Random.Range(1.5f, 2.5f));
     }
 
     void UpdateSpawnVariables() {
-        if (waveCount % 5 == 0) {
-            SwarmThreshold += 5;
-            CalmThreshold += 2;
+        if (waveCount % 3 == 0) {
+            SwarmThreshold += 3;
+            CalmThreshold += 1;
             SwarmSpawnRate -= SwarmSpawnRate >= 1f ? .25f : 0f;
             CalmSpawnRate -= CalmSpawnRate >= 2f ? .25f : 0f;
         }
@@ -285,5 +314,63 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void LoadCheckPoint() {
+        if (checkpoint == null) return;
+
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Enemy"))
+            Destroy(g);
+
+        numberOfEnemies = checkpoint.NumberOfEnemies;
+        score = checkpoint.Score;
+        SwarmSpawnRate = checkpoint.SwarmSpawnRate;
+        CalmSpawnRate = checkpoint.CalmSpawnRate;
+        SwarmThreshold = checkpoint.SwarmThreshold;
+        CalmThreshold = checkpoint.CalmThreshold;
+        player.Mana = checkpoint.PlayerMana;
+        player.Health = checkpoint.PlayerLife;
+        player.IsDead = false;
+        player.Revive(checkpoint.PlayerPosX);
+        isGameOver = false;
+        uiManager.showGameOverPanel(false);
+        isWaiting = false;
+        isWaveStarted = false;
+        numberOfEnemiesSpawned = 0;
+        SpawnRate = SwarmSpawnRate;
+        waveCount = checkpoint.WaveNumber;
+        totalKillCount = checkpoint.EnemiesKilled;
+    }
+}
+
+public class CheckPoint {
+    public int PlayerLife { get; set; }
+    public int PlayerMana { get; set; }
+    public int WaveNumber { get; set; }
+    public int Score { get; set; }
+    public int NumberOfEnemies { get; set; }
+    public float FastEnemyChance { get; set; }
+    public float SwarmSpawnRate { get; set; }
+    public float CalmSpawnRate { get; set; }
+    public int SwarmThreshold { get; set; }
+    public int CalmThreshold { get; set; }
+    public float PlayerPosX { get; set; }
+    public int EnemiesKilled { get; set; }
+
+    public CheckPoint(int life, int mana, int waveNumber, int score, int numberOfEnemies, float fastEnemtChance, 
+                      float swarmspawnrate, float calmspawnrate, int swarmthreshold, int calmthreshold,
+                      float playerposx, int enemieskilled) {
+        PlayerLife = life;
+        PlayerMana = mana;
+        WaveNumber = waveNumber;
+        Score = score;
+        NumberOfEnemies = numberOfEnemies;
+        FastEnemyChance = fastEnemtChance;
+        SwarmSpawnRate = swarmspawnrate;
+        CalmSpawnRate = calmspawnrate;
+        SwarmThreshold = swarmthreshold;
+        CalmThreshold = calmthreshold;
+        PlayerPosX = playerposx;
+        EnemiesKilled = enemieskilled;
     }
 }

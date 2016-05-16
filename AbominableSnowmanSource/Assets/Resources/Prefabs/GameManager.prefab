@@ -116,15 +116,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnbeginX: -13
   spawnEndX: 13
-  spawnY: -12
-  SwarmSpawnRate: 1.5
+  spawnMiddleX: 0
+  spawnY: -8.5
+  SwarmSpawnRate: 2
   CalmSpawnRate: 5
-  SwarmThreshold: 10
-  CalmThreshold: 5
+  SwarmThreshold: 8
+  CalmThreshold: 4
   FastEnemyChance: 1
   WaveWait: 10
-  numberOfEnemies: 10
-  addEnemiesBetweenWaves: 10
+  numberOfEnemies: 5
+  addEnemiesBetweenWaves: 5
+  numberOfWavesBetweenCheckpoints: 5
   fightSong: {fileID: 8300000, guid: 101169cc86d77cb4aada0edad1202983, type: 3}
   trapSong: {fileID: 8300000, guid: 564844455185ff646b2f3e9dea0e6d8d, type: 3}
   enemy: {fileID: 134776, guid: 651d3c278838d4a45ad2d9b22121974c, type: 2}

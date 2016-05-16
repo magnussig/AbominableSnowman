@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour {
 
     [SerializeField] private Text waveCountDown;
     [SerializeField] private Text waveCounter;
-    [SerializeField] private Text hazardPoints;
+    [SerializeField] public Text hazardPoints;
     [SerializeField] private Text spawnStats;
     [SerializeField] private Text GameOverWave;
     [SerializeField] private Text GameOverKillCount;
@@ -30,12 +30,19 @@ public class UIManager : MonoBehaviour {
     public string nickname2;
     public string nickname3;
     int position;
+
+    [SerializeField] private GameObject checkpointButton;
+
+    public int highscore;
+    public int highwave;
     private bool isGameOverShowing;
     private bool isPauseMenuShowing;
     private InstructionsController instructionController;
     private Animator anim;
     private TrapMenuController trapMenuController;
     private GameManager gManager;
+    
+    public bool IsCheckPoint { get; set; }
 
     void Start() {
         input.characterLimit = 8;
@@ -53,12 +60,15 @@ public class UIManager : MonoBehaviour {
         instructionController = GameObject.FindGameObjectWithTag("Instruction").GetComponent<InstructionsController>();
         instructionController.gameObject.SetActive(false);
         trapMenuController = GameObject.Find("TrapPanel").GetComponent<TrapMenuController>();
+        IsCheckPoint = false;
     }
 
     public void showGameOverPanel(bool show) {
         gameOverPanel.SetActive(show);
         isGameOverShowing = show;
         backgroundManage();
+
+        checkpointButton.SetActive(IsCheckPoint);
     }
 
     public void showPauseMenu(bool show) {
@@ -113,7 +123,7 @@ public class UIManager : MonoBehaviour {
         }
         else if(instruction == "Blizzard")
         {
-            instruction = "Blizzard: Kills enemies that enter cloud, duration: 1 round. Cost: " + trapMenuController.healthCost + " points.";
+            instruction = "Blizzard: Kills enemies that enter cloud, duration: 1 round. Cost: " + trapMenuController.blizzardCost + " points.";
         }
         instructionController.gameObject.SetActive(true);
         instructionController.ShowInstruction(instruction);
@@ -187,5 +197,9 @@ public class UIManager : MonoBehaviour {
     public void Resume()
     {
         gManager.PauseToggle();
+    }
+
+    public void ChangeCheckPointButtonWaveNumber(int waveNumber) {
+        checkpointButton.transform.GetChild(0).GetComponent<Text>().text = "Start at checkpoint: wave " + waveNumber;
     }
 }

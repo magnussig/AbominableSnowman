@@ -12,8 +12,12 @@ public class TrapPlacementScript : MonoBehaviour {
     private bool canPlaceAtPosition;
     private Trap trap;
     private string originalTag;
+    TrapMenuController trapMenuController;
 
-	void Start () {
+
+    void Start ()
+    {
+        trapMenuController = GameObject.Find("TrapPanel").GetComponent<TrapMenuController>();
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         sprites = GetComponentsInChildren<SpriteRenderer>();
         originalColor = new Color[sprites.Length];
@@ -72,7 +76,7 @@ public class TrapPlacementScript : MonoBehaviour {
 
             trap.isEnabled = true;
 
-            gm.deductFromScore(200, transform);
+            gm.deductFromScore(trapMenuController.blizzardCost, transform);
             Destroy(this);
         }
     }

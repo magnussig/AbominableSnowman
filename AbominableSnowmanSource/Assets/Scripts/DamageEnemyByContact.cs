@@ -27,12 +27,12 @@ public class DamageEnemyByContact : MonoBehaviour {
             PlaySound(impact, 0);
 
             // deal damage
-            enemy.TakeDamage(enemy.Health, transform);
+            enemy.TakeDamage(2, transform);
 
             // make the rock bounce
-            float direction = transform.position.x - enemy.transform.position.x;
-            Debug.Log(direction);
-            rb.velocity = new Vector2(direction * 2, 2);
+            float direction = (transform.position.x - enemy.transform.position.x) < 0 ? -1 : 1;
+            //Debug.Log(direction);
+            rb.velocity = new Vector2(direction * 1, 2);
 
             // update game manager score
             gm.addToScore(scoreForHit, enemy.gameObject.transform);

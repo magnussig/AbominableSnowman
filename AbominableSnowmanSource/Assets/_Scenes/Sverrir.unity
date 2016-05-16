@@ -250,25 +250,19 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 22470356, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11456566, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
-      propertyPath: m_Navigation.m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11409584, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
-      propertyPath: m_Navigation.m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11421050, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
-      propertyPath: m_Navigation.m_Mode
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 11485684, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 551789577}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &551789577 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1576808329}
+  m_Script: {fileID: 11500000, guid: 528bbf09e8e3067419ad7e5e17892e0d, type: 3}
 --- !u!1001 &655902959
 Prefab:
   m_ObjectHideFlags: 0
@@ -523,32 +517,8 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
-      propertyPath: CalmSpawnRate
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
-      propertyPath: SwarmThreshold
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
-      propertyPath: CalmThreshold
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
-      propertyPath: addEnemiesBetweenWaves
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
-      propertyPath: numberOfEnemies
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
-      propertyPath: spawnY
-      value: -8.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
-      propertyPath: SwarmSpawnRate
-      value: 2
+      propertyPath: numberOfWavesBetweenCheckpoints
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}

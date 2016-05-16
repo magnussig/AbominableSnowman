@@ -19,8 +19,9 @@ public class CharacterController : GameCharacter {
     [SerializeField] private float dashAnimLength;
     [SerializeField] private float ThrowAnimationLength;
 
-    public bool CanPickUpRocks {get; set;}
-    private int mana;
+    public bool CanPickUpRocks { get; set; }
+    public int Mana { get; set; }
+
     private bool facingRight = false;
     private bool isHoldingObject = false;
     private float nextPickUpTime;
@@ -43,7 +44,7 @@ public class CharacterController : GameCharacter {
 
     new void Start () {
         base.Start();
-        mana = maxMana;
+        Mana = maxMana;
 
         Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer);
 
@@ -62,7 +63,7 @@ public class CharacterController : GameCharacter {
         nextPickUpTime = Time.time;
         tag = "Player";
 
-        isDead = false;
+        IsDead = false;
 
         hitbox = GetComponentInChildren<HitBox>();
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
@@ -76,24 +77,24 @@ public class CharacterController : GameCharacter {
     }
     
     void Update() {
-        Debug.Log("isDead: " + isDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
-        if (isDead || isThrowing || isAttacking) return;
+        //Debug.Log("isDead: " + IsDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
+        if (IsDead || isThrowing || isAttacking) return;
 
-        if (Input.GetKeyDown(KeyCode.E) && !isBlocking)
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isBlocking)
             PickUpRock();
         else if (isDashing) return;
         else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)
             StartCoroutine(Throw());
         else if (Input.GetKeyDown(KeyCode.Space))
             StartCoroutine(Attack());
-        else if (Input.GetKeyDown(KeyCode.LeftControl) && mana >= dashCost)
+        else if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) && Mana >= dashCost)
             StartCoroutine(Dash());
-        else if (!isBlocking && Input.GetKey(KeyCode.LeftShift) && mana >= blockCost)
+        else if (!isBlocking && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && Mana >= blockCost)
             StartCoroutine(Block());
     }
 
     void FixedUpdate () {
-        if (isDead || isThrowing) return;
+        if (IsDead || isThrowing) return;
 
         float move = Input.GetAxis("Horizontal");
 
@@ -151,7 +152,7 @@ public class CharacterController : GameCharacter {
         PlaySound(dash, 0.1f);
         isBlocking = false;
         isDashing = true;
-        mana -= dashCost;
+        Mana -= dashCost;
         UpdateManaBar();
         float speed = maxSpeed;
         maxSpeed = 8;
@@ -205,7 +206,7 @@ public class CharacterController : GameCharacter {
 
     IEnumerator ManaRegeneration() {
         while (true) {
-            mana += maxMana - mana < ManaRegenerationPerSecond ? maxMana - mana : ManaRegenerationPerSecond;
+            Mana += maxMana - Mana < ManaRegenerationPerSecond ? maxMana - Mana : ManaRegenerationPerSecond;
             UpdateManaBar();
             yield return new WaitForSeconds(1);
         }
@@ -213,14 +214,14 @@ public class CharacterController : GameCharacter {
 
     void UpdateManaBar() {
         if (manabar != null)
-            manabar.transform.localScale = new Vector3(((float)mana / maxMana), manabar.transform.localScale.y, manabar.transform.localScale.z);
+            manabar.transform.localScale = new Vector3(((float) Mana / maxMana), manabar.transform.localScale.y, manabar.transform.localScale.z);
     }
 
     public void BuyMana(int manaToAdd) {
-        mana += manaToAdd;
-        if(mana > maxMana)
+        Mana += manaToAdd;
+        if(Mana > maxMana)
         {
-            mana = maxMana;
+            Mana = maxMana;
         }
         UpdateManaBar();
     }
@@ -248,11 +249,11 @@ public class CharacterController : GameCharacter {
 
             if (Time.time >= nextReduction) {
                 nextReduction = Time.time + blockReductionRate;
-                mana -= mana - blockCost < 0 ? mana : blockCost;
+                Mana -= Mana - blockCost < 0 ? Mana : blockCost;
             }
 
             // Check whether player is still blocking
-            if (mana <= 0 || !Input.GetKey(KeyCode.LeftShift))
+            if (Mana <= 0 || !(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
                 isBlocking = false;
             else
                 yield return new WaitForEndOfFrame();
@@ -279,5 +280,13 @@ public class CharacterController : GameCharacter {
 
     bool IsBlockingInDirectionOfAttacker(Transform attacker) {
         return (attacker.position.x >= transform.position.x && facingRight) || (attacker.position.x <= transform.position.x && !facingRight);
+    }
+
+    public void Revive(float x_position) {
+        anim.SetTrigger("Revive");
+        transform.position = new Vector3(x_position, transform.position.y, transform.position.z);
+        hitbox.Clear();
+        UpdateManaBar();
+        UpdateHealthBar();
     }
 }
