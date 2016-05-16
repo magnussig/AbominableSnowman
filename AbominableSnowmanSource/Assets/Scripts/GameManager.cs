@@ -337,6 +337,7 @@ public class GameManager : MonoBehaviour {
         isWaveStarted = false;
         numberOfEnemiesSpawned = 0;
         SpawnRate = SwarmSpawnRate;
+        waveCount = checkpoint.WaveNumber;
     }
 }
 
