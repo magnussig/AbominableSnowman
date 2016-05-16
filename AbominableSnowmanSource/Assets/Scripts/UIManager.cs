@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 
 public class UIManager : MonoBehaviour {
@@ -12,20 +13,23 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private Text GameOverWave;
     [SerializeField] private Text GameOverKillCount;
     [SerializeField] private Text GameOverScore;
-    [SerializeField] private Text GameOverHighScore;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Image background;
 
-    int highscore;
+    public int highscore;
+    public int highwave;
     private bool isGameOverShowing;
     private bool isPauseMenuShowing;
     private InstructionsController instructionController;
     private Animator anim;
     private TrapMenuController trapMenuController;
+    private GameManager gManager;
 
     void Start() {
-        highscore = PlayerPrefs.GetInt("Highscore", 0);
+        highscore = PlayerPrefs.GetInt("highscore", 0);
+        highwave = PlayerPrefs.GetInt("highwave", 0);
+        gManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         anim = GetComponent<Animator>();
         instructionController = GameObject.FindGameObjectWithTag("Instruction").GetComponent<InstructionsController>();
         instructionController.gameObject.SetActive(false);
@@ -76,7 +80,7 @@ public class UIManager : MonoBehaviour {
         GameOverWave.text = " Reached Wave : " + wave;
         GameOverKillCount.text = "Enemies killed : " + killed;
         GameOverScore.text = "Score : " + score;
-        GameOverHighScore.text = "Highscore : " + highscore + " Waves";
+        
     }
 
     public void ShowInstruction(string instruction) {
@@ -100,13 +104,24 @@ public class UIManager : MonoBehaviour {
         instructionController.gameObject.SetActive(false);
     }
 
-    public void isHighScore(int waveCount)
+    public void IsHighScore(int waveCount,int score)
     {
-        if(waveCount > highscore)
+        if(waveCount > highwave &&  score > highscore)
         {
-            Debug.Log("saving highscore");
-            PlayerPrefs.SetInt("Highscore", waveCount);
+            PlayerPrefs.SetInt("highwave", waveCount);
+            PlayerPrefs.SetInt("highscore", score);
         }
 
+    }
+
+
+    public void ExitToMenu()
+    {
+        SceneManager.LoadScene("Start2");
+    }
+
+    public void Resume()
+    {
+        gManager.PauseToggle();
     }
 }

@@ -261,7 +261,7 @@ public class GameManager : MonoBehaviour {
         audioSource.Play();
     }
 
-    void PauseToggle() {
+    public void PauseToggle() {
         isPaused = !isPaused;
         uiManager.showPauseMenu(isPaused);
         Time.timeScale = isPaused ? 0f : 1f;
@@ -269,10 +269,8 @@ public class GameManager : MonoBehaviour {
 
     void GameOver() {
 
-        uiManager.isHighScore(waveCount);
-
+        uiManager.IsHighScore(waveCount, score);
         isGameOver = true;
-
         uiManager.showGameOverPanel(true);
         uiManager.SetGameOverStats(waveCount, totalKillCount, score);
         StartCoroutine( CleanUp() );
