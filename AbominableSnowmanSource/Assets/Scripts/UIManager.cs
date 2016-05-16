@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private Text GameOverSubmit;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject inputObject;
     [SerializeField] private Image background;
     [SerializeField] private InputField input;
 
@@ -46,6 +47,7 @@ public class UIManager : MonoBehaviour {
 
     void Start() {
         input.characterLimit = 8;
+        inputObject.SetActive(false);
         nickname1 = PlayerPrefs.GetString("nickname1", "");
         nickname2 = PlayerPrefs.GetString("nickname2", "");
         nickname3 = PlayerPrefs.GetString("nickname3", "");
@@ -136,8 +138,10 @@ public class UIManager : MonoBehaviour {
     public void IsHighScore(int waveCount,int score)
     {
         
-        if(waveCount >= highwave1 &&  score > highscore1)
+        if(waveCount > highwave1 || ( waveCount == highwave1 &&  score > highscore1))
         {
+            PlayerPrefs.SetString("nickname3", nickname2);
+            PlayerPrefs.SetString("nickname2", nickname1);
             position = 1;
             Congrats();
             PlayerPrefs.SetInt("highwave3", highwave2);
@@ -147,8 +151,9 @@ public class UIManager : MonoBehaviour {
             PlayerPrefs.SetInt("highwave1", waveCount);
             PlayerPrefs.SetInt("highscore1", score);
         }
-        else if(waveCount >= highwave2 && score > highscore2)
+        else if(waveCount > highwave2 || (waveCount == highwave2 && score > highscore2))
         {
+            PlayerPrefs.SetString("nickname3", nickname2);
             position = 2;
             Congrats();
             PlayerPrefs.SetInt("highwave3", highwave2);
@@ -156,7 +161,7 @@ public class UIManager : MonoBehaviour {
             PlayerPrefs.SetInt("highwave2", waveCount);
             PlayerPrefs.SetInt("highscore2", score);
         }
-        else if(waveCount >= highwave3 && score > highscore3)
+        else if (waveCount > highwave3 || (waveCount == highwave3 && score > highscore3))
         {
             position = 3;
             Congrats();
@@ -168,8 +173,9 @@ public class UIManager : MonoBehaviour {
 
     public void Congrats()
     {
-        if(position == 1)
-        {
+        inputObject.SetActive(true);
+        if (position == 1)
+        {    
             nickname1 = input.text;
             PlayerPrefs.SetString("nickname1", nickname1);
         }
