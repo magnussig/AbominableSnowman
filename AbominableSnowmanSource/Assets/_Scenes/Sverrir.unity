@@ -254,18 +254,6 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11456566, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
-      propertyPath: m_Navigation.m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11409584, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
-      propertyPath: m_Navigation.m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11421050, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
-      propertyPath: m_Navigation.m_Mode
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
   m_IsPrefabParent: 0
@@ -524,7 +512,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
       propertyPath: CalmSpawnRate
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
       propertyPath: SwarmThreshold
@@ -540,7 +528,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
       propertyPath: numberOfEnemies
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
       propertyPath: spawnY

@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour {
     public int waveCount;
     private int score;
     private float SpawnRate;
+    private float fast_enemy_chance;
     private int numberOfEnemiesSpawned = 0;
     private bool isPaused;
     private bool isGameOver = false;
@@ -109,6 +110,8 @@ public class GameManager : MonoBehaviour {
 
         isWaveStarted = true;
         enemiesKilled = 0;
+
+        yield return new WaitForSeconds(2);
 
         for (int i = 0; i < numberOfEnemies; i++) {
             if (isGameOver) break;
@@ -180,16 +183,16 @@ public class GameManager : MonoBehaviour {
             Debug.Log("SpawnRate: " + SpawnRate + " number of enemies spawned: " + numberOfEnemiesSpawned);
             if (numberOfEnemiesSpawned < CalmThreshold) {
                 if (player.Health == 5 && enemiesKilled >= (2*numberOfEnemies)/3) {
-                    FastEnemyChance = 20f;
-                    SpawnRate = .5f;
+                    fast_enemy_chance = FastEnemyChance * 1.3f;
+                    SpawnRate = SwarmSpawnRate * 0.8f;
                 }
                 else if(player.Health >= 3 && enemiesKilled >= (2*numberOfEnemies)/ 2) {
-                    FastEnemyChance = 15f;
-                    SpawnRate = .75f;
+                    fast_enemy_chance = FastEnemyChance * 1.1f;
+                    SpawnRate = SwarmSpawnRate * 0.9f;
                 } 
                 else {
                     SpawnRate = SwarmSpawnRate;
-                    FastEnemyChance = 2;
+                    fast_enemy_chance = FastEnemyChance;
                 }
             }
             else if (numberOfEnemiesSpawned > SwarmThreshold)
@@ -200,19 +203,20 @@ public class GameManager : MonoBehaviour {
 
     void InstantiateEnemy() {
         numberOfEnemiesSpawned++;
-        Vector2 spawnPosition = lastSpawnLeft ? new Vector2(Random.Range(spawnMiddleX, spawnEndX), spawnY) : new Vector2(Random.Range(spawnbeginX, spawnMiddleX), spawnY);
-        lastSpawnLeft = !lastSpawnLeft;
+        //Vector2 spawnPosition = lastSpawnLeft ? new Vector2(Random.Range(spawnMiddleX, spawnEndX), spawnY) : new Vector2(Random.Range(spawnbeginX, spawnMiddleX), spawnY);
+        //lastSpawnLeft = !lastSpawnLeft;
+        Vector2 spawnPosition = new Vector2(Random.Range(spawnbeginX, spawnEndX), spawnY);
         Quaternion spawnRotation = Quaternion.identity;
         EnemyController enemyControl = ((GameObject)Instantiate(enemy, spawnPosition, spawnRotation)).GetComponent<EnemyController>();
 
-        if (Random.Range(0f, 100f) < FastEnemyChance)
+        if (Random.Range(0f, 100f) < fast_enemy_chance)
             enemyControl.SetClimbingSpeed(Random.Range(1.5f, 2.5f));
     }
 
     void UpdateSpawnVariables() {
-        if (waveCount % 5 == 0) {
-            SwarmThreshold += 5;
-            CalmThreshold += 2;
+        if (waveCount % 3 == 0) {
+            SwarmThreshold += 3;
+            CalmThreshold += 1;
             SwarmSpawnRate -= SwarmSpawnRate >= 1f ? .25f : 0f;
             CalmSpawnRate -= CalmSpawnRate >= 2f ? .25f : 0f;
         }
