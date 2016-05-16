@@ -192,7 +192,8 @@ public class GameManager : MonoBehaviour {
                             CalmSpawnRate,
                             SwarmThreshold,
                             CalmThreshold,
-                            player.transform.position.x
+                            player.transform.position.x,
+                            totalKillCount
                         );
         }
 
@@ -227,9 +228,9 @@ public class GameManager : MonoBehaviour {
 
     void InstantiateEnemy() {
         numberOfEnemiesSpawned++;
-        //Vector2 spawnPosition = lastSpawnLeft ? new Vector2(Random.Range(spawnMiddleX, spawnEndX), spawnY) : new Vector2(Random.Range(spawnbeginX, spawnMiddleX), spawnY);
-        //lastSpawnLeft = !lastSpawnLeft;
-        Vector2 spawnPosition = new Vector2(Random.Range(spawnbeginX, spawnEndX), spawnY);
+        Vector2 spawnPosition = lastSpawnLeft ? new Vector2(Random.Range(spawnMiddleX, spawnEndX), spawnY) : new Vector2(Random.Range(spawnbeginX, spawnMiddleX), spawnY);
+        lastSpawnLeft = !lastSpawnLeft;
+        //Vector2 spawnPosition = new Vector2(Random.Range(spawnbeginX, spawnEndX), spawnY);
         Quaternion spawnRotation = Quaternion.identity;
         EnemyController enemyControl = ((GameObject)Instantiate(enemy, spawnPosition, spawnRotation)).GetComponent<EnemyController>();
 
@@ -338,6 +339,7 @@ public class GameManager : MonoBehaviour {
         numberOfEnemiesSpawned = 0;
         SpawnRate = SwarmSpawnRate;
         waveCount = checkpoint.WaveNumber;
+        totalKillCount = checkpoint.EnemiesKilled;
     }
 }
 
@@ -353,10 +355,11 @@ public class CheckPoint {
     public int SwarmThreshold { get; set; }
     public int CalmThreshold { get; set; }
     public float PlayerPosX { get; set; }
+    public int EnemiesKilled { get; set; }
 
     public CheckPoint(int life, int mana, int waveNumber, int score, int numberOfEnemies, float fastEnemtChance, 
                       float swarmspawnrate, float calmspawnrate, int swarmthreshold, int calmthreshold,
-                      float playerposx) {
+                      float playerposx, int enemieskilled) {
         PlayerLife = life;
         PlayerMana = mana;
         WaveNumber = waveNumber;
@@ -368,5 +371,6 @@ public class CheckPoint {
         SwarmThreshold = swarmthreshold;
         CalmThreshold = calmthreshold;
         PlayerPosX = playerposx;
+        EnemiesKilled = enemieskilled;
     }
 }
