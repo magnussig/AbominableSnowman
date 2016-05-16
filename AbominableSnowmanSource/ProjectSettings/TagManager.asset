@@ -15,6 +15,7 @@ TagManager:
   - PopUpCanvas
   - Instruction
   - MainMenuController
+  - Unplaced
   layers:
   - Default
   - TransparentFX
