@@ -27,7 +27,7 @@ public class DamageEnemyByContact : MonoBehaviour {
             PlaySound(impact, 0);
 
             // deal damage
-            enemy.TakeDamage(enemy.Health, transform);
+            enemy.TakeDamage(2, transform);
 
             // make the rock bounce
             float direction = (transform.position.x - enemy.transform.position.x) < 0 ? -1 : 1;

@@ -33,5 +33,9 @@ public class HitBox : MonoBehaviour {
         return enemiesInHitbox.Count;
     }
 
+    public void Clear() {
+        enemiesInHitbox.Clear();
+    }
+
 
 }
