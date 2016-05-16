@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour {
     IEnumerator ThresholdManage() {
         while (true)
         {
-            Debug.Log("SpawnRate: " + SpawnRate + " number of enemies spawned: " + numberOfEnemiesSpawned);
+            //Debug.Log("SpawnRate: " + SpawnRate + " number of enemies spawned: " + numberOfEnemiesSpawned);
             if (numberOfEnemiesSpawned < CalmThreshold) {
                 if (player.Health == 5 && enemiesKilled >= (2*numberOfEnemies)/3) {
                     fast_enemy_chance = FastEnemyChance * 1.3f;

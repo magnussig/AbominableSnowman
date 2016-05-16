@@ -20,7 +20,7 @@ public class BlizzardTrap : Trap {
 
     void Update()
     {
-        Debug.Log("inside UPDATE iin blizzardTrap, waveStarted: " + waveStarted + " GM.WAVECOUNT: " + gm.waveCount);
+        //Debug.Log("inside UPDATE iin blizzardTrap, waveStarted: " + waveStarted + " GM.WAVECOUNT: " + gm.waveCount);
         // Destroy cloud one wave after it was created
         if (gm.waveCount == (waveStarted + 1))
         {

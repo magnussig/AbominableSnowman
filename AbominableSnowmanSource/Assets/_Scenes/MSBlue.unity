@@ -496,15 +496,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11449810, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
       propertyPath: healthCost
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11449810, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
       propertyPath: manaCost
-      value: 50
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11449810, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
       propertyPath: blizzardCost
-      value: 200
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 11428540, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -521,6 +521,18 @@ Prefab:
     - target: {fileID: 22417428, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449810, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: healthPercentage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449810, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: manaPercentage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449810, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: blizzardPercentage
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
