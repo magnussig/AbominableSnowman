@@ -1021,6 +1021,26 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 11471128, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: healthPercentage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11471128, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: manaPercentage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11471128, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: blizzardPercentage
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 22487084, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22487084, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -186
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b42d156c54a87fd469c5448e9091dcdb, type: 2}
   m_IsPrefabParent: 0
@@ -1087,7 +1107,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
       propertyPath: numberOfWavesBetweenCheckpoints
-      value: 5
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11453460, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}
+      propertyPath: WaveWait
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cad3b8f8563686344bb4006749cda0e3, type: 2}

@@ -80,7 +80,7 @@ public class CharacterController : GameCharacter {
         //Debug.Log("isDead: " + IsDead + " isThrowing: " + isThrowing + " isAttacking: " + isAttacking + " isBlocking: " + isBlocking + " isDashing " + isDashing);
         if (IsDead || isThrowing || isAttacking) return;
 
-        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isBlocking)
+        if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.UpArrow)) && !isBlocking)
             PickUpRock();
         else if (isDashing) return;
         else if (Input.GetKeyDown(KeyCode.Space) && isHoldingObject)

@@ -125,7 +125,7 @@ public class UIManager : MonoBehaviour {
         }
         else if(instruction == "Blizzard")
         {
-            instruction = "Blizzard: Kills enemies that enter cloud, duration: 1 round. Cost: " + trapMenuController.blizzardCost + " points.";
+            instruction = "Blizzard: kills enemies that enter cloud, duration: 1 round. Cost: " + trapMenuController.blizzardCost + " points.";
         }
         instructionController.gameObject.SetActive(true);
         instructionController.ShowInstruction(instruction);

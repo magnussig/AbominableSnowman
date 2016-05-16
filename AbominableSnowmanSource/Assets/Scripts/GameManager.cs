@@ -340,6 +340,8 @@ public class GameManager : MonoBehaviour {
         SpawnRate = SwarmSpawnRate;
         waveCount = checkpoint.WaveNumber;
         totalKillCount = checkpoint.EnemiesKilled;
+        checkpoint = null;
+        uiManager.IsCheckPoint = false;
     }
 }
 
