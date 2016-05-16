@@ -4,8 +4,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] private Text HighWave;
-    [SerializeField] private Text HighScore;
+    [SerializeField] private Text player1;
+    [SerializeField] private Text player2;
+    [SerializeField] private Text player3;
+    [SerializeField] private Text wave1;
+    [SerializeField] private Text wave2;
+    [SerializeField] private Text wave3;
+    [SerializeField] private Text score1;
+    [SerializeField] private Text score2;
+    [SerializeField] private Text score3;
+
     public GameObject MainMenuCanvas;
     public GameObject ControlsCanvas;
     public GameObject HighScoreCanvas;
@@ -16,9 +24,18 @@ public class MainMenuManager : MonoBehaviour
 
     public void ShowHighscore()
     {
-        
-        HighWave.text = "Reached wave : " + PlayerPrefs.GetInt("highwave", 0);
-        HighScore.text = "Score : " + PlayerPrefs.GetInt("highscore", 0);
+
+        player1.text = PlayerPrefs.GetString("nickname1", "");
+        player2.text = PlayerPrefs.GetString("nickname2", "");
+        player3.text = PlayerPrefs.GetString("nickname3", "");
+        wave1.text = PlayerPrefs.GetInt("highwave1", 0).ToString();
+        wave2.text = PlayerPrefs.GetInt("highwave2", 0).ToString();
+        wave3.text = PlayerPrefs.GetInt("highwave3", 0).ToString();
+        score1.text = PlayerPrefs.GetInt("highscore1", 0).ToString();
+        score2.text = PlayerPrefs.GetInt("highscore2", 0).ToString();
+        score3.text = PlayerPrefs.GetInt("highscore3", 0).ToString();
+
+
     }
 
     public void Controls()
