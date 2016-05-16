@@ -46,7 +46,8 @@ public class UIManager : MonoBehaviour {
     public bool IsCheckPoint { get; set; }
 
     void Start() {
-        input.characterLimit = 8;
+        PlayerPrefs.DeleteAll();
+        input.characterLimit = 9;
         inputObject.SetActive(false);
         nickname1 = PlayerPrefs.GetString("nickname1", "");
         nickname2 = PlayerPrefs.GetString("nickname2", "");
@@ -96,7 +97,7 @@ public class UIManager : MonoBehaviour {
 
     public void UpdateCounters(int waveCount, int hazardpoints) {
         waveCounter.text = "Wave : " + waveCount;
-        hazardPoints.text = "Hazard Points : " + hazardpoints;
+        hazardPoints.text = "Points : " + hazardpoints;
     }
 
     public void UpdateCountDown(int count) {
@@ -110,7 +111,7 @@ public class UIManager : MonoBehaviour {
     public void SetGameOverStats(int wave, int killed, int score) {
         GameOverWave.text = " Reached Wave : " + wave;
         GameOverKillCount.text = "Enemies killed : " + killed;
-        GameOverScore.text = "Score : " + score;
+        GameOverScore.text = "Points : " + score;
         
     }
 
@@ -177,18 +178,39 @@ public class UIManager : MonoBehaviour {
         if (position == 1)
         {    
             nickname1 = input.text;
-            PlayerPrefs.SetString("nickname1", nickname1);
+            if (nickname1 == "")
+            {
+                PlayerPrefs.SetString("nickname1", "Anonymous");
+            }
+            else
+            {
+                PlayerPrefs.SetString("nickname1", nickname1);
+            }
         }
         else if (position == 2)
         {
             nickname2 = input.text;
-            PlayerPrefs.SetString("nickname2", nickname2);
+            if (nickname1 == "")
+            {
+                PlayerPrefs.SetString("nickname2", "Anonymous");
+            }
+            else
+            {
+                PlayerPrefs.SetString("nickname2", nickname1);
+            }
         }
 
         else if (position == 3)
         {
             nickname3 = input.text;
-            PlayerPrefs.SetString("nickname3", nickname3);
+            if (nickname1 == "")
+            {
+                PlayerPrefs.SetString("nickname3", "Anonymous");
+            }
+            else
+            {
+                PlayerPrefs.SetString("nickname3", nickname1);
+            }
         }
         GameOverHeader.text = "Congratulations you made it to the top 3!";
         GameOverSubmit.text = "Submit";

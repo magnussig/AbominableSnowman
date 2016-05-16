@@ -40,7 +40,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.154
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -123,10 +123,10 @@ MonoBehaviour:
   SwarmThreshold: 8
   CalmThreshold: 4
   FastEnemyChance: 1
-  WaveWait: 10
+  WaveWait: 15
   numberOfEnemies: 5
   addEnemiesBetweenWaves: 5
-  numberOfWavesBetweenCheckpoints: 5
+  numberOfWavesBetweenCheckpoints: 4
   fightSong: {fileID: 8300000, guid: 101169cc86d77cb4aada0edad1202983, type: 3}
   trapSong: {fileID: 8300000, guid: 564844455185ff646b2f3e9dea0e6d8d, type: 3}
   enemy: {fileID: 134776, guid: 651d3c278838d4a45ad2d9b22121974c, type: 2}

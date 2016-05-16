@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour {
         // Wait until the camera has reached the player
         yield return new WaitUntil(new System.Func<bool>(isCameraAtPlayer));
 
-        // Create CheckPoint
+        /* Create CheckPoint
         if (waveCount % numberOfWavesBetweenCheckpoints == 0)
         {
             uiManager.IsCheckPoint = true;
@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour {
                             player.transform.position.x,
                             totalKillCount
                         );
-        }
+        }*/
 
         // Enable the player, the next spawn wave is about to start!
         player.enabled = true;

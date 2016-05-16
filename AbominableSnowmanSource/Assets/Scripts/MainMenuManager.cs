@@ -25,9 +25,9 @@ public class MainMenuManager : MonoBehaviour
     public void ShowHighscore()
     {
 
-        player1.text = PlayerPrefs.GetString("nickname1", "");
-        player2.text = PlayerPrefs.GetString("nickname2", "");
-        player3.text = PlayerPrefs.GetString("nickname3", "");
+        player1.text = PlayerPrefs.GetString("nickname1", "Anonymous");
+        player2.text = PlayerPrefs.GetString("nickname2", "Anonymous");
+        player3.text = PlayerPrefs.GetString("nickname3", "Anonymous");
         wave1.text = PlayerPrefs.GetInt("highwave1", 0).ToString();
         wave2.text = PlayerPrefs.GetInt("highwave2", 0).ToString();
         wave3.text = PlayerPrefs.GetInt("highwave3", 0).ToString();
