@@ -44,5 +44,6 @@ public class BlizzardTrap : Trap {
 
         enemy.TakeDamage(enemy.Health, transform);
         enemy.GetComponent<SpriteRenderer>().material.color = freezeColor;
+        gm.addToScore(10, enemy.transform);
     }
 }

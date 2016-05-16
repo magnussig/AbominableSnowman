@@ -264,7 +264,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void addToScore(int add, Transform location) {
-        FloatingTextController.CreateFloatingText(add, location);
+        FloatingTextController.CreateFloatingText(add, location.position);
         score += add;
         updateCounters();
     }
@@ -276,7 +276,7 @@ public class GameManager : MonoBehaviour {
 
     public void deductFromScore(int deduct, Transform location) {
         deduct = deduct < 0 ? deduct : -deduct;
-        FloatingTextController.CreateFloatingText(deduct, location);
+        FloatingTextController.CreateFloatingText(deduct, location.position);
         score += deduct;
     }
 

@@ -25,23 +25,16 @@ public class TrapMenuController : MonoBehaviour
     [SerializeField] public double blizzardPercentage;
     EventTrigger healthEventTrigger;
     int waveCounter;
-    Transform ui;
-
 
     void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
-        //just instansiate to something
-        ui = gm.transform;
-        //set pos to correct pos
-        ui.position = GameObject.Find("HazardPoints").GetComponent<RectTransform>().localPosition;
-        Debug.Log("UUUUUUUUIIIIIIIII: " + ui.position);
         t = player.transform;
         healthButton = GameObject.Find("health").GetComponent<Button>();
         manaButton = GameObject.Find("mana").GetComponent<Button>();
         blizzardButton = GameObject.Find("cloud").GetComponent<Button>();
-        waveCounter = gm.waveCount;
+        waveCounter = 1;
         blizzardPercentage = 0.01 * blizzardPercentage;
         manaPercentage = 0.01 * manaPercentage;
         healthPercentage = 0.01 * healthPercentage;
@@ -49,8 +42,9 @@ public class TrapMenuController : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("waaaves: " + waveCounter + "waveees " + gm.waveCount);
         // only call CalculateCost once every wave
-        if(waveCounter == gm.waveCount)
+        if (waveCounter == gm.waveCount)
         {
             CalculateCost();
             waveCounter++;
@@ -125,7 +119,7 @@ public class TrapMenuController : MonoBehaviour
             {
                 player.addHealthPoints(healthPoints);
                 gm.deductFromScore(healthCost, transform);
-                FloatingTextController.CreateFloatingText(-healthCost, ui);
+                FloatingTextController.CreateFloatingText(-healthCost, player.transform.position);
             }
         }
         else if(objectClicked == "Mana")
@@ -135,7 +129,7 @@ public class TrapMenuController : MonoBehaviour
             {
                 player.BuyMana(manaPoints);
                 gm.deductFromScore(manaCost, transform);
-                FloatingTextController.CreateFloatingText(-manaCost, ui);
+                FloatingTextController.CreateFloatingText(-manaCost, player.transform.position);
             }
         }
     }

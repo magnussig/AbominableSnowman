@@ -13,12 +13,12 @@ public class FloatingTextController : MonoBehaviour {
         canvas = GameObject.FindGameObjectWithTag("PopUpCanvas");
     }
 
-    public static void CreateFloatingText(int score, Transform location) {
+    public static void CreateFloatingText(int score, Vector3 location) {
         FloatingText floatText = Instantiate(scoreText);
 
         floatText.transform.SetParent(canvas.transform, false);
 
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(new Vector2(location.transform.position.x, location.transform.position.y));
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(new Vector2(location.x, location.y));
         screenPos.y = screenPos.y < 0 ? 30 : screenPos.y;
         screenPos.x = screenPos.x < 0 ? 30 : screenPos.x;
         screenPos.x = screenPos.x > Camera.main.pixelWidth ? Camera.main.pixelWidth - 30: screenPos.x;
