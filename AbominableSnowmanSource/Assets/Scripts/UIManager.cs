@@ -46,7 +46,6 @@ public class UIManager : MonoBehaviour {
     public bool IsCheckPoint { get; set; }
 
     void Start() {
-        PlayerPrefs.DeleteAll();
         input.characterLimit = 9;
         inputObject.SetActive(false);
         nickname1 = PlayerPrefs.GetString("nickname1", "");
@@ -190,26 +189,26 @@ public class UIManager : MonoBehaviour {
         else if (position == 2)
         {
             nickname2 = input.text;
-            if (nickname1 == "")
+            if (nickname2 == "")
             {
                 PlayerPrefs.SetString("nickname2", "Anonymous");
             }
             else
             {
-                PlayerPrefs.SetString("nickname2", nickname1);
+                PlayerPrefs.SetString("nickname2", nickname2);
             }
         }
 
         else if (position == 3)
         {
             nickname3 = input.text;
-            if (nickname1 == "")
+            if (nickname3 == "")
             {
                 PlayerPrefs.SetString("nickname3", "Anonymous");
             }
             else
             {
-                PlayerPrefs.SetString("nickname3", nickname1);
+                PlayerPrefs.SetString("nickname3", nickname3);
             }
         }
         GameOverHeader.text = "Congratulations you made it to the top 3!";
